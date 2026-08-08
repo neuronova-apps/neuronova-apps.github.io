@@ -1,3 +1,19 @@
+(() => {
+  if (!document.querySelector('link[data-neuronova-a11y]')) {
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = '/assets/accessibility/accessibility.css';
+    link.dataset.neuronovaA11y = 'true';
+    document.head.appendChild(link);
+  }
+  if (!window.NeuronovaA11y && !document.querySelector('script[data-neuronova-a11y]')) {
+    const script = document.createElement('script');
+    script.src = '/assets/accessibility/accessibility.js';
+    script.dataset.neuronovaA11y = 'true';
+    document.head.appendChild(script);
+  }
+})();
+
 const menuButton = document.querySelector('.menu-button');
 const mainNav = document.querySelector('.main-nav');
 const year = document.querySelector('#year');
