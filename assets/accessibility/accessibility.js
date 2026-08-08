@@ -1,6 +1,8 @@
 (() => {
   'use strict';
 
+  if (window.NeuronovaA11y?.ready) return;
+
   const STORAGE_KEY = 'neuronova-a11y-v1';
   const defaults = {
     fontSize: '1',
@@ -40,6 +42,7 @@
   }
 
   function setPreference(name, value) {
+    if (!(name in defaults)) return;
     prefs[name] = value;
     apply();
     save();
@@ -184,6 +187,33 @@
       guide.style.top = `${Math.max(28, Math.min(window.innerHeight - 28, event.clientY))}px`;
     }
   }, {passive: true});
+
+  window.NeuronovaA11y = {
+    ready: true,
+    open: openPanel,
+    close: closePanel,
+    toggle: togglePanel,
+    set: setPreference,
+    get: () => ({...prefs}),
+    reset: () => {
+      prefs = {...defaults};
+      apply();
+      save();
+      syncControls();
+    }
+  };
+
+  const legacyContrast = document.querySelector('#contrastToggle');
+  if (legacyContrast) {
+    const accessButton = legacyContrast.cloneNode(true);
+    accessButton.id = 'novaAccessibilityHeaderButton';
+    accessButton.textContent = 'Accesibilidad';
+    accessButton.removeAttribute('aria-pressed');
+    accessButton.setAttribute('aria-haspopup', 'dialog');
+    accessButton.setAttribute('aria-controls', 'novaA11yPanel');
+    legacyContrast.replaceWith(accessButton);
+    accessButton.addEventListener('click', openPanel);
+  }
 
   syncControls();
 })();
