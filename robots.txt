@@ -5,3 +5,4 @@ Sitemap: https://neuronova-apps.github.io/sitemap.xml
 Sitemap: https://neuronova-apps.github.io/brailux-apps/sitemap.xml
 Sitemap: https://neuronova-apps.github.io/sudolux-apps/sitemap.xml
 Sitemap: https://neuronova-apps.github.io/motiva-apps/sitemap.xml
+Sitemap: https://neuronova-apps.github.io/quiz-bible/sitemap.xml
