@@ -1,12 +1,12 @@
 const SOURCES={
-  protestante:{label:'Protestante',files:Array.from({length:10},(_,i)=>`data/p${String(i+1).padStart(2,'0')}.csv.gz.b64`)},
-  catolica:{label:'Católica',files:['data/c01.csv.gz.b64','data/c02plus.csv.gz.b64']}
+  protestante:{label:'Protestante',type:'plain',file:'data/banco_protestante.csv'},
+  catolica:{label:'Católica',type:'gzip',files:['data/c01.csv.gz.b64','data/c02plus.csv.gz.b64']}
 };
 const PAGE_SIZE=50;
 let headers=[],data=[],filtered=[],page=1;
 const $=id=>document.getElementById(id);
 const esc=v=>String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
-const errorText=e=>e instanceof Error?e.message:(typeof e==='string'?e:JSON.stringify(e) || String(e));
+const errorText=e=>e instanceof Error?e.message:(typeof e==='string'?e:JSON.stringify(e)||String(e));
 
 function parseCSV(text){
   const rows=[];let row=[],cell='',q=false;
@@ -32,6 +32,15 @@ function setSource(state,msg){
   $('sourceDetail').textContent=msg;
   document.querySelector('.dot').style.background=ok?'var(--green)':loading?'var(--cyan)':'var(--amber)';
 }
+async function fetchPlainCSV(url){
+  const res=await fetch(`${url}?v=20260811-4`,{cache:'no-store'});
+  if(!res.ok)throw new Error(`${url}: HTTP ${res.status}`);
+  const text=await res.text();
+  if(!text.trim())throw new Error(`${url}: archivo vacío`);
+  const rows=parseCSV(text);
+  if(!rows.length||!rows[0].includes('ID'))throw new Error(`${url}: CSV no válido`);
+  return text;
+}
 function base64ToBytes(b64,url){
   const clean=b64.replace(/\s+/g,'');
   if(!clean)throw new Error(`${url}: archivo vacío`);
@@ -39,10 +48,7 @@ function base64ToBytes(b64,url){
   try{binary=atob(clean);}catch(e){throw new Error(`${url}: base64 inválido (${errorText(e)})`);}
   const bytes=new Uint8Array(binary.length);
   for(let i=0;i<binary.length;i++)bytes[i]=binary.charCodeAt(i);
-  if(bytes.length<2||bytes[0]!==0x1f||bytes[1]!==0x8b){
-    const sig=[...bytes.slice(0,4)].map(v=>v.toString(16).padStart(2,'0')).join(' ');
-    throw new Error(`${url}: cabecera gzip inválida (${sig||'sin datos'})`);
-  }
+  if(bytes.length<2||bytes[0]!==0x1f||bytes[1]!==0x8b)throw new Error(`${url}: cabecera gzip inválida`);
   return bytes;
 }
 async function ungzip(bytes,url){
@@ -51,52 +57,45 @@ async function ungzip(bytes,url){
     try{
       const stream=new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'));
       return await new Response(stream).text();
-    }catch(e){nativeError=errorText(e);console.warn(`${url}: DecompressionStream falló`,e);}
+    }catch(e){nativeError=errorText(e);}
   }
   if(window.pako&&typeof window.pako.ungzip==='function'){
-    try{return window.pako.ungzip(bytes,{to:'string'});}catch(e){
-      const pakoError=errorText(e);
-      throw new Error(`${url}: gzip no se pudo descomprimir. Nativo: ${nativeError||'no disponible'}; pako: ${pakoError}`);
-    }
+    try{return window.pako.ungzip(bytes,{to:'string'});}catch(e){throw new Error(`${url}: gzip no se pudo descomprimir. ${errorText(e)}`);}
   }
-  throw new Error(`${url}: sin descompresor gzip compatible. Nativo: ${nativeError||'no disponible'}`);
+  throw new Error(`${url}: sin descompresor gzip compatible. ${nativeError}`);
 }
 async function inflateRepositoryFile(url){
-  const res=await fetch(`${url}?v=20260811-3`,{cache:'no-store'});
+  const res=await fetch(`${url}?v=20260811-4`,{cache:'no-store'});
   if(!res.ok)throw new Error(`${url}: HTTP ${res.status}`);
-  const b64=await res.text();
-  const bytes=base64ToBytes(b64,url);
-  const text=await ungzip(bytes,url);
-  if(!text.trim())throw new Error(`${url}: CSV descomprimido vacío`);
-  return text;
+  return await ungzip(base64ToBytes(await res.text(),url),url);
 }
 async function loadRepository(){
-  const src=SOURCES[$('tradition').value];
+  const key=$('tradition').value,src=SOURCES[key];
   setSource('loading',`Leyendo ${src.label} desde el repositorio…`);
   $('loadLive').disabled=true;
-  let currentFile='';
   try{
     headers=[];
-    const all=[];
-    for(let i=0;i<src.files.length;i++){
-      currentFile=src.files[i];
-      setSource('loading',`Leyendo ${src.label}: archivo ${i+1} de ${src.files.length}…`);
-      const text=await inflateRepositoryFile(currentFile);
-      const rows=parseCSV(text);
-      if(!rows.length||!rows[0].includes('ID'))throw new Error(`${currentFile}: no contiene un CSV válido`);
-      const objects=rowsToObjects(rows,i===0);
-      if(!objects.length)throw new Error(`${currentFile}: no contiene preguntas`);
-      all.push(...objects);
+    let all=[];
+    if(src.type==='plain'){
+      const text=await fetchPlainCSV(src.file);
+      all=rowsToObjects(parseCSV(text),true);
+    }else{
+      for(let i=0;i<src.files.length;i++){
+        setSource('loading',`Leyendo ${src.label}: archivo ${i+1} de ${src.files.length}…`);
+        const rows=parseCSV(await inflateRepositoryFile(src.files[i]));
+        if(!rows.length||!rows[0].includes('ID'))throw new Error(`${src.files[i]}: CSV no válido`);
+        all.push(...rowsToObjects(rows,i===0));
+      }
     }
+    const expected=key==='protestante'?1000:1100;
+    if(all.length!==expected)throw new Error(`Se esperaban ${expected} registros y se cargaron ${all.length}`);
     loadData(all);
-    const expected=$('tradition').value==='protestante'?1000:1100;
-    if(data.length!==expected)throw new Error(`conteo final incorrecto: se esperaban ${expected} registros y se cargaron ${data.length}`);
-    setSource('ok',`${src.label}: ${data.length.toLocaleString('es-PE')} preguntas cargadas desde la copia web del repositorio. Google Sheets permanece como fuente maestra privada.`);
+    setSource('ok',`${src.label}: ${all.length.toLocaleString('es-PE')} preguntas cargadas desde la copia web del repositorio. Google Sheets permanece como fuente maestra privada.`);
   }catch(e){
     const msg=errorText(e);
-    console.error('Quiz Bible load error',currentFile,e);
-    setSource('error',`Error en ${currentFile||'la carga'}: ${msg}`);
-    renderEmpty(`No se pudo cargar la copia local. ${currentFile?`Archivo: ${currentFile}. `:''}${msg}`);
+    console.error('Quiz Bible load error',e);
+    setSource('error',`Error: ${msg}`);
+    renderEmpty(`No se pudo cargar la copia local: ${msg}`);
   }finally{$('loadLive').disabled=false;}
 }
 function loadData(rows){data=rows;page=1;populateFilters();applyFilters();updateStats();}
