@@ -30,11 +30,11 @@
       <div>
         <p class="eyebrow">Revisión humana · Quiz Bible</p>
         <h1>Banco Maestro de preguntas</h1>
-        <p class="lead">Vista web para consultar, filtrar y revisar el contenido del banco sin modificar la hoja fuente. Los cambios editoriales siguen realizándose en Google Sheets.</p>
+        <p class="lead">Vista web de consulta y revisión basada en una copia de solo lectura alojada en Neuronova. El Google Sheet privado continúa siendo la fuente maestra para cualquier cambio editorial.</p>
       </div>
       <div class="source-card" aria-label="Fuente de datos">
         <span class="dot" aria-hidden="true"></span>
-        <div><strong id="sourceStatus">Fuente pendiente de cargar</strong><small id="sourceDetail">Selecciona una tradición y carga los datos.</small></div>
+        <div><strong id="sourceStatus">Cargando copia web…</strong><small id="sourceDetail">La página carga automáticamente el banco seleccionado desde el repositorio.</small></div>
       </div>
     </section>
 
@@ -54,7 +54,7 @@
         <label for="search">Buscar</label>
         <input id="search" type="search" placeholder="ID, libro, referencia, pregunta, respuesta…" autocomplete="off">
       </div>
-      <button class="button primary" id="loadLive" type="button">Cargar desde Google Sheet</button>
+      <button class="button primary" id="loadLive" type="button">Recargar banco</button>
       <label class="button ghost file-button">Cargar CSV<input id="csvFile" type="file" accept=".csv,text/csv"></label>
     </section>
 
@@ -85,7 +85,7 @@
       <div class="table-scroll">
         <table>
           <thead><tr><th>ID</th><th>Referencia</th><th>Libro</th><th>Nivel</th><th>Pregunta</th><th>Correcta</th><th>QA</th><th>Humana</th><th></th></tr></thead>
-          <tbody id="rows"><tr><td colspan="9" class="empty">Carga el banco para comenzar.</td></tr></tbody>
+          <tbody id="rows"><tr><td colspan="9" class="empty">Cargando el banco…</td></tr></tbody>
         </table>
       </div>
       <div class="pager">
@@ -98,13 +98,13 @@
 
   <dialog id="detailDialog" class="dialog">
     <div class="dialog-head">
-      <div><p class="eyebrow">Detalle completo</p><h2 id="detailTitle">Pregunta</h2></div>
+      <div><p class="eyebrow">Detalle de revisión</p><h2 id="detailTitle">Pregunta</h2></div>
       <button id="closeDialog" class="icon-button" type="button" aria-label="Cerrar">×</button>
     </div>
     <div id="detailBody" class="detail-grid"></div>
   </dialog>
 
-  <footer class="footer wrap"><p>Neuronova Apps · Quiz Bible · Herramienta interna de consulta y revisión.</p></footer>
-  <script src="script.js"></script>
+  <footer class="footer wrap"><p>Neuronova Apps · Quiz Bible · Copia web de consulta. Fuente maestra: Google Sheet privado.</p></footer>
+  <script src="script.js?v=20260811-1"></script>
 </body>
 </html>
