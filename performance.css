@@ -1,0 +1,187 @@
+/* Optimización visual y de rendimiento para Neuronova Apps */
+
+/* Reduce el coste de composición sin cambiar la identidad visual. */
+.ambient {
+  width: 420px;
+  height: 420px;
+  filter: blur(82px);
+  opacity: .12;
+  transform: translateZ(0);
+}
+
+.site-header {
+  backdrop-filter: blur(12px) saturate(125%);
+  -webkit-backdrop-filter: blur(12px) saturate(125%);
+}
+
+.hero {
+  min-height: auto !important;
+  align-items: start !important;
+  padding: 28px 0 56px !important;
+}
+
+.hero-grid {
+  align-items: start !important;
+}
+
+.hero h1 {
+  max-width: 720px;
+  margin-bottom: 20px;
+  font-size: clamp(2.2rem, 4.8vw, 4.3rem) !important;
+  line-height: 1.04;
+}
+
+.hero-visual,
+.orbit,
+.node,
+.data-chip,
+.pulse-dot {
+  backface-visibility: hidden;
+}
+
+/* El navegador puede omitir el renderizado inicial de secciones fuera de pantalla. */
+.apps-section,
+.ecosystem-section,
+.site-footer {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 900px;
+}
+
+.app-grid {
+  grid-template-columns: repeat(auto-fill, minmax(280px, 340px)) !important;
+  justify-content: start;
+  align-items: stretch;
+  gap: 16px !important;
+}
+
+.app-card {
+  min-height: 0 !important;
+  width: 100%;
+  padding: 18px !important;
+  border-radius: 22px;
+}
+
+.app-icon {
+  width: 52px;
+  height: 52px;
+  padding: 11px;
+  border-radius: 16px;
+}
+
+.braille-dots { font-size: 1.75rem; }
+
+.status {
+  padding: 5px 8px;
+  font-size: .68rem;
+}
+
+.card-content { margin-top: 22px !important; }
+.app-category { margin-bottom: 7px; font-size: .68rem; }
+.app-card h3 { margin-bottom: 10px; font-size: 1.72rem; }
+.app-card .card-content > p:not(.app-category) {
+  margin: 0;
+  font-size: .9rem;
+  line-height: 1.5;
+}
+
+.feature-list { margin-top: 14px; }
+.feature-list li {
+  padding: 4px 0 4px 18px;
+  font-size: .82rem;
+  line-height: 1.4;
+}
+.feature-list li::before { top: 10px; width: 6px; height: 6px; }
+
+.card-actions {
+  margin-top: 0;
+  padding-top: 18px;
+  flex-wrap: wrap;
+  gap: 9px !important;
+}
+
+.card-button {
+  min-height: 40px;
+  padding: 0 12px;
+  font-size: .82rem;
+}
+
+.play-store-button {
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 12px;
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: 12px;
+  color: #a9b8c8;
+  background: rgba(255,255,255,.035);
+  font-size: .78rem;
+  font-weight: 800;
+  line-height: 1.15;
+  white-space: nowrap;
+  cursor: default;
+  user-select: none;
+}
+
+.play-store-button::before {
+  content: "▶";
+  display: inline-grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 5px;
+  color: #dce7f3;
+  background: rgba(255,255,255,.07);
+  font-size: .58rem;
+}
+
+/* Cuando el hero sale de pantalla, sus animaciones dejan de consumir recursos. */
+.hero.performance-paused .hero-visual,
+.hero.performance-paused .orbit,
+.hero.performance-paused .node,
+.hero.performance-paused .data-chip,
+.hero.performance-paused .pulse-dot {
+  animation-play-state: paused !important;
+}
+
+@media (max-width: 700px) {
+  .ambient {
+    width: 340px;
+    height: 340px;
+    filter: blur(68px);
+    opacity: .1;
+  }
+
+  .site-header {
+    backdrop-filter: blur(9px) saturate(115%);
+    -webkit-backdrop-filter: blur(9px) saturate(115%);
+  }
+
+  .hero {
+    padding: 24px 0 44px !important;
+  }
+
+  .hero h1 {
+    font-size: clamp(1.9rem, 9vw, 3.1rem) !important;
+    line-height: 1.05;
+  }
+
+  .app-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .app-card {
+    max-width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-visual,
+  .orbit,
+  .node,
+  .data-chip,
+  .pulse-dot {
+    animation: none !important;
+  }
+}
