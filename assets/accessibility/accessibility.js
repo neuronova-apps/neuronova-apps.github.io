@@ -7,6 +7,7 @@
   const defaults = {
     fontSize: '1',
     contrast: 'normal',
+    theme: 'normal',
     spacing: 'normal',
     lineHeight: 'normal',
     dyslexia: 'off',
@@ -25,6 +26,42 @@
 
   const root = document.documentElement;
 
+  function parseRgb(color) {
+    const match = String(color || '').match(/rgba?\((\d+(?:\.\d+)?)[,\s]+(\d+(?:\.\d+)?)[,\s]+(\d+(?:\.\d+)?)/i);
+    if (!match) return null;
+    return [Number(match[1]), Number(match[2]), Number(match[3])];
+  }
+
+  function luminance(rgb) {
+    if (!rgb) return null;
+    const channels = rgb.map(value => {
+      const c = value / 255;
+      return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
+    });
+    return (0.2126 * channels[0]) + (0.7152 * channels[1]) + (0.0722 * channels[2]);
+  }
+
+  function pageAlreadyLight() {
+    if (root.dataset.novaDayMode === 'disabled' || document.body?.dataset.novaDayMode === 'disabled') return true;
+
+    const declaredScheme = getComputedStyle(root).colorScheme || '';
+    if (/\blight\b/i.test(declaredScheme) && !/\bdark\b/i.test(declaredScheme)) return true;
+
+    const candidates = [
+      getComputedStyle(document.body).backgroundColor,
+      getComputedStyle(root).backgroundColor
+    ];
+
+    for (const color of candidates) {
+      const lum = luminance(parseRgb(color));
+      if (lum !== null && lum > 0.62) return true;
+    }
+
+    return false;
+  }
+
+  let dayModeAvailable = true;
+
   function save() {
     try { localStorage.setItem(STORAGE_KEY, JSON.stringify(prefs)); } catch (_) {}
   }
@@ -32,6 +69,7 @@
   function apply() {
     root.dataset.novaFontSize = prefs.fontSize;
     root.dataset.novaContrast = prefs.contrast;
+    root.dataset.novaTheme = dayModeAvailable ? prefs.theme : 'normal';
     root.dataset.novaSpacing = prefs.spacing;
     root.dataset.novaLineHeight = prefs.lineHeight;
     root.dataset.novaDyslexia = prefs.dyslexia;
@@ -43,13 +81,12 @@
 
   function setPreference(name, value) {
     if (!(name in defaults)) return;
+    if (name === 'theme' && !dayModeAvailable) return;
     prefs[name] = value;
     apply();
     save();
     syncControls();
   }
-
-  apply();
 
   const launcher = document.createElement('button');
   launcher.type = 'button';
@@ -96,6 +133,7 @@
       <div class="nova-a11y-group">
         <span class="nova-a11y-label">Visual</span>
         <div class="nova-a11y-toggle-grid">
+          <button type="button" class="nova-a11y-control nova-a11y-day-control" data-pref="theme" data-toggle="day" data-off="normal">Modo día</button>
           <button type="button" class="nova-a11y-control" data-pref="contrast" data-toggle="high" data-off="normal">Alto contraste</button>
           <button type="button" class="nova-a11y-control" data-pref="links" data-toggle="strong" data-off="normal">Resaltar enlaces</button>
           <button type="button" class="nova-a11y-control" data-pref="motion" data-toggle="reduce" data-off="normal">Reducir movimiento</button>
@@ -112,6 +150,14 @@
   guide.setAttribute('aria-hidden', 'true');
 
   document.body.append(guide, panel, launcher);
+
+  dayModeAvailable = !pageAlreadyLight();
+  if (!dayModeAvailable) {
+    prefs.theme = 'normal';
+    panel.querySelector('.nova-a11y-day-control')?.remove();
+  }
+
+  apply();
 
   const closeButton = panel.querySelector('.nova-a11y-close');
   const resetButton = panel.querySelector('.nova-a11y-reset');
