@@ -85,12 +85,45 @@
     .card-actions {
       margin-top: 0;
       padding-top: 18px;
+      flex-wrap: wrap;
+      gap: 9px !important;
     }
 
     .card-button {
       min-height: 40px;
       padding: 0 12px;
       font-size: .82rem;
+    }
+
+    .play-store-button {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 0 12px;
+      border: 1px solid rgba(255,255,255,.16);
+      border-radius: 12px;
+      color: #a9b8c8;
+      background: rgba(255,255,255,.035);
+      font-size: .78rem;
+      font-weight: 800;
+      line-height: 1.15;
+      white-space: nowrap;
+      cursor: default;
+      user-select: none;
+    }
+
+    .play-store-button::before {
+      content: "▶";
+      display: inline-grid;
+      place-items: center;
+      width: 18px;
+      height: 18px;
+      border-radius: 5px;
+      color: #dce7f3;
+      background: rgba(255,255,255,.07);
+      font-size: .58rem;
     }
 
     @media (max-width: 700px) {
@@ -110,6 +143,19 @@
     }
   `;
   document.head.appendChild(style);
+})();
+
+(() => {
+  document.querySelectorAll('.app-card .card-actions').forEach((actions) => {
+    if (actions.querySelector('.play-store-button')) return;
+
+    const playStoreButton = document.createElement('span');
+    playStoreButton.className = 'play-store-button';
+    playStoreButton.setAttribute('aria-disabled', 'true');
+    playStoreButton.setAttribute('title', 'Disponible en Google Play próximamente');
+    playStoreButton.textContent = 'Google Play · Próximamente';
+    actions.appendChild(playStoreButton);
+  });
 })();
 
 const menuButton = document.querySelector('.menu-button');
