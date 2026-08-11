@@ -3,171 +3,33 @@ const SOURCES={
   catolica:{label:'Católica',type:'gzip_parts',files:['data/c01.csv.gz.b64','data/c02plus.csv.gz.b64']}
 };
 const PAGE_SIZE=50;
+const BIBLE_BOOK_ORDER=['Génesis','Éxodo','Levítico','Números','Deuteronomio','Josué','Jueces','Rut','1 Samuel','2 Samuel','1 Reyes','2 Reyes','1 Crónicas','2 Crónicas','Esdras','Nehemías','Tobías','Judit','Ester','1 Macabeos','2 Macabeos','Job','Salmos','Proverbios','Eclesiastés','Cantar de los Cantares','Sabiduría','Eclesiástico','Isaías','Jeremías','Lamentaciones','Baruc','Ezequiel','Daniel','Oseas','Joel','Amós','Abdías','Jonás','Miqueas','Nahúm','Habacuc','Sofonías','Hageo','Zacarías','Malaquías','Mateo','Marcos','Lucas','Juan','Hechos','Romanos','1 Corintios','2 Corintios','Gálatas','Efesios','Filipenses','Colosenses','1 Tesalonicenses','2 Tesalonicenses','1 Timoteo','2 Timoteo','Tito','Filemón','Hebreos','Santiago','1 Pedro','2 Pedro','1 Juan','2 Juan','3 Juan','Judas','Apocalipsis'];
+const BOOK_ORDER=new Map(BIBLE_BOOK_ORDER.map((book,index)=>[book,index]));
 let headers=[],data=[],filtered=[],page=1;
 const $=id=>document.getElementById(id);
 const esc=v=>String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 const errorText=e=>e instanceof Error?e.message:(typeof e==='string'?e:JSON.stringify(e)||String(e));
-
-function parseCSV(text){
-  const rows=[];let row=[],cell='',q=false;
-  for(let i=0;i<text.length;i++){
-    const c=text[i],n=text[i+1];
-    if(c==='"'){if(q&&n==='"'){cell+='"';i++;}else q=!q;}
-    else if(c===','&&!q){row.push(cell);cell='';}
-    else if((c==='\n'||c==='\r')&&!q){if(c==='\r'&&n==='\n')i++;row.push(cell);if(row.some(v=>v!==''))rows.push(row);row=[];cell='';}
-    else cell+=c;
-  }
-  row.push(cell);if(row.some(v=>v!==''))rows.push(row);return rows;
-}
-function rowsToObjects(rows,setHeaders=false){
-  if(!rows.length)return[];
-  const localHeaders=rows[0].map(h=>h.trim());
-  if(setHeaders||!headers.length)headers=localHeaders;
-  return rows.slice(1).filter(r=>r.some(Boolean)).map(r=>Object.fromEntries(localHeaders.map((h,i)=>[h,r[i]??''])));
-}
+function parseCSV(text){const rows=[];let row=[],cell='',q=false;for(let i=0;i<text.length;i++){const c=text[i],n=text[i+1];if(c==='"'){if(q&&n==='"'){cell+='"';i++;}else q=!q;}else if(c===','&&!q){row.push(cell);cell='';}else if((c==='\n'||c==='\r')&&!q){if(c==='\r'&&n==='\n')i++;row.push(cell);if(row.some(v=>v!==''))rows.push(row);row=[];cell='';}else cell+=c;}row.push(cell);if(row.some(v=>v!==''))rows.push(row);return rows;}
+function rowsToObjects(rows,setHeaders=false){if(!rows.length)return[];const localHeaders=rows[0].map(h=>h.trim());if(setHeaders||!headers.length)headers=localHeaders;return rows.slice(1).filter(r=>r.some(Boolean)).map(r=>Object.fromEntries(localHeaders.map((h,i)=>[h,r[i]??''])));}
 function value(o,k){return o[k]??'';}
-function setSource(state,msg){
-  const ok=state==='ok',loading=state==='loading';
-  $('sourceStatus').textContent=loading?'Cargando copia web del Banco Maestro…':ok?'Banco cargado desde Neuronova':'No se pudo cargar la copia web';
-  $('sourceDetail').textContent=msg;
-  document.querySelector('.dot').style.background=ok?'var(--green)':loading?'var(--cyan)':'var(--amber)';
-}
-async function fetchPlainCSV(url){
-  const res=await fetch(`${url}?v=20260811-8`,{cache:'no-store'});
-  if(!res.ok)throw new Error(`${url}: HTTP ${res.status}`);
-  const text=await res.text();
-  if(!text.trim())throw new Error(`${url}: archivo vacío`);
-  const rows=parseCSV(text);
-  if(!rows.length||!rows[0].includes('ID'))throw new Error(`${url}: CSV no válido`);
-  return text;
-}
-async function fetchText(url){
-  const res=await fetch(`${url}?v=20260811-8`,{cache:'no-store'});
-  if(!res.ok)throw new Error(`${url}: HTTP ${res.status}`);
-  const text=await res.text();
-  if(!text.trim())throw new Error(`${url}: archivo vacío`);
-  return text.trim();
-}
-function decodeBase64Part(b64,url){
-  const clean=b64.replace(/\s+/g,'');
-  if(!clean)throw new Error(`${url}: archivo vacío`);
-  let binary;
-  try{binary=atob(clean);}catch(e){throw new Error(`${url}: base64 inválido (${errorText(e)})`);}
-  const bytes=new Uint8Array(binary.length);
-  for(let i=0;i<binary.length;i++)bytes[i]=binary.charCodeAt(i);
-  return bytes;
-}
-function joinByteParts(parts){
-  const total=parts.reduce((n,p)=>n+p.length,0);
-  const joined=new Uint8Array(total);
-  let offset=0;
-  for(const part of parts){joined.set(part,offset);offset+=part.length;}
-  return joined;
-}
-async function ungzip(bytes,url){
-  if(bytes.length<2||bytes[0]!==0x1f||bytes[1]!==0x8b)throw new Error(`${url}: cabecera gzip reconstruida inválida`);
-  let nativeError='';
-  if(typeof DecompressionStream!=='undefined'){
-    try{const stream=new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'));return await new Response(stream).text();}
-    catch(e){nativeError=errorText(e);}
-  }
-  if(window.pako&&typeof window.pako.ungzip==='function'){
-    try{return window.pako.ungzip(bytes,{to:'string'});}catch(e){throw new Error(`${url}: gzip no se pudo descomprimir. ${errorText(e)}`);}
-  }
-  throw new Error(`${url}: sin descompresor gzip compatible. ${nativeError}`);
-}
-async function inflateSplitGzipFiles(files,label){
-  const parts=[];
-  for(let i=0;i<files.length;i++){
-    setSource('loading',`Leyendo ${label}: parte ${i+1} de ${files.length}…`);
-    parts.push(decodeBase64Part(await fetchText(files[i]),files[i]));
-  }
-  const bytes=joinByteParts(parts);
-  const text=await ungzip(bytes,files.join(' + '));
-  if(!text.trim())throw new Error(`${label}: CSV descomprimido vacío`);
-  return text;
-}
-async function loadRepository(){
-  const key=$('tradition').value,src=SOURCES[key];
-  setSource('loading',`Leyendo ${src.label} desde el repositorio…`);
-  $('loadLive').disabled=true;
-  try{
-    headers=[];let all=[];
-    if(src.type==='plain'){
-      const text=await fetchPlainCSV(src.file);
-      all=rowsToObjects(parseCSV(text),true);
-    }else if(src.type==='gzip_parts'){
-      const text=await inflateSplitGzipFiles(src.files,src.label);
-      const rows=parseCSV(text);
-      if(!rows.length||!rows[0].includes('ID'))throw new Error(`${src.label}: CSV no válido`);
-      all=rowsToObjects(rows,true);
-    }else{
-      throw new Error(`Tipo de fuente no compatible: ${src.type}`);
-    }
-    const expected=key==='protestante'?1000:1100;
-    if(all.length!==expected)throw new Error(`Se esperaban ${expected} registros y se cargaron ${all.length}`);
-    loadData(all);
-    setSource('ok',`${src.label}: ${all.length.toLocaleString('es-PE')} preguntas cargadas desde la copia web del repositorio.`);
-  }catch(e){const msg=errorText(e);console.error('Quiz Bible load error',e);setSource('error',`Error: ${msg}`);renderEmpty(`No se pudo cargar la copia local: ${msg}`);}
-  finally{$('loadLive').disabled=false;}
-}
+function setSource(state,msg){const ok=state==='ok',loading=state==='loading';$('sourceStatus').textContent=loading?'Cargando copia web del Banco Maestro…':ok?'Banco cargado desde Neuronova':'No se pudo cargar la copia web';$('sourceDetail').textContent=msg;document.querySelector('.dot').style.background=ok?'var(--green)':loading?'var(--cyan)':'var(--amber)';}
+async function fetchPlainCSV(url){const res=await fetch(`${url}?v=20260811-9`,{cache:'no-store'});if(!res.ok)throw new Error(`${url}: HTTP ${res.status}`);const text=await res.text();if(!text.trim())throw new Error(`${url}: archivo vacío`);const rows=parseCSV(text);if(!rows.length||!rows[0].includes('ID'))throw new Error(`${url}: CSV no válido`);return text;}
+async function fetchText(url){const res=await fetch(`${url}?v=20260811-9`,{cache:'no-store'});if(!res.ok)throw new Error(`${url}: HTTP ${res.status}`);const text=await res.text();if(!text.trim())throw new Error(`${url}: archivo vacío`);return text.trim();}
+function decodeBase64Part(b64,url){const clean=b64.replace(/\s+/g,'');if(!clean)throw new Error(`${url}: archivo vacío`);let binary;try{binary=atob(clean);}catch(e){throw new Error(`${url}: base64 inválido (${errorText(e)})`);}const bytes=new Uint8Array(binary.length);for(let i=0;i<binary.length;i++)bytes[i]=binary.charCodeAt(i);return bytes;}
+function joinByteParts(parts){const total=parts.reduce((n,p)=>n+p.length,0);const joined=new Uint8Array(total);let offset=0;for(const part of parts){joined.set(part,offset);offset+=part.length;}return joined;}
+async function ungzip(bytes,url){if(bytes.length<2||bytes[0]!==0x1f||bytes[1]!==0x8b)throw new Error(`${url}: cabecera gzip reconstruida inválida`);let nativeError='';if(typeof DecompressionStream!=='undefined'){try{const stream=new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'));return await new Response(stream).text();}catch(e){nativeError=errorText(e);}}if(window.pako&&typeof window.pako.ungzip==='function'){try{return window.pako.ungzip(bytes,{to:'string'});}catch(e){throw new Error(`${url}: gzip no se pudo descomprimir. ${errorText(e)}`);}}throw new Error(`${url}: sin descompresor gzip compatible. ${nativeError}`);}
+async function inflateSplitGzipFiles(files,label){const parts=[];for(let i=0;i<files.length;i++){setSource('loading',`Leyendo ${label}: parte ${i+1} de ${files.length}…`);parts.push(decodeBase64Part(await fetchText(files[i]),files[i]));}const bytes=joinByteParts(parts);const text=await ungzip(bytes,files.join(' + '));if(!text.trim())throw new Error(`${label}: CSV descomprimido vacío`);return text;}
+async function loadRepository(){const key=$('tradition').value,src=SOURCES[key];setSource('loading',`Leyendo ${src.label} desde el repositorio…`);$('loadLive').disabled=true;try{headers=[];let all=[];if(src.type==='plain'){const text=await fetchPlainCSV(src.file);all=rowsToObjects(parseCSV(text),true);}else if(src.type==='gzip_parts'){const text=await inflateSplitGzipFiles(src.files,src.label);const rows=parseCSV(text);if(!rows.length||!rows[0].includes('ID'))throw new Error(`${src.label}: CSV no válido`);all=rowsToObjects(rows,true);}else throw new Error(`Tipo de fuente no compatible: ${src.type}`);const expected=key==='protestante'?1000:1100;if(all.length!==expected)throw new Error(`Se esperaban ${expected} registros y se cargaron ${all.length}`);loadData(all);setSource('ok',`${src.label}: ${all.length.toLocaleString('es-PE')} preguntas cargadas desde la copia web del repositorio.`);}catch(e){const msg=errorText(e);console.error('Quiz Bible load error',e);setSource('error',`Error: ${msg}`);renderEmpty(`No se pudo cargar la copia local: ${msg}`);}finally{$('loadLive').disabled=false;}}
 function loadData(rows){data=rows;page=1;$('testament').value='';$('book').value='';populateFilters();applyFilters();}
 function uniqueFrom(rows,k){return [...new Set(rows.map(o=>value(o,k)).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'es',{numeric:true}));}
-function fillSelectValues(id,values,preserve=true){
-  const s=$(id),current=preserve?s.value:'';
-  s.innerHTML='<option value="">Todos</option>'+values.map(v=>`<option value="${esc(v)}">${esc(v)}</option>`).join('');
-  if(current&&[...s.options].some(o=>o.value===current))s.value=current;
-}
-function updateBookFilter(){
-  const testament=$('testament').value;
-  const rows=testament?data.filter(o=>value(o,'Testamento')===testament):data;
-  const current=$('book').value;
-  fillSelectValues('book',uniqueFrom(rows,'Libro'),false);
-  if(current&&[...$('book').options].some(o=>o.value===current))$('book').value=current;
-}
+function canonicalBooks(rows){return [...new Set(rows.map(o=>value(o,'Libro')).filter(Boolean))].sort((a,b)=>{const ai=BOOK_ORDER.has(a)?BOOK_ORDER.get(a):9999,bi=BOOK_ORDER.has(b)?BOOK_ORDER.get(b):9999;return ai-bi||a.localeCompare(b,'es',{numeric:true});});}
+function fillSelectValues(id,values,preserve=true){const s=$(id),current=preserve?s.value:'';s.innerHTML='<option value="">Todos</option>'+values.map(v=>`<option value="${esc(v)}">${esc(v)}</option>`).join('');if(current&&[...s.options].some(o=>o.value===current))s.value=current;}
+function updateBookFilter(){const testament=$('testament').value;const rows=testament?data.filter(o=>value(o,'Testamento')===testament):data;const current=$('book').value;fillSelectValues('book',canonicalBooks(rows),false);if(current&&[...$('book').options].some(o=>o.value===current))$('book').value=current;}
 function populateFilters(){updateBookFilter();fillSelectValues('level',uniqueFrom(data,'Nivel'));fillSelectValues('qa',uniqueFrom(data,'Estado_QA'));fillSelectValues('human',uniqueFrom(data,'Revision_humana'));}
-function applyFilters(){
-  const term=$('search').value.trim().toLowerCase();
-  const rules=[['testament','Testamento'],['book','Libro'],['level','Nivel'],['qa','Estado_QA'],['human','Revision_humana']];
-  filtered=data.filter(o=>{if(term&&!Object.values(o).join(' ').toLowerCase().includes(term))return false;return rules.every(([id,k])=>!$(id).value||value(o,k)===$(id).value);});
-  const pages=Math.max(1,Math.ceil(filtered.length/PAGE_SIZE));if(page>pages)page=pages;render();updateStats();
-}
+function applyFilters(){const term=$('search').value.trim().toLowerCase();const rules=[['testament','Testamento'],['book','Libro'],['level','Nivel'],['qa','Estado_QA'],['human','Revision_humana']];filtered=data.filter(o=>{if(term&&!Object.values(o).join(' ').toLowerCase().includes(term))return false;return rules.every(([id,k])=>!$(id).value||value(o,k)===$(id).value);});const pages=Math.max(1,Math.ceil(filtered.length/PAGE_SIZE));if(page>pages)page=pages;render();updateStats();}
 function badge(v){const t=String(v||'—');let cls='';if(/si|verificado|publicable|revisado|apto/i.test(t))cls='ok';else if(/revisar|no|pendiente/i.test(t))cls='warn';return `<span class="badge ${cls}">${esc(t)}</span>`;}
-function render(){
-  const start=(page-1)*PAGE_SIZE,slice=filtered.slice(start,start+PAGE_SIZE);
-  $('visibleCount').textContent=filtered.length.toLocaleString('es-PE');
-  $('rows').innerHTML=slice.length?slice.map((o,i)=>`<tr><td><strong>${esc(value(o,'ID'))}</strong></td><td>${esc(value(o,'Referencia'))}</td><td>${esc(value(o,'Libro'))}</td><td>${badge(value(o,'Nivel'))}</td><td class="question-cell">${esc(value(o,'Pregunta'))}</td><td>${esc(value(o,'Respuesta_correcta'))}</td><td>${badge(value(o,'Estado_QA'))}</td><td>${badge(value(o,'Revision_humana'))}</td><td><button class="row-button" data-index="${start+i}">Revisar</button></td></tr>`).join(''):'<tr><td colspan="9" class="empty">No hay preguntas que coincidan con los filtros.</td></tr>';
-  $('pageInfo').textContent=`Página ${page} de ${Math.max(1,Math.ceil(filtered.length/PAGE_SIZE))}`;
-  $('prevPage').disabled=page<=1;$('nextPage').disabled=page>=Math.ceil(filtered.length/PAGE_SIZE);
-  document.querySelectorAll('.row-button').forEach(b=>b.addEventListener('click',()=>openDetail(filtered[Number(b.dataset.index)])));
-}
+function render(){const start=(page-1)*PAGE_SIZE,slice=filtered.slice(start,start+PAGE_SIZE);$('visibleCount').textContent=filtered.length.toLocaleString('es-PE');$('rows').innerHTML=slice.length?slice.map((o,i)=>`<tr><td><strong>${esc(value(o,'ID'))}</strong></td><td>${esc(value(o,'Referencia'))}</td><td>${esc(value(o,'Libro'))}</td><td>${badge(value(o,'Nivel'))}</td><td class="question-cell">${esc(value(o,'Pregunta'))}</td><td>${esc(value(o,'Respuesta_correcta'))}</td><td>${badge(value(o,'Estado_QA'))}</td><td>${badge(value(o,'Revision_humana'))}</td><td><button class="row-button" data-index="${start+i}">Revisar</button></td></tr>`).join(''):'<tr><td colspan="9" class="empty">No hay preguntas que coincidan con los filtros.</td></tr>';$('pageInfo').textContent=`Página ${page} de ${Math.max(1,Math.ceil(filtered.length/PAGE_SIZE))}`;$('prevPage').disabled=page<=1;$('nextPage').disabled=page>=Math.ceil(filtered.length/PAGE_SIZE);document.querySelectorAll('.row-button').forEach(b=>b.addEventListener('click',()=>openDetail(filtered[Number(b.dataset.index)])));}
 function renderEmpty(msg){data=[];filtered=[];$('rows').innerHTML=`<tr><td colspan="9" class="empty">${esc(msg)}</td></tr>`;$('visibleCount').textContent='0';updateStats();}
-function updateStats(){
-  const rows=filtered;
-  const count=(k,v)=>rows.filter(o=>value(o,k).toLowerCase()===v.toLowerCase()).length;
-  $('statTotal').textContent=rows.length.toLocaleString('es-PE');
-  $('statReview').textContent=count('Estado_QA','Revisar').toLocaleString('es-PE');
-  $('statHuman').textContent=count('Revision_humana','Si').toLocaleString('es-PE');
-  $('statVerified').textContent=count('Estado_QA','Verificado').toLocaleString('es-PE');
-  $('statPublishable').textContent=count('Estado_QA','Publicable').toLocaleString('es-PE');
-  $('statActive').textContent=count('Activa_app','Si').toLocaleString('es-PE');
-}
-function openDetail(o){
-  if(!o)return;
-  $('detailTitle').textContent=`${value(o,'ID')} · ${value(o,'Referencia')}`;
-  const priority=new Set(['Pregunta','Opcion_A','Opcion_B','Opcion_C','Opcion_D','Respuesta_correcta','Explicacion_breve']);
-  $('detailBody').innerHTML=headers.filter(h=>value(o,h)!=='').map(h=>`<dl class="detail-item ${priority.has(h)?'wide':''}"><dt>${esc(h.replaceAll('_',' '))}</dt><dd>${esc(value(o,h))}</dd></dl>`).join('');
-  $('detailDialog').showModal();
-}
-$('loadLive').addEventListener('click',loadRepository);
-$('tradition').addEventListener('change',()=>{renderEmpty('Cargando la tradición seleccionada…');loadRepository();});
-$('csvFile').addEventListener('change',async e=>{const f=e.target.files[0];if(!f)return;const text=await f.text();loadData(rowsToObjects(parseCSV(text),true));setSource('ok',`CSV local: ${f.name} · ${data.length.toLocaleString('es-PE')} registros.`);e.target.value='';});
-$('testament').addEventListener('change',()=>{page=1;$('book').value='';updateBookFilter();applyFilters();});
-$('book').addEventListener('change',()=>{page=1;applyFilters();});
-['search','level','qa','human'].forEach(id=>$(id).addEventListener(id==='search'?'input':'change',()=>{page=1;applyFilters();}));
-$('clearFilters').addEventListener('click',()=>{$('search').value='';$('testament').value='';['level','qa','human'].forEach(id=>$(id).value='');updateBookFilter();$('book').value='';page=1;applyFilters();});
-$('prevPage').addEventListener('click',()=>{if(page>1){page--;render();}});
-$('nextPage').addEventListener('click',()=>{if(page*PAGE_SIZE<filtered.length){page++;render();}});
-$('closeDialog').addEventListener('click',()=>$('detailDialog').close());
-$('detailDialog').addEventListener('click',e=>{if(e.target===$('detailDialog'))$('detailDialog').close();});
-window.addEventListener('DOMContentLoaded',loadRepository);
+function updateStats(){const rows=filtered;const count=(k,v)=>rows.filter(o=>value(o,k).toLowerCase()===v.toLowerCase()).length;$('statTotal').textContent=rows.length.toLocaleString('es-PE');$('statReview').textContent=count('Estado_QA','Revisar').toLocaleString('es-PE');$('statHuman').textContent=count('Revision_humana','Si').toLocaleString('es-PE');$('statVerified').textContent=count('Estado_QA','Verificado').toLocaleString('es-PE');$('statPublishable').textContent=count('Estado_QA','Publicable').toLocaleString('es-PE');$('statActive').textContent=count('Activa_app','Si').toLocaleString('es-PE');}
+function openDetail(o){if(!o)return;$('detailTitle').textContent=`${value(o,'ID')} · ${value(o,'Referencia')}`;const priority=new Set(['Pregunta','Opcion_A','Opcion_B','Opcion_C','Opcion_D','Respuesta_correcta','Explicacion_breve']);$('detailBody').innerHTML=headers.filter(h=>value(o,h)!=='').map(h=>`<dl class="detail-item ${priority.has(h)?'wide':''}"><dt>${esc(h.replaceAll('_',' '))}</dt><dd>${esc(value(o,h))}</dd></dl>`).join('');$('detailDialog').showModal();}
+$('loadLive').addEventListener('click',loadRepository);$('tradition').addEventListener('change',()=>{renderEmpty('Cargando la tradición seleccionada…');loadRepository();});$('csvFile').addEventListener('change',async e=>{const f=e.target.files[0];if(!f)return;const text=await f.text();loadData(rowsToObjects(parseCSV(text),true));setSource('ok',`CSV local: ${f.name} · ${data.length.toLocaleString('es-PE')} registros.`);e.target.value='';});$('testament').addEventListener('change',()=>{page=1;$('book').value='';updateBookFilter();applyFilters();});$('book').addEventListener('change',()=>{page=1;applyFilters();});['search','level','qa','human'].forEach(id=>$(id).addEventListener(id==='search'?'input':'change',()=>{page=1;applyFilters();}));$('clearFilters').addEventListener('click',()=>{$('search').value='';$('testament').value='';['level','qa','human'].forEach(id=>$(id).value='');updateBookFilter();$('book').value='';page=1;applyFilters();});$('prevPage').addEventListener('click',()=>{if(page>1){page--;render();}});$('nextPage').addEventListener('click',()=>{if(page*PAGE_SIZE<filtered.length){page++;render();}});$('closeDialog').addEventListener('click',()=>$('detailDialog').close());$('detailDialog').addEventListener('click',e=>{if(e.target===$('detailDialog'))$('detailDialog').close();});window.addEventListener('DOMContentLoaded',loadRepository);
