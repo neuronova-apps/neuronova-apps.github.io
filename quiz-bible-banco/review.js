@@ -17,6 +17,16 @@ function allCriteriaChecked(){return reviewChecks().length===6&&reviewChecks().e
 function reviewer(){return document.getElementById('reviewerName').value.trim();}
 function traditionKey(){return document.getElementById('tradition').value;}
 function ensureBridge(){let frame=document.getElementById('reviewBridgeFrame');if(frame)return frame;frame=document.createElement('iframe');frame.id='reviewBridgeFrame';frame.name='reviewBridgeFrame';frame.hidden=true;document.body.appendChild(frame);return frame;}
+function orderLevelFilter(){
+  const select=document.getElementById('level');if(!select)return;
+  const order=['','Basico','Básico','Intermedio','Avanzado','Experto'];
+  const current=select.value;
+  const options=[...select.options];
+  const sorted=[...options].sort((a,b)=>{const ai=order.indexOf(a.value),bi=order.indexOf(b.value);return (ai<0?999:ai)-(bi<0?999:bi);});
+  if(options.every((o,i)=>o===sorted[i]))return;
+  sorted.forEach(o=>select.appendChild(o));
+  select.value=current;
+}
 function submitHumanReview(action){
   if(!currentReviewQuestion)return;
   const endpoint=reviewConfig.endpoint(),secret=reviewConfig.secret();
@@ -47,6 +57,7 @@ window.addEventListener('DOMContentLoaded',()=>{
   document.getElementById('reviewerName').addEventListener('change',e=>localStorage.setItem('quizBibleReviewer',e.target.value.trim()));
   reviewChecks().forEach(c=>c.addEventListener('change',updateCriteriaProgress));
   updateCriteriaProgress();
+  const levelSelect=document.getElementById('level');if(levelSelect){new MutationObserver(orderLevelFilter).observe(levelSelect,{childList:true});orderLevelFilter();}
   document.getElementById('openReviewConfig').addEventListener('click',()=>{document.getElementById('reviewEndpoint').value=reviewConfig.endpoint();document.getElementById('reviewSecret').value='';document.getElementById('reviewConfigDialog').showModal();});
   document.getElementById('closeReviewConfig').addEventListener('click',()=>document.getElementById('reviewConfigDialog').close());
   document.getElementById('saveReviewConfig').addEventListener('click',()=>{const endpoint=document.getElementById('reviewEndpoint').value.trim(),secret=document.getElementById('reviewSecret').value;if(!endpoint||!secret)return;localStorage.setItem('quizBibleReviewEndpoint',endpoint);sessionStorage.setItem('quizBibleReviewSecret',secret);updateConnectionStatus();document.getElementById('reviewConfigDialog').close();});
