@@ -150,6 +150,11 @@
   contain-intrinsic-size: 1px 900px;
 }
 
+/* Reduce el vacío entre el hero y el encabezado de Aplicaciones. */
+.apps-section {
+  padding-top: 44px !important;
+}
+
 .app-grid {
   grid-template-columns: repeat(auto-fill, minmax(280px, 340px)) !important;
   justify-content: start;
@@ -261,6 +266,10 @@
   .hero-metrics {
     margin-top: 22px !important;
   }
+
+  .apps-section {
+    padding-top: 36px !important;
+  }
 }
 
 @media (max-width: 700px) {
@@ -297,6 +306,10 @@
 
   .hero-metrics span {
     font-size: .68rem !important;
+  }
+
+  .apps-section {
+    padding-top: 30px !important;
   }
 
   .app-grid {
