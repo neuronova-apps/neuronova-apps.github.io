@@ -20,6 +20,16 @@
   const style = document.createElement('style');
   style.dataset.neuronovaCompactCards = 'true';
   style.textContent = `
+    .hero {
+      min-height: auto !important;
+      align-items: start !important;
+      padding: 28px 0 56px !important;
+    }
+
+    .hero-grid {
+      align-items: start !important;
+    }
+
     .hero h1 {
       max-width: 720px;
       margin-bottom: 20px;
@@ -84,6 +94,9 @@
     }
 
     @media (max-width: 700px) {
+      .hero {
+        padding: 24px 0 44px !important;
+      }
       .hero h1 {
         font-size: clamp(1.9rem, 9vw, 3.1rem) !important;
         line-height: 1.05;
