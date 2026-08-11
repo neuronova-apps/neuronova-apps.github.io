@@ -20,6 +20,13 @@
   const style = document.createElement('style');
   style.dataset.neuronovaCompactCards = 'true';
   style.textContent = `
+    .hero h1 {
+      max-width: 720px;
+      margin-bottom: 20px;
+      font-size: clamp(2.2rem, 4.8vw, 4.3rem) !important;
+      line-height: 1.04;
+    }
+
     .app-grid {
       grid-template-columns: repeat(auto-fill, minmax(280px, 340px)) !important;
       justify-content: start;
@@ -77,6 +84,10 @@
     }
 
     @media (max-width: 700px) {
+      .hero h1 {
+        font-size: clamp(1.9rem, 9vw, 3.1rem) !important;
+        line-height: 1.05;
+      }
       .app-grid {
         grid-template-columns: 1fr !important;
       }
