@@ -5,7 +5,7 @@ const SOURCES={
 const PAGE_SIZE=50;
 let headers=[],data=[],filtered=[],page=1;
 const $=id=>document.getElementById(id);
-const esc=v=>String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+const esc=v=>String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot',"'":'&#39;'}[m]));
 const errorText=e=>e instanceof Error?e.message:(typeof e==='string'?e:JSON.stringify(e)||String(e));
 
 function parseCSV(text){
@@ -33,7 +33,7 @@ function setSource(state,msg){
   document.querySelector('.dot').style.background=ok?'var(--green)':loading?'var(--cyan)':'var(--amber)';
 }
 async function fetchPlainCSV(url){
-  const res=await fetch(`${url}?v=20260811-5`,{cache:'no-store'});
+  const res=await fetch(`${url}?v=20260811-6`,{cache:'no-store'});
   if(!res.ok)throw new Error(`${url}: HTTP ${res.status}`);
   const text=await res.text();
   if(!text.trim())throw new Error(`${url}: archivo vacío`);
@@ -54,10 +54,8 @@ function base64ToBytes(b64,url){
 async function ungzip(bytes,url){
   let nativeError='';
   if(typeof DecompressionStream!=='undefined'){
-    try{
-      const stream=new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'));
-      return await new Response(stream).text();
-    }catch(e){nativeError=errorText(e);}
+    try{const stream=new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'));return await new Response(stream).text();}
+    catch(e){nativeError=errorText(e);}
   }
   if(window.pako&&typeof window.pako.ungzip==='function'){
     try{return window.pako.ungzip(bytes,{to:'string'});}catch(e){throw new Error(`${url}: gzip no se pudo descomprimir. ${errorText(e)}`);}
@@ -65,7 +63,7 @@ async function ungzip(bytes,url){
   throw new Error(`${url}: sin descompresor gzip compatible. ${nativeError}`);
 }
 async function inflateRepositoryFile(url){
-  const res=await fetch(`${url}?v=20260811-5`,{cache:'no-store'});
+  const res=await fetch(`${url}?v=20260811-6`,{cache:'no-store'});
   if(!res.ok)throw new Error(`${url}: HTTP ${res.status}`);
   return await ungzip(base64ToBytes(await res.text(),url),url);
 }
@@ -74,11 +72,9 @@ async function loadRepository(){
   setSource('loading',`Leyendo ${src.label} desde el repositorio…`);
   $('loadLive').disabled=true;
   try{
-    headers=[];
-    let all=[];
+    headers=[];let all=[];
     if(src.type==='plain'){
-      const text=await fetchPlainCSV(src.file);
-      all=rowsToObjects(parseCSV(text),true);
+      const text=await fetchPlainCSV(src.file);all=rowsToObjects(parseCSV(text),true);
     }else{
       for(let i=0;i<src.files.length;i++){
         setSource('loading',`Leyendo ${src.label}: archivo ${i+1} de ${src.files.length}…`);
@@ -90,30 +86,19 @@ async function loadRepository(){
     const expected=key==='protestante'?1000:1100;
     if(all.length!==expected)throw new Error(`Se esperaban ${expected} registros y se cargaron ${all.length}`);
     loadData(all);
-    setSource('ok',`${src.label}: ${all.length.toLocaleString('es-PE')} preguntas cargadas desde la copia web del repositorio. Google Sheets permanece como fuente maestra privada.`);
-  }catch(e){
-    const msg=errorText(e);
-    console.error('Quiz Bible load error',e);
-    setSource('error',`Error: ${msg}`);
-    renderEmpty(`No se pudo cargar la copia local: ${msg}`);
-  }finally{$('loadLive').disabled=false;}
+    setSource('ok',`${src.label}: ${all.length.toLocaleString('es-PE')} preguntas cargadas desde la copia web del repositorio.`);
+  }catch(e){const msg=errorText(e);console.error('Quiz Bible load error',e);setSource('error',`Error: ${msg}`);renderEmpty(`No se pudo cargar la copia local: ${msg}`);}
+  finally{$('loadLive').disabled=false;}
 }
 function loadData(rows){
-  data=rows;page=1;
-  $('testament').value='';
-  $('book').value='';
-  populateFilters();
-  applyFilters();
-  updateStats();
+  data=rows;page=1;$('testament').value='';$('book').value='';populateFilters();applyFilters();
 }
 function uniqueFrom(rows,k){return [...new Set(rows.map(o=>value(o,k)).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'es',{numeric:true}));}
-function unique(k){return uniqueFrom(data,k);}
 function fillSelectValues(id,values,preserve=true){
   const s=$(id),current=preserve?s.value:'';
   s.innerHTML='<option value="">Todos</option>'+values.map(v=>`<option value="${esc(v)}">${esc(v)}</option>`).join('');
   if(current&&[...s.options].some(o=>o.value===current))s.value=current;
 }
-function fillSelect(id,k){fillSelectValues(id,unique(k));}
 function updateBookFilter(){
   const testament=$('testament').value;
   const rows=testament?data.filter(o=>value(o,'Testamento')===testament):data;
@@ -122,31 +107,32 @@ function updateBookFilter(){
   if(current&&[...$('book').options].some(o=>o.value===current))$('book').value=current;
 }
 function populateFilters(){
-  fillSelect('testament','Testamento');
   updateBookFilter();
-  fillSelect('level','Nivel');
-  fillSelect('qa','Estado_QA');
-  fillSelect('human','Revision_humana');
+  fillSelectValues('level',uniqueFrom(data,'Nivel'));
+  fillSelectValues('qa',uniqueFrom(data,'Estado_QA'));
+  fillSelectValues('human',uniqueFrom(data,'Revision_humana'));
 }
 function applyFilters(){
   const term=$('search').value.trim().toLowerCase();
   const rules=[['testament','Testamento'],['book','Libro'],['level','Nivel'],['qa','Estado_QA'],['human','Revision_humana']];
   filtered=data.filter(o=>{if(term&&!Object.values(o).join(' ').toLowerCase().includes(term))return false;return rules.every(([id,k])=>!$(id).value||value(o,k)===$(id).value);});
-  const pages=Math.max(1,Math.ceil(filtered.length/PAGE_SIZE));if(page>pages)page=pages;render();
+  const pages=Math.max(1,Math.ceil(filtered.length/PAGE_SIZE));if(page>pages)page=pages;render();updateStats();
 }
 function badge(v){const t=String(v||'—');let cls='';if(/si|verificado|publicable|revisado|apto/i.test(t))cls='ok';else if(/revisar|no|pendiente/i.test(t))cls='warn';return `<span class="badge ${cls}">${esc(t)}</span>`;}
 function render(){
   const start=(page-1)*PAGE_SIZE,slice=filtered.slice(start,start+PAGE_SIZE);
   $('visibleCount').textContent=filtered.length.toLocaleString('es-PE');
-  $('rows').innerHTML=slice.length?slice.map((o,i)=>`<tr><td><strong>${esc(value(o,'ID'))}</strong></td><td>${esc(value(o,'Referencia'))}</td><td>${esc(value(o,'Libro'))}</td><td>${badge(value(o,'Nivel'))}</td><td class="question-cell">${esc(value(o,'Pregunta'))}</td><td>${esc(value(o,'Respuesta_correcta'))}</td><td>${badge(value(o,'Estado_QA'))}</td><td>${badge(value(o,'Revision_humana'))}</td><td><button class="row-button" data-index="${start+i}">Ver detalle</button></td></tr>`).join(''):'<tr><td colspan="9" class="empty">No hay preguntas que coincidan con los filtros.</td></tr>';
+  $('rows').innerHTML=slice.length?slice.map((o,i)=>`<tr><td><strong>${esc(value(o,'ID'))}</strong></td><td>${esc(value(o,'Referencia'))}</td><td>${esc(value(o,'Libro'))}</td><td>${badge(value(o,'Nivel'))}</td><td class="question-cell">${esc(value(o,'Pregunta'))}</td><td>${esc(value(o,'Respuesta_correcta'))}</td><td>${badge(value(o,'Estado_QA'))}</td><td>${badge(value(o,'Revision_humana'))}</td><td><button class="row-button" data-index="${start+i}">Revisar</button></td></tr>`).join(''):'<tr><td colspan="9" class="empty">No hay preguntas que coincidan con los filtros.</td></tr>';
   $('pageInfo').textContent=`Página ${page} de ${Math.max(1,Math.ceil(filtered.length/PAGE_SIZE))}`;
   $('prevPage').disabled=page<=1;$('nextPage').disabled=page>=Math.ceil(filtered.length/PAGE_SIZE);
   document.querySelectorAll('.row-button').forEach(b=>b.addEventListener('click',()=>openDetail(filtered[Number(b.dataset.index)])));
 }
 function renderEmpty(msg){data=[];filtered=[];$('rows').innerHTML=`<tr><td colspan="9" class="empty">${esc(msg)}</td></tr>`;$('visibleCount').textContent='0';updateStats();}
 function updateStats(){
-  const count=(k,v)=>data.filter(o=>value(o,k).toLowerCase()===v.toLowerCase()).length;
-  $('statTotal').textContent=data.length.toLocaleString('es-PE');
+  const base=filtered.length||(!data.length?[]:filtered);
+  const rows=Array.isArray(base)?base:filtered;
+  const count=(k,v)=>rows.filter(o=>value(o,k).toLowerCase()===v.toLowerCase()).length;
+  $('statTotal').textContent=rows.length.toLocaleString('es-PE');
   $('statReview').textContent=count('Estado_QA','Revisar').toLocaleString('es-PE');
   $('statHuman').textContent=count('Revision_humana','Si').toLocaleString('es-PE');
   $('statVerified').textContent=count('Estado_QA','Verificado').toLocaleString('es-PE');
@@ -166,7 +152,7 @@ $('csvFile').addEventListener('change',async e=>{const f=e.target.files[0];if(!f
 $('testament').addEventListener('change',()=>{page=1;$('book').value='';updateBookFilter();applyFilters();});
 $('book').addEventListener('change',()=>{page=1;applyFilters();});
 ['search','level','qa','human'].forEach(id=>$(id).addEventListener(id==='search'?'input':'change',()=>{page=1;applyFilters();}));
-$('clearFilters').addEventListener('click',()=>{$('search').value='';['testament','level','qa','human'].forEach(id=>$(id).value='');updateBookFilter();$('book').value='';page=1;applyFilters();});
+$('clearFilters').addEventListener('click',()=>{$('search').value='';$('testament').value='';['level','qa','human'].forEach(id=>$(id).value='');updateBookFilter();$('book').value='';page=1;applyFilters();});
 $('prevPage').addEventListener('click',()=>{if(page>1){page--;render();}});
 $('nextPage').addEventListener('click',()=>{if(page*PAGE_SIZE<filtered.length){page++;render();}});
 $('closeDialog').addEventListener('click',()=>$('detailDialog').close());
