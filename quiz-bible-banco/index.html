@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Panel web de consulta y revisión humana del Banco Maestro de preguntas de Quiz Bible.">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#07111f">
+  <title>Quiz Bible · Banco Maestro | Neuronova Apps</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a class="brand" href="../" aria-label="Volver a Neuronova Apps">
+        <span class="brand-mark" aria-hidden="true">N</span>
+        <span><strong>Neuronova</strong><small>Quiz Bible · Banco Maestro</small></span>
+      </a>
+      <div class="top-actions">
+        <a class="button ghost" href="https://docs.google.com/spreadsheets/d/1DTr0mw4bfpTSMrHtQYNIUUV4-XjsedSTmqNlZZWmIvE/edit" target="_blank" rel="noopener noreferrer">Abrir Google Sheet ↗</a>
+        <a class="button ghost" href="../">Volver al inicio</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="contenido" class="wrap">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">Revisión humana · Quiz Bible</p>
+        <h1>Banco Maestro de preguntas</h1>
+        <p class="lead">Vista web para consultar, filtrar y revisar el contenido del banco sin modificar la hoja fuente. Los cambios editoriales siguen realizándose en Google Sheets.</p>
+      </div>
+      <div class="source-card" aria-label="Fuente de datos">
+        <span class="dot" aria-hidden="true"></span>
+        <div><strong id="sourceStatus">Fuente pendiente de cargar</strong><small id="sourceDetail">Selecciona una tradición y carga los datos.</small></div>
+      </div>
+    </section>
+
+    <section class="notice" aria-label="Regla editorial">
+      <strong>Regla de seguridad:</strong> esta página es una interfaz de lectura y apoyo a la revisión. Marcar <em>Revision_humana = Si</em>, cambiar <em>Estado_QA</em> o activar preguntas para la app debe hacerse únicamente después de una revisión humana real y quedar registrado en el Banco Maestro.
+    </section>
+
+    <section class="toolbar" aria-label="Controles del banco">
+      <div class="field">
+        <label for="tradition">Tradición</label>
+        <select id="tradition">
+          <option value="protestante">Protestante · RVR1960 / NVI</option>
+          <option value="catolica">Católica · Jerusalén / Latinoamericana</option>
+        </select>
+      </div>
+      <div class="field grow">
+        <label for="search">Buscar</label>
+        <input id="search" type="search" placeholder="ID, libro, referencia, pregunta, respuesta…" autocomplete="off">
+      </div>
+      <button class="button primary" id="loadLive" type="button">Cargar desde Google Sheet</button>
+      <label class="button ghost file-button">Cargar CSV<input id="csvFile" type="file" accept=".csv,text/csv"></label>
+    </section>
+
+    <section class="stats" aria-label="Resumen">
+      <article><span>Total</span><strong id="statTotal">0</strong></article>
+      <article><span>Revisar</span><strong id="statReview">0</strong></article>
+      <article><span>Revisión humana</span><strong id="statHuman">0</strong></article>
+      <article><span>Verificado</span><strong id="statVerified">0</strong></article>
+      <article><span>Publicable</span><strong id="statPublishable">0</strong></article>
+      <article><span>Activas en app</span><strong id="statActive">0</strong></article>
+    </section>
+
+    <section class="filters" aria-label="Filtros">
+      <div class="field"><label for="testament">Testamento</label><select id="testament"><option value="">Todos</option></select></div>
+      <div class="field"><label for="book">Libro</label><select id="book"><option value="">Todos</option></select></div>
+      <div class="field"><label for="level">Nivel</label><select id="level"><option value="">Todos</option></select></div>
+      <div class="field"><label for="qa">Estado QA</label><select id="qa"><option value="">Todos</option></select></div>
+      <div class="field"><label for="human">Revisión humana</label><select id="human"><option value="">Todos</option></select></div>
+      <button class="button subtle" id="clearFilters" type="button">Limpiar filtros</button>
+    </section>
+
+    <section class="results-head">
+      <div><p class="eyebrow">Resultados</p><h2>Preguntas del banco</h2></div>
+      <p><strong id="visibleCount">0</strong> preguntas visibles</p>
+    </section>
+
+    <section class="table-shell" aria-label="Listado de preguntas">
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>ID</th><th>Referencia</th><th>Libro</th><th>Nivel</th><th>Pregunta</th><th>Correcta</th><th>QA</th><th>Humana</th><th></th></tr></thead>
+          <tbody id="rows"><tr><td colspan="9" class="empty">Carga el banco para comenzar.</td></tr></tbody>
+        </table>
+      </div>
+      <div class="pager">
+        <button class="button subtle" id="prevPage" type="button">← Anterior</button>
+        <span id="pageInfo">Página 1 de 1</span>
+        <button class="button subtle" id="nextPage" type="button">Siguiente →</button>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="detailDialog" class="dialog">
+    <div class="dialog-head">
+      <div><p class="eyebrow">Detalle completo</p><h2 id="detailTitle">Pregunta</h2></div>
+      <button id="closeDialog" class="icon-button" type="button" aria-label="Cerrar">×</button>
+    </div>
+    <div id="detailBody" class="detail-grid"></div>
+  </dialog>
+
+  <footer class="footer wrap"><p>Neuronova Apps · Quiz Bible · Herramienta interna de consulta y revisión.</p></footer>
+  <script src="script.js"></script>
+</body>
+</html>
