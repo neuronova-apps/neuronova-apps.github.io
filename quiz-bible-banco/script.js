@@ -33,7 +33,7 @@ function setSource(state,msg){
   document.querySelector('.dot').style.background=ok?'var(--green)':loading?'var(--cyan)':'var(--amber)';
 }
 async function fetchPlainCSV(url){
-  const res=await fetch(`${url}?v=20260811-4`,{cache:'no-store'});
+  const res=await fetch(`${url}?v=20260811-5`,{cache:'no-store'});
   if(!res.ok)throw new Error(`${url}: HTTP ${res.status}`);
   const text=await res.text();
   if(!text.trim())throw new Error(`${url}: archivo vacío`);
@@ -65,7 +65,7 @@ async function ungzip(bytes,url){
   throw new Error(`${url}: sin descompresor gzip compatible. ${nativeError}`);
 }
 async function inflateRepositoryFile(url){
-  const res=await fetch(`${url}?v=20260811-4`,{cache:'no-store'});
+  const res=await fetch(`${url}?v=20260811-5`,{cache:'no-store'});
   if(!res.ok)throw new Error(`${url}: HTTP ${res.status}`);
   return await ungzip(base64ToBytes(await res.text(),url),url);
 }
@@ -98,10 +98,36 @@ async function loadRepository(){
     renderEmpty(`No se pudo cargar la copia local: ${msg}`);
   }finally{$('loadLive').disabled=false;}
 }
-function loadData(rows){data=rows;page=1;populateFilters();applyFilters();updateStats();}
-function unique(k){return [...new Set(data.map(o=>value(o,k)).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'es',{numeric:true}));}
-function fillSelect(id,k){const s=$(id),current=s.value;s.innerHTML='<option value="">Todos</option>'+unique(k).map(v=>`<option value="${esc(v)}">${esc(v)}</option>`).join('');if([...s.options].some(o=>o.value===current))s.value=current;}
-function populateFilters(){fillSelect('testament','Testamento');fillSelect('book','Libro');fillSelect('level','Nivel');fillSelect('qa','Estado_QA');fillSelect('human','Revision_humana');}
+function loadData(rows){
+  data=rows;page=1;
+  $('testament').value='';
+  $('book').value='';
+  populateFilters();
+  applyFilters();
+  updateStats();
+}
+function uniqueFrom(rows,k){return [...new Set(rows.map(o=>value(o,k)).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'es',{numeric:true}));}
+function unique(k){return uniqueFrom(data,k);}
+function fillSelectValues(id,values,preserve=true){
+  const s=$(id),current=preserve?s.value:'';
+  s.innerHTML='<option value="">Todos</option>'+values.map(v=>`<option value="${esc(v)}">${esc(v)}</option>`).join('');
+  if(current&&[...s.options].some(o=>o.value===current))s.value=current;
+}
+function fillSelect(id,k){fillSelectValues(id,unique(k));}
+function updateBookFilter(){
+  const testament=$('testament').value;
+  const rows=testament?data.filter(o=>value(o,'Testamento')===testament):data;
+  const current=$('book').value;
+  fillSelectValues('book',uniqueFrom(rows,'Libro'),false);
+  if(current&&[...$('book').options].some(o=>o.value===current))$('book').value=current;
+}
+function populateFilters(){
+  fillSelect('testament','Testamento');
+  updateBookFilter();
+  fillSelect('level','Nivel');
+  fillSelect('qa','Estado_QA');
+  fillSelect('human','Revision_humana');
+}
 function applyFilters(){
   const term=$('search').value.trim().toLowerCase();
   const rules=[['testament','Testamento'],['book','Libro'],['level','Nivel'],['qa','Estado_QA'],['human','Revision_humana']];
@@ -137,8 +163,10 @@ function openDetail(o){
 $('loadLive').addEventListener('click',loadRepository);
 $('tradition').addEventListener('change',()=>{renderEmpty('Cargando la tradición seleccionada…');loadRepository();});
 $('csvFile').addEventListener('change',async e=>{const f=e.target.files[0];if(!f)return;const text=await f.text();loadData(rowsToObjects(parseCSV(text),true));setSource('ok',`CSV local: ${f.name} · ${data.length.toLocaleString('es-PE')} registros.`);e.target.value='';});
-['search','testament','book','level','qa','human'].forEach(id=>$(id).addEventListener(id==='search'?'input':'change',()=>{page=1;applyFilters();}));
-$('clearFilters').addEventListener('click',()=>{$('search').value='';['testament','book','level','qa','human'].forEach(id=>$(id).value='');page=1;applyFilters();});
+$('testament').addEventListener('change',()=>{page=1;$('book').value='';updateBookFilter();applyFilters();});
+$('book').addEventListener('change',()=>{page=1;applyFilters();});
+['search','level','qa','human'].forEach(id=>$(id).addEventListener(id==='search'?'input':'change',()=>{page=1;applyFilters();}));
+$('clearFilters').addEventListener('click',()=>{$('search').value='';['testament','level','qa','human'].forEach(id=>$(id).value='');updateBookFilter();$('book').value='';page=1;applyFilters();});
 $('prevPage').addEventListener('click',()=>{if(page>1){page--;render();}});
 $('nextPage').addEventListener('click',()=>{if(page*PAGE_SIZE<filtered.length){page++;render();}});
 $('closeDialog').addEventListener('click',()=>$('detailDialog').close());
