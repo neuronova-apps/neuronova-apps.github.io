@@ -41,6 +41,83 @@ html[data-nova-links="strong"] body footer a {
   text-underline-offset: 0.22em !important;
 }
 
+/* Modo día compartido. Solo se activa en páginas que la capa JS identifica como oscuras. */
+html[data-nova-theme="day"] {
+  color-scheme: light !important;
+  --bg: #f4f7fb !important;
+  --bg-deep: #e9eff7 !important;
+  --surface: rgba(255, 255, 255, .94) !important;
+  --surface-strong: #ffffff !important;
+  --surface-soft: rgba(14, 36, 61, .055) !important;
+  --text: #102033 !important;
+  --muted: #526579 !important;
+  --line: rgba(28, 63, 96, .18) !important;
+  --shadow: 0 18px 48px rgba(32, 58, 87, .12) !important;
+}
+html[data-nova-theme="day"] body {
+  background: #f4f7fb !important;
+  color: #102033 !important;
+}
+html[data-nova-theme="day"] body::before {
+  opacity: .24 !important;
+}
+html[data-nova-theme="day"] body :where(.ambient) {
+  opacity: .075 !important;
+}
+html[data-nova-theme="day"] body :where(.site-header, header) {
+  background-color: rgba(248, 251, 255, .9) !important;
+  border-color: rgba(28, 63, 96, .14) !important;
+}
+html[data-nova-theme="day"] body :where(.app-card, .card, .route-card, .practice-card, .info-card, .tech-card, .leaderboard, .download-panel, .generator-lab, .mode-demo, .principles article) {
+  background-color: rgba(255, 255, 255, .9) !important;
+  border-color: rgba(28, 63, 96, .16) !important;
+  color: #102033 !important;
+  box-shadow: 0 14px 38px rgba(32, 58, 87, .08) !important;
+}
+html[data-nova-theme="day"] body :where(p, li, small, .lead, .muted, .app-category, .hero-metrics span) {
+  color: #526579 !important;
+}
+html[data-nova-theme="day"] body :where(h1, h2, h3, h4, h5, h6, strong) {
+  color: #102033;
+}
+html[data-nova-theme="day"] body :where(.button.ghost, .card-button, .play-store-button) {
+  background: rgba(255, 255, 255, .82) !important;
+  color: #18324d !important;
+  border-color: rgba(28, 63, 96, .2) !important;
+}
+html[data-nova-theme="day"] body :where(input, textarea, select) {
+  background: #fff !important;
+  color: #102033 !important;
+  border-color: rgba(28, 63, 96, .24) !important;
+}
+html[data-nova-theme="day"] .nova-a11y-launcher {
+  border-color: rgba(28,63,96,.18);
+  background: linear-gradient(135deg, #ffffff, #edf4fb);
+  color: #102033;
+  box-shadow: 0 16px 40px rgba(32,58,87,.18);
+}
+html[data-nova-theme="day"] .nova-a11y-panel {
+  --nova-a11y-panel-bg: #ffffff;
+  --nova-a11y-panel-surface: #f1f5fa;
+  --nova-a11y-text: #102033;
+  --nova-a11y-muted: #586b7e;
+  --nova-a11y-line: rgba(28,63,96,.18);
+  background: rgba(255,255,255,.98);
+  color: var(--nova-a11y-text);
+  box-shadow: 0 28px 70px rgba(32,58,87,.22);
+}
+html[data-nova-theme="day"] .nova-a11y-head {
+  background: rgba(255,255,255,.98);
+}
+html[data-nova-theme="day"] .nova-a11y-close {
+  color: #102033;
+}
+html[data-nova-theme="day"] .nova-a11y-control[aria-pressed="true"],
+html[data-nova-theme="day"] .nova-a11y-control.active {
+  color: #102033;
+  background: rgba(104,217,255,.2);
+}
+
 html[data-nova-contrast="high"] {
   --bg: #000 !important;
   --surface: #050505 !important;
@@ -66,6 +143,20 @@ html[data-nova-contrast="high"] body a {
 }
 html[data-nova-contrast="high"] body :where(button, .button, .card-button, .route-action) {
   border-color: #fff !important;
+}
+
+/* Alto contraste tiene prioridad sobre modo día cuando ambos están seleccionados. */
+html[data-nova-theme="day"][data-nova-contrast="high"] body {
+  background: #000 !important;
+  color: #fff !important;
+}
+html[data-nova-theme="day"][data-nova-contrast="high"] body :where(.site-header, header, .app-card, .card, .route-card, .practice-card, .info-card, .tech-card, .leaderboard, .download-panel, .generator-lab, .mode-demo, .principles article) {
+  background-color: #050505 !important;
+  color: #fff !important;
+  border-color: rgba(255,255,255,.7) !important;
+}
+html[data-nova-theme="day"][data-nova-contrast="high"] body :where(p, li, small, .lead, .muted, .app-category, .hero-metrics span, h1, h2, h3, h4, h5, h6, strong) {
+  color: #fff !important;
 }
 
 html[data-nova-motion="reduce"] *,
