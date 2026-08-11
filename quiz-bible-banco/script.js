@@ -1,6 +1,6 @@
 const SOURCES={
   protestante:{label:'Protestante',type:'plain',file:'data/banco_protestante.csv'},
-  catolica:{label:'Católica',type:'gzip_concat',files:['data/c01.csv.gz.b64','data/c02plus.csv.gz.b64']}
+  catolica:{label:'Católica',type:'gzip_parts',files:['data/c01.csv.gz.b64','data/c02plus.csv.gz.b64']}
 };
 const PAGE_SIZE=50;
 let headers=[],data=[],filtered=[],page=1;
@@ -33,7 +33,7 @@ function setSource(state,msg){
   document.querySelector('.dot').style.background=ok?'var(--green)':loading?'var(--cyan)':'var(--amber)';
 }
 async function fetchPlainCSV(url){
-  const res=await fetch(`${url}?v=20260811-7`,{cache:'no-store'});
+  const res=await fetch(`${url}?v=20260811-8`,{cache:'no-store'});
   if(!res.ok)throw new Error(`${url}: HTTP ${res.status}`);
   const text=await res.text();
   if(!text.trim())throw new Error(`${url}: archivo vacío`);
@@ -42,23 +42,30 @@ async function fetchPlainCSV(url){
   return text;
 }
 async function fetchText(url){
-  const res=await fetch(`${url}?v=20260811-7`,{cache:'no-store'});
+  const res=await fetch(`${url}?v=20260811-8`,{cache:'no-store'});
   if(!res.ok)throw new Error(`${url}: HTTP ${res.status}`);
   const text=await res.text();
   if(!text.trim())throw new Error(`${url}: archivo vacío`);
   return text.trim();
 }
-function base64ToBytes(b64,url){
+function decodeBase64Part(b64,url){
   const clean=b64.replace(/\s+/g,'');
   if(!clean)throw new Error(`${url}: archivo vacío`);
   let binary;
   try{binary=atob(clean);}catch(e){throw new Error(`${url}: base64 inválido (${errorText(e)})`);}
   const bytes=new Uint8Array(binary.length);
   for(let i=0;i<binary.length;i++)bytes[i]=binary.charCodeAt(i);
-  if(bytes.length<2||bytes[0]!==0x1f||bytes[1]!==0x8b)throw new Error(`${url}: cabecera gzip inválida`);
   return bytes;
 }
+function joinByteParts(parts){
+  const total=parts.reduce((n,p)=>n+p.length,0);
+  const joined=new Uint8Array(total);
+  let offset=0;
+  for(const part of parts){joined.set(part,offset);offset+=part.length;}
+  return joined;
+}
 async function ungzip(bytes,url){
+  if(bytes.length<2||bytes[0]!==0x1f||bytes[1]!==0x8b)throw new Error(`${url}: cabecera gzip reconstruida inválida`);
   let nativeError='';
   if(typeof DecompressionStream!=='undefined'){
     try{const stream=new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'));return await new Response(stream).text();}
@@ -69,13 +76,14 @@ async function ungzip(bytes,url){
   }
   throw new Error(`${url}: sin descompresor gzip compatible. ${nativeError}`);
 }
-async function inflateConcatenatedFiles(files,label){
-  let joined='';
+async function inflateSplitGzipFiles(files,label){
+  const parts=[];
   for(let i=0;i<files.length;i++){
     setSource('loading',`Leyendo ${label}: parte ${i+1} de ${files.length}…`);
-    joined+=await fetchText(files[i]);
+    parts.push(decodeBase64Part(await fetchText(files[i]),files[i]));
   }
-  const text=await ungzip(base64ToBytes(joined,files.join(' + ')),files.join(' + '));
+  const bytes=joinByteParts(parts);
+  const text=await ungzip(bytes,files.join(' + '));
   if(!text.trim())throw new Error(`${label}: CSV descomprimido vacío`);
   return text;
 }
@@ -88,8 +96,8 @@ async function loadRepository(){
     if(src.type==='plain'){
       const text=await fetchPlainCSV(src.file);
       all=rowsToObjects(parseCSV(text),true);
-    }else if(src.type==='gzip_concat'){
-      const text=await inflateConcatenatedFiles(src.files,src.label);
+    }else if(src.type==='gzip_parts'){
+      const text=await inflateSplitGzipFiles(src.files,src.label);
       const rows=parseCSV(text);
       if(!rows.length||!rows[0].includes('ID'))throw new Error(`${src.label}: CSV no válido`);
       all=rowsToObjects(rows,true);
@@ -103,9 +111,7 @@ async function loadRepository(){
   }catch(e){const msg=errorText(e);console.error('Quiz Bible load error',e);setSource('error',`Error: ${msg}`);renderEmpty(`No se pudo cargar la copia local: ${msg}`);}
   finally{$('loadLive').disabled=false;}
 }
-function loadData(rows){
-  data=rows;page=1;$('testament').value='';$('book').value='';populateFilters();applyFilters();
-}
+function loadData(rows){data=rows;page=1;$('testament').value='';$('book').value='';populateFilters();applyFilters();}
 function uniqueFrom(rows,k){return [...new Set(rows.map(o=>value(o,k)).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'es',{numeric:true}));}
 function fillSelectValues(id,values,preserve=true){
   const s=$(id),current=preserve?s.value:'';
@@ -119,12 +125,7 @@ function updateBookFilter(){
   fillSelectValues('book',uniqueFrom(rows,'Libro'),false);
   if(current&&[...$('book').options].some(o=>o.value===current))$('book').value=current;
 }
-function populateFilters(){
-  updateBookFilter();
-  fillSelectValues('level',uniqueFrom(data,'Nivel'));
-  fillSelectValues('qa',uniqueFrom(data,'Estado_QA'));
-  fillSelectValues('human',uniqueFrom(data,'Revision_humana'));
-}
+function populateFilters(){updateBookFilter();fillSelectValues('level',uniqueFrom(data,'Nivel'));fillSelectValues('qa',uniqueFrom(data,'Estado_QA'));fillSelectValues('human',uniqueFrom(data,'Revision_humana'));}
 function applyFilters(){
   const term=$('search').value.trim().toLowerCase();
   const rules=[['testament','Testamento'],['book','Libro'],['level','Nivel'],['qa','Estado_QA'],['human','Revision_humana']];
