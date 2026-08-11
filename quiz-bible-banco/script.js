@@ -31,17 +31,29 @@ function setSource(state,msg){
   $('sourceDetail').textContent=msg;
   document.querySelector('.dot').style.background=ok?'var(--green)':loading?'var(--cyan)':'var(--amber)';
 }
-async function inflateRepositoryFile(url){
-  const res=await fetch(`${url}?v=20260811-1`,{cache:'no-store'});
-  if(!res.ok)throw new Error(`${url}: HTTP ${res.status}`);
-  const b64=(await res.text()).trim();
-  if(!b64)throw new Error(`${url}: vacío`);
-  if(typeof DecompressionStream==='undefined')throw new Error('El navegador no admite descompresión gzip');
-  const binary=atob(b64);
+function base64ToBytes(b64){
+  const clean=b64.replace(/\s+/g,'');
+  const binary=atob(clean);
   const bytes=new Uint8Array(binary.length);
   for(let i=0;i<binary.length;i++)bytes[i]=binary.charCodeAt(i);
-  const stream=new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'));
-  return await new Response(stream).text();
+  return bytes;
+}
+async function ungzip(bytes){
+  if(typeof DecompressionStream!=='undefined'){
+    try{
+      const stream=new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'));
+      return await new Response(stream).text();
+    }catch(e){console.warn('DecompressionStream falló; usando pako.',e);}
+  }
+  if(window.pako&&typeof window.pako.ungzip==='function')return window.pako.ungzip(bytes,{to:'string'});
+  throw new Error('El navegador no dispone de un descompresor gzip compatible.');
+}
+async function inflateRepositoryFile(url){
+  const res=await fetch(`${url}?v=20260811-2`,{cache:'no-store'});
+  if(!res.ok)throw new Error(`${url}: HTTP ${res.status}`);
+  const b64=(await res.text()).trim();
+  if(!b64)throw new Error(`${url}: archivo vacío`);
+  return await ungzip(base64ToBytes(b64));
 }
 async function loadRepository(){
   const src=SOURCES[$('tradition').value];
@@ -62,8 +74,8 @@ async function loadRepository(){
     setSource('ok',`${src.label}: ${data.length.toLocaleString('es-PE')} preguntas cargadas desde la copia web del repositorio. Google Sheets permanece como fuente maestra privada.`);
   }catch(e){
     console.error(e);
-    setSource('error','No fue posible reconstruir la copia web. Puedes usar “Cargar CSV” como respaldo.');
-    renderEmpty(`Error al cargar los datos locales: ${e.message}`);
+    setSource('error',`Error: ${e.message}`);
+    renderEmpty(`No se pudo cargar la copia local: ${e.message}`);
   }finally{$('loadLive').disabled=false;}
 }
 function loadData(rows){data=rows;page=1;populateFilters();applyFilters();updateStats();}
@@ -86,13 +98,29 @@ function render(){
   document.querySelectorAll('.row-button').forEach(b=>b.addEventListener('click',()=>openDetail(filtered[Number(b.dataset.index)])));
 }
 function renderEmpty(msg){data=[];filtered=[];$('rows').innerHTML=`<tr><td colspan="9" class="empty">${esc(msg)}</td></tr>`;$('visibleCount').textContent='0';updateStats();}
-function updateStats(){const count=(k,v)=>data.filter(o=>value(o,k).toLowerCase()===v.toLowerCase()).length;$('statTotal').textContent=data.length.toLocaleString('es-PE');$('statReview').textContent=count('Estado_QA','Revisar').toLocaleString('es-PE');$('statHuman').textContent=count('Revision_humana','Si').toLocaleString('es-PE');$('statVerified').textContent=count('Estado_QA','Verificado').toLocaleString('es-PE');$('statPublishable').textContent=count('Estado_QA','Publicable').toLocaleString('es-PE');$('statActive').textContent=count('Activa_app','Si').toLocaleString('es-PE');}
-function openDetail(o){if(!o)return;$('detailTitle').textContent=`${value(o,'ID')} · ${value(o,'Referencia')}`;const priority=new Set(['Pregunta','Opcion_A','Opcion_B','Opcion_C','Opcion_D','Respuesta_correcta','Explicacion_breve']);$('detailBody').innerHTML=headers.filter(h=>value(o,h)!=='').map(h=>`<dl class="detail-item ${priority.has(h)?'wide':''}"><dt>${esc(h.replaceAll('_',' '))}</dt><dd>${esc(value(o,h))}</dd></dl>`).join('');$('detailDialog').showModal();}
-
+function updateStats(){
+  const count=(k,v)=>data.filter(o=>value(o,k).toLowerCase()===v.toLowerCase()).length;
+  $('statTotal').textContent=data.length.toLocaleString('es-PE');
+  $('statReview').textContent=count('Estado_QA','Revisar').toLocaleString('es-PE');
+  $('statHuman').textContent=count('Revision_humana','Si').toLocaleString('es-PE');
+  $('statVerified').textContent=count('Estado_QA','Verificado').toLocaleString('es-PE');
+  $('statPublishable').textContent=count('Estado_QA','Publicable').toLocaleString('es-PE');
+  $('statActive').textContent=count('Activa_app','Si').toLocaleString('es-PE');
+}
+function openDetail(o){
+  if(!o)return;
+  $('detailTitle').textContent=`${value(o,'ID')} · ${value(o,'Referencia')}`;
+  const priority=new Set(['Pregunta','Opcion_A','Opcion_B','Opcion_C','Opcion_D','Respuesta_correcta','Explicacion_breve']);
+  $('detailBody').innerHTML=headers.filter(h=>value(o,h)!=='').map(h=>`<dl class="detail-item ${priority.has(h)?'wide':''}"><dt>${esc(h.replaceAll('_',' '))}</dt><dd>${esc(value(o,h))}</dd></dl>`).join('');
+  $('detailDialog').showModal();
+}
 $('loadLive').addEventListener('click',loadRepository);
 $('tradition').addEventListener('change',()=>{renderEmpty('Cargando la tradición seleccionada…');loadRepository();});
-$('csvFile').addEventListener('change',async e=>{const f=e.target.files[0];if(!f)return;const text=await f.text();headers=[];loadData(rowsToObjects(parseCSV(text),true));setSource('ok',`CSV local: ${f.name} · ${data.length.toLocaleString('es-PE')} registros.`);e.target.value='';});
+$('csvFile').addEventListener('change',async e=>{const f=e.target.files[0];if(!f)return;const text=await f.text();loadData(rowsToObjects(parseCSV(text),true));setSource('ok',`CSV local: ${f.name} · ${data.length.toLocaleString('es-PE')} registros.`);e.target.value='';});
 ['search','testament','book','level','qa','human'].forEach(id=>$(id).addEventListener(id==='search'?'input':'change',()=>{page=1;applyFilters();}));
 $('clearFilters').addEventListener('click',()=>{$('search').value='';['testament','book','level','qa','human'].forEach(id=>$(id).value='');page=1;applyFilters();});
-$('prevPage').addEventListener('click',()=>{if(page>1){page--;render();}});$('nextPage').addEventListener('click',()=>{if(page*PAGE_SIZE<filtered.length){page++;render();}});$('closeDialog').addEventListener('click',()=>$('detailDialog').close());$('detailDialog').addEventListener('click',e=>{if(e.target===$('detailDialog'))$('detailDialog').close();});
+$('prevPage').addEventListener('click',()=>{if(page>1){page--;render();}});
+$('nextPage').addEventListener('click',()=>{if(page*PAGE_SIZE<filtered.length){page++;render();}});
+$('closeDialog').addEventListener('click',()=>$('detailDialog').close());
+$('detailDialog').addEventListener('click',e=>{if(e.target===$('detailDialog'))$('detailDialog').close();});
 window.addEventListener('DOMContentLoaded',loadRepository);
