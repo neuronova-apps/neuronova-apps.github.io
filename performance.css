@@ -14,21 +14,124 @@
   -webkit-backdrop-filter: blur(12px) saturate(125%);
 }
 
+/* Identidad NN sin sustituir la estructura HTML actual. */
+.brand-symbol svg { display: none; }
+.brand-symbol::after {
+  content: "NN";
+  display: block;
+  color: var(--cyan);
+  font-size: .88rem;
+  font-weight: 950;
+  letter-spacing: -.12em;
+  line-height: 1;
+  transform: translateX(-1px);
+}
+
+.core strong {
+  font-size: 0 !important;
+}
+.core strong::after {
+  content: "NN";
+  display: block;
+  color: var(--cyan);
+  font-size: 3.15rem;
+  font-weight: 950;
+  letter-spacing: -.13em;
+  line-height: .9;
+  transform: translateX(-3px);
+}
+
+/* Hero más compacto: conserva la composición y permite ver las métricas en el primer pantallazo. */
 .hero {
   min-height: auto !important;
   align-items: start !important;
-  padding: 28px 0 56px !important;
+  padding: 24px 0 28px !important;
 }
 
 .hero-grid {
-  align-items: start !important;
+  grid-template-columns: minmax(0, 1.08fr) minmax(330px, .92fr) !important;
+  gap: clamp(30px, 5vw, 64px) !important;
+  align-items: center !important;
+}
+
+.hero-copy .eyebrow {
+  margin-bottom: 10px;
 }
 
 .hero h1 {
   max-width: 720px;
-  margin-bottom: 20px;
-  font-size: clamp(2.2rem, 4.8vw, 4.3rem) !important;
-  line-height: 1.04;
+  margin-bottom: 15px;
+  font-size: clamp(2.15rem, 4.25vw, 4rem) !important;
+  line-height: 1.01;
+}
+
+.hero .lead {
+  max-width: 700px;
+  font-size: clamp(.94rem, 1.3vw, 1.05rem);
+  line-height: 1.55;
+}
+
+.hero-actions {
+  margin-top: 21px !important;
+}
+
+.hero .button {
+  min-height: 46px;
+}
+
+.hero-visual {
+  width: min(100%, 430px) !important;
+  align-self: center;
+}
+
+.core {
+  width: 132px !important;
+  height: 132px !important;
+  border-radius: 35px !important;
+}
+
+.core-ring {
+  border-radius: 27px !important;
+}
+
+.core small {
+  margin-top: 7px !important;
+  font-size: .68rem;
+}
+
+.node {
+  width: 52px !important;
+  height: 52px !important;
+  border-radius: 16px !important;
+}
+
+.data-chip {
+  min-height: 31px !important;
+  padding: 6px 10px !important;
+}
+
+.hero-metrics {
+  width: 100%;
+  margin-top: 26px !important;
+  padding: 16px 18px;
+  border: 1px solid rgba(157, 194, 224, .12);
+  border-radius: 18px;
+  background: rgba(8, 20, 34, .38);
+}
+
+.hero-metrics > div {
+  flex: 1 1 0;
+  min-width: 0 !important;
+  padding-right: 18px !important;
+  margin-right: 18px !important;
+}
+
+.hero-metrics strong {
+  font-size: 1.1rem !important;
+}
+
+.hero-metrics span {
+  font-size: .76rem !important;
 }
 
 .hero-visual,
@@ -145,6 +248,21 @@
   animation-play-state: paused !important;
 }
 
+@media (max-width: 900px) {
+  .hero-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .hero-visual {
+    width: min(82vw, 390px) !important;
+    justify-self: center !important;
+  }
+
+  .hero-metrics {
+    margin-top: 22px !important;
+  }
+}
+
 @media (max-width: 700px) {
   .ambient {
     width: 340px;
@@ -159,12 +277,26 @@
   }
 
   .hero {
-    padding: 24px 0 44px !important;
+    padding: 20px 0 32px !important;
   }
 
   .hero h1 {
     font-size: clamp(1.9rem, 9vw, 3.1rem) !important;
-    line-height: 1.05;
+    line-height: 1.03;
+  }
+
+  .hero-metrics {
+    padding: 14px 15px;
+  }
+
+  .hero-metrics > div {
+    flex: 1 1 30%;
+    padding-right: 10px !important;
+    margin-right: 10px !important;
+  }
+
+  .hero-metrics span {
+    font-size: .68rem !important;
   }
 
   .app-grid {
