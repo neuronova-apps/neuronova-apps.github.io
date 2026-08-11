@@ -1,11 +1,11 @@
 const SOURCES={
   protestante:{label:'Protestante',type:'plain',file:'data/banco_protestante.csv'},
-  catolica:{label:'Católica',type:'gzip',files:['data/c01.csv.gz.b64','data/c02plus.csv.gz.b64']}
+  catolica:{label:'Católica',type:'gzip_concat',files:['data/c01.csv.gz.b64','data/c02plus.csv.gz.b64']}
 };
 const PAGE_SIZE=50;
 let headers=[],data=[],filtered=[],page=1;
 const $=id=>document.getElementById(id);
-const esc=v=>String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot',"'":'&#39;'}[m]));
+const esc=v=>String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 const errorText=e=>e instanceof Error?e.message:(typeof e==='string'?e:JSON.stringify(e)||String(e));
 
 function parseCSV(text){
@@ -33,13 +33,20 @@ function setSource(state,msg){
   document.querySelector('.dot').style.background=ok?'var(--green)':loading?'var(--cyan)':'var(--amber)';
 }
 async function fetchPlainCSV(url){
-  const res=await fetch(`${url}?v=20260811-6`,{cache:'no-store'});
+  const res=await fetch(`${url}?v=20260811-7`,{cache:'no-store'});
   if(!res.ok)throw new Error(`${url}: HTTP ${res.status}`);
   const text=await res.text();
   if(!text.trim())throw new Error(`${url}: archivo vacío`);
   const rows=parseCSV(text);
   if(!rows.length||!rows[0].includes('ID'))throw new Error(`${url}: CSV no válido`);
   return text;
+}
+async function fetchText(url){
+  const res=await fetch(`${url}?v=20260811-7`,{cache:'no-store'});
+  if(!res.ok)throw new Error(`${url}: HTTP ${res.status}`);
+  const text=await res.text();
+  if(!text.trim())throw new Error(`${url}: archivo vacío`);
+  return text.trim();
 }
 function base64ToBytes(b64,url){
   const clean=b64.replace(/\s+/g,'');
@@ -62,10 +69,15 @@ async function ungzip(bytes,url){
   }
   throw new Error(`${url}: sin descompresor gzip compatible. ${nativeError}`);
 }
-async function inflateRepositoryFile(url){
-  const res=await fetch(`${url}?v=20260811-6`,{cache:'no-store'});
-  if(!res.ok)throw new Error(`${url}: HTTP ${res.status}`);
-  return await ungzip(base64ToBytes(await res.text(),url),url);
+async function inflateConcatenatedFiles(files,label){
+  let joined='';
+  for(let i=0;i<files.length;i++){
+    setSource('loading',`Leyendo ${label}: parte ${i+1} de ${files.length}…`);
+    joined+=await fetchText(files[i]);
+  }
+  const text=await ungzip(base64ToBytes(joined,files.join(' + ')),files.join(' + '));
+  if(!text.trim())throw new Error(`${label}: CSV descomprimido vacío`);
+  return text;
 }
 async function loadRepository(){
   const key=$('tradition').value,src=SOURCES[key];
@@ -74,14 +86,15 @@ async function loadRepository(){
   try{
     headers=[];let all=[];
     if(src.type==='plain'){
-      const text=await fetchPlainCSV(src.file);all=rowsToObjects(parseCSV(text),true);
+      const text=await fetchPlainCSV(src.file);
+      all=rowsToObjects(parseCSV(text),true);
+    }else if(src.type==='gzip_concat'){
+      const text=await inflateConcatenatedFiles(src.files,src.label);
+      const rows=parseCSV(text);
+      if(!rows.length||!rows[0].includes('ID'))throw new Error(`${src.label}: CSV no válido`);
+      all=rowsToObjects(rows,true);
     }else{
-      for(let i=0;i<src.files.length;i++){
-        setSource('loading',`Leyendo ${src.label}: archivo ${i+1} de ${src.files.length}…`);
-        const rows=parseCSV(await inflateRepositoryFile(src.files[i]));
-        if(!rows.length||!rows[0].includes('ID'))throw new Error(`${src.files[i]}: CSV no válido`);
-        all.push(...rowsToObjects(rows,i===0));
-      }
+      throw new Error(`Tipo de fuente no compatible: ${src.type}`);
     }
     const expected=key==='protestante'?1000:1100;
     if(all.length!==expected)throw new Error(`Se esperaban ${expected} registros y se cargaron ${all.length}`);
@@ -129,8 +142,7 @@ function render(){
 }
 function renderEmpty(msg){data=[];filtered=[];$('rows').innerHTML=`<tr><td colspan="9" class="empty">${esc(msg)}</td></tr>`;$('visibleCount').textContent='0';updateStats();}
 function updateStats(){
-  const base=filtered.length||(!data.length?[]:filtered);
-  const rows=Array.isArray(base)?base:filtered;
+  const rows=filtered;
   const count=(k,v)=>rows.filter(o=>value(o,k).toLowerCase()===v.toLowerCase()).length;
   $('statTotal').textContent=rows.length.toLocaleString('es-PE');
   $('statReview').textContent=count('Estado_QA','Revisar').toLocaleString('es-PE');
