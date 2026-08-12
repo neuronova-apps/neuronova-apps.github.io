@@ -9,13 +9,13 @@
     { url: 'data/c05.csv.gz.b64', type: 'gzip' },
     { url: 'data/c06.csv.gz.b64', type: 'gzip' },
     { url: 'data/c07.csv.gz.b64', type: 'gzip' },
-    { url: 'data/c08.csv.gz.b64', type: 'gzip' },
+    { url: 'data/c08.csv', type: 'plain' },
     { url: 'data/c09.csv', type: 'plain' },
     { url: 'data/c10.csv.gz.b64', type: 'gzip' },
     { url: 'data/c11.csv.gz.b64', type: 'gzip' }
   ];
 
-  const CATHOLIC_FIX_VERSION = '20260811-17';
+  const CATHOLIC_FIX_VERSION = '20260811-18';
 
   async function fetchTextNoCache(url) {
     const res = await fetch(`${url}?v=${CATHOLIC_FIX_VERSION}`, { cache: 'no-store' });
@@ -29,9 +29,6 @@
     let clean = b64.replace(/\s+/g, '');
     if (!clean) throw new Error(`${label}: base64 vacío`);
 
-    // Algunos bloques antiguos quedaron con un único carácter espurio al final.
-    // Un Base64 válido nunca puede tener longitud ≡ 1 (mod 4). En ese caso,
-    // retiramos únicamente ese carácter final y volvemos a validar.
     if (clean.length % 4 === 1) {
       clean = clean.slice(0, -1);
     }
