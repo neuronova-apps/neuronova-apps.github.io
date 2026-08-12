@@ -1,16 +1,27 @@
 (() => {
   const originalLoadRepository = window.loadRepository;
-  const CATHOLIC_PARTS = [
-    'data/c01.csv.gz.b64',
-    'data/c02plus.csv.gz.b64'
-  ];
-  const CATHOLIC_FIX_VERSION = '20260811-14';
 
-  async function fetchBase64Text(url) {
+  const CATHOLIC_PARTS = [
+    { url: 'data/c01.csv.gz.b64', type: 'gzip' },
+    { url: 'data/c02.csv.gz.b64', type: 'gzip' },
+    { url: 'data/c03.csv.gz.b64', type: 'gzip' },
+    { url: 'data/c04.csv.gz.b64', type: 'gzip' },
+    { url: 'data/c05.csv.gz.b64', type: 'gzip' },
+    { url: 'data/c06.csv', type: 'plain' },
+    { url: 'data/c07.csv.gz.b64', type: 'gzip' },
+    { url: 'data/c08.csv', type: 'plain' },
+    { url: 'data/c09.csv', type: 'plain' },
+    { url: 'data/c10.csv', type: 'plain' },
+    { url: 'data/c11.csv', type: 'plain' }
+  ];
+
+  const CATHOLIC_FIX_VERSION = '20260811-15';
+
+  async function fetchTextNoCache(url) {
     const res = await fetch(`${url}?v=${CATHOLIC_FIX_VERSION}`, { cache: 'no-store' });
     if (!res.ok) throw new Error(`${url}: HTTP ${res.status}`);
-    const text = (await res.text()).replace(/\s+/g, '');
-    if (!text) throw new Error(`${url}: archivo vacío`);
+    const text = await res.text();
+    if (!text.trim()) throw new Error(`${url}: archivo vacío`);
     return text;
   }
 
@@ -58,32 +69,38 @@
     throw new Error(`${label}: navegador sin soporte gzip`);
   }
 
-  async function loadCatholicJoined() {
-    setSource('loading', 'Leyendo Católica: parte 1 de 2…');
-    const first = await fetchBase64Text(CATHOLIC_PARTS[0]);
+  async function readCatholicPart(part, index) {
+    setSource(
+      'loading',
+      `Leyendo Católica: bloque ${index + 1} de ${CATHOLIC_PARTS.length}…`
+    );
 
-    setSource('loading', 'Leyendo Católica: parte 2 de 2…');
-    const second = await fetchBase64Text(CATHOLIC_PARTS[1]);
+    const raw = await fetchTextNoCache(part.url);
+    let csvText = raw;
 
-    // c01 y c02plus son dos fragmentos del MISMO flujo base64/gzip.
-    // No deben descomprimirse por separado: primero se unen y luego se decodifican.
-    const joined = first + second;
-    const label = 'copia católica unificada';
-    const text = await gunzipText(decodeBase64Bytes(joined, label), label);
-    const rows = parseCSV(text);
+    if (part.type === 'gzip') {
+      const bytes = decodeBase64Bytes(raw, part.url);
+      csvText = await gunzipText(bytes, part.url);
+    }
 
-    validateRows(rows, label);
-    headers = [];
-    return rowsToObjects(rows, true);
+    const rows = parseCSV(csvText);
+    validateRows(rows, part.url);
+    return rowsToObjects(rows, index === 0);
   }
 
   async function loadCatholicRepository() {
-    setSource('loading', 'Leyendo Católica desde la copia web estable…');
     const loadButton = document.getElementById('loadLive');
     loadButton.disabled = true;
+    setSource('loading', 'Leyendo Católica desde los 11 bloques validados…');
 
     try {
-      const all = await loadCatholicJoined();
+      headers = [];
+      const all = [];
+
+      for (let i = 0; i < CATHOLIC_PARTS.length; i++) {
+        const rows = await readCatholicPart(CATHOLIC_PARTS[i], i);
+        all.push(...rows);
+      }
 
       if (all.length !== 1100) {
         throw new Error(`Se esperaban 1100 registros y se cargaron ${all.length}`);
@@ -92,7 +109,7 @@
       loadData(all);
       setSource(
         'ok',
-        `Católica: ${all.length.toLocaleString('es-PE')} preguntas cargadas desde la copia web estable.`
+        `Católica: ${all.length.toLocaleString('es-PE')} preguntas cargadas correctamente desde los 11 bloques del repositorio.`
       );
     } catch (e) {
       const msg = errorText(e);
@@ -110,9 +127,6 @@
     return originalLoadRepository();
   };
 
-  // El listener original de "Recargar banco" conserva la referencia a la
-  // función anterior. En Católica lo interceptamos en fase de captura para
-  // garantizar que use el cargador corregido.
   document.getElementById('loadLive').addEventListener(
     'click',
     event => {
