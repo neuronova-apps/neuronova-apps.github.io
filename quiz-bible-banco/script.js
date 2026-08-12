@@ -2,7 +2,7 @@ const SOURCES={
   protestante:{label:'Protestante',type:'gzip_files',files:Array.from({length:10},(_,i)=>`data/p${String(i+1).padStart(2,'0')}.csv.gz.b64`)},
   catolica:{label:'Católica',type:'gzip_files',files:Array.from({length:11},(_,i)=>`data/c${String(i+1).padStart(2,'0')}.csv.gz.b64`)}
 };
-let PAGE_SIZE=50;
+let PAGE_SIZE=1100;
 const DATA_VERSION='20260811-13';
 const PUBLIC_HEADERS=['ID','Testamento','Libro','Referencia','Nivel','Pregunta','Opcion_A','Opcion_B','Opcion_C','Opcion_D','Opcion_correcta','Respuesta_correcta','Explicacion_breve','Estado_QA','Revision_humana','Activa_app'];
 const BIBLE_BOOK_ORDER=['Génesis','Éxodo','Levítico','Números','Deuteronomio','Josué','Jueces','Rut','1 Samuel','2 Samuel','1 Reyes','2 Reyes','1 Crónicas','2 Crónicas','Esdras','Nehemías','Tobías','Judit','Ester','1 Macabeos','2 Macabeos','Job','Salmos','Proverbios','Eclesiastés','Cantar de los Cantares','Sabiduría','Eclesiástico','Isaías','Jeremías','Lamentaciones','Baruc','Ezequiel','Daniel','Oseas','Joel','Amós','Abdías','Jonás','Miqueas','Nahúm','Habacuc','Sofonías','Hageo','Zacarías','Malaquías','Mateo','Marcos','Lucas','Juan','Hechos','Romanos','1 Corintios','2 Corintios','Gálatas','Efesios','Filipenses','Colosenses','1 Tesalonicenses','2 Tesalonicenses','1 Timoteo','2 Timoteo','Tito','Filemón','Hebreos','Santiago','1 Pedro','2 Pedro','1 Juan','2 Juan','3 Juan','Judas','Apocalipsis'];
@@ -46,7 +46,7 @@ $('testament').addEventListener('change',()=>{page=1;$('book').value='';updateBo
 $('book').addEventListener('change',()=>{page=1;applyFilters();});
 ['search','level','qa','human'].forEach(id=>$(id).addEventListener(id==='search'?'input':'change',()=>{page=1;applyFilters();}));
 $('clearFilters').addEventListener('click',()=>{$('search').value='';$('testament').value='';['level','qa','human'].forEach(id=>$(id).value='');updateBookFilter();$('book').value='';page=1;applyFilters();});
-$('pageSize').addEventListener('change',()=>{PAGE_SIZE=Number($('pageSize').value)||50;page=1;render();});
+$('pageSize').addEventListener('change',()=>{PAGE_SIZE=Number($('pageSize').value)||1100;page=1;render();});
 $('prevPage').addEventListener('click',()=>{if(page>1){page--;render();}});
 $('nextPage').addEventListener('click',()=>{if(page*PAGE_SIZE<filtered.length){page++;render();}});
 $('closeDialog').addEventListener('click',()=>$('detailDialog').close());
