@@ -15,7 +15,7 @@
     { url: 'data/c11.csv.gz.b64', type: 'gzip' }
   ];
 
-  const CATHOLIC_FIX_VERSION = '20260811-18';
+  const CATHOLIC_FIX_VERSION = '20260811-19';
 
   async function fetchTextNoCache(url) {
     const res = await fetch(`${url}?v=${CATHOLIC_FIX_VERSION}`, { cache: 'no-store' });
@@ -74,6 +74,19 @@
     throw new Error(`${label}: navegador sin soporte gzip`);
   }
 
+  function normalizeKnownCatholicRows(rows, url) {
+    if (url !== 'data/c09.csv') return rows;
+
+    for (const row of rows) {
+      if (row[0] === 'QB0847' && row.length === 15) {
+        // Falta Respuesta_correcta entre Opcion_correcta y Explicacion_breve.
+        row.splice(11, 0, 'Andrés');
+      }
+    }
+
+    return rows;
+  }
+
   async function readCatholicPart(part, index) {
     setSource(
       'loading',
@@ -88,7 +101,7 @@
       csvText = await gunzipText(bytes, part.url);
     }
 
-    const rows = parseCSV(csvText);
+    const rows = normalizeKnownCatholicRows(parseCSV(csvText), part.url);
     validateRows(rows, part.url);
     return rowsToObjects(rows, index === 0);
   }
