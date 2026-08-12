@@ -7,15 +7,15 @@
     { url: 'data/c03.csv.gz.b64', type: 'gzip' },
     { url: 'data/c04.csv.gz.b64', type: 'gzip' },
     { url: 'data/c05.csv.gz.b64', type: 'gzip' },
-    { url: 'data/c06.csv', type: 'plain' },
+    { url: 'data/c06.csv.gz.b64', type: 'gzip' },
     { url: 'data/c07.csv.gz.b64', type: 'gzip' },
-    { url: 'data/c08.csv', type: 'plain' },
+    { url: 'data/c08.csv.gz.b64', type: 'gzip' },
     { url: 'data/c09.csv', type: 'plain' },
-    { url: 'data/c10.csv', type: 'plain' },
-    { url: 'data/c11.csv', type: 'plain' }
+    { url: 'data/c10.csv.gz.b64', type: 'gzip' },
+    { url: 'data/c11.csv.gz.b64', type: 'gzip' }
   ];
 
-  const CATHOLIC_FIX_VERSION = '20260811-15';
+  const CATHOLIC_FIX_VERSION = '20260811-16';
 
   async function fetchTextNoCache(url) {
     const res = await fetch(`${url}?v=${CATHOLIC_FIX_VERSION}`, { cache: 'no-store' });
