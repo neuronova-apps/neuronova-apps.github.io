@@ -2,6 +2,12 @@ let currentReviewQuestion=null;
 let pendingReviewAction='';
 const reviewChecks=()=>[...document.querySelectorAll('[data-review-check]')];
 const reviewConfig={endpoint:()=>localStorage.getItem('quizBibleReviewEndpoint')||'',secret:()=>sessionStorage.getItem('quizBibleReviewSecret')||''};
+const REVIEW_STATE_KEY='quizBibleConfirmedReviews';
+function readConfirmedReviews(){try{return JSON.parse(localStorage.getItem(REVIEW_STATE_KEY)||'{}')||{};}catch(e){return{};}}
+function writeConfirmedReviews(state){localStorage.setItem(REVIEW_STATE_KEY,JSON.stringify(state));}
+function reviewStateKey(tradition,id){return `${tradition}:${id}`;}
+window.applyConfirmedReviewOverlay=function(rows,tradition){const state=readConfirmedReviews();rows.forEach(row=>{const saved=state[reviewStateKey(tradition,row.ID)];if(!saved)return;row.Revision_humana=saved.revision_humana;row.Estado_QA=saved.estado_qa;});};
+function rememberConfirmedReview(result){const state=readConfirmedReviews();state[reviewStateKey(result.tradition,result.id)]={revision_humana:result.revision_humana,estado_qa:result.estado_qa,updatedAt:new Date().toISOString()};writeConfirmedReviews(state);}
 function setReviewStatus(text,kind=''){const el=document.getElementById('reviewSaveStatus');if(!el)return;el.textContent=text;el.className=`review-save-status ${kind}`.trim();}
 function updateConnectionStatus(){const status=document.getElementById('reviewConnectionStatus');if(status)status.textContent=reviewConfig.endpoint()?'Endpoint configurado · listo para revisar':'Endpoint de revisión no configurado';}
 function updateCriteriaProgress(){
@@ -12,7 +18,7 @@ function updateCriteriaProgress(){
   if(checked===total)setReviewStatus(`${checked}/${total} criterios cumplidos · Apta para aprobación`,'ok');
   else setReviewStatus(`${checked}/${total} criterios cumplidos · Requiere revisión o corrección`,checked?'warn':'');
 }
-function resetHumanReview(question){currentReviewQuestion=question;reviewChecks().forEach(c=>c.checked=false);document.getElementById('reviewObservation').value='';updateCriteriaProgress();}
+function resetHumanReview(question){currentReviewQuestion=question;reviewChecks().forEach(c=>c.checked=false);document.getElementById('reviewObservation').value='';if(String(question?.Revision_humana||'').toLowerCase()==='si')setReviewStatus('Revisión humana ya registrada · Verificada','ok');else updateCriteriaProgress();}
 function allCriteriaChecked(){return reviewChecks().length===6&&reviewChecks().every(c=>c.checked);}
 function reviewer(){return document.getElementById('reviewerName').value.trim();}
 function traditionKey(){return document.getElementById('tradition').value;}
@@ -48,6 +54,7 @@ window.addEventListener('message',e=>{
   const result=msg.result||{};
   if(!result.ok){setReviewStatus(`No se pudo guardar: ${result.error||'error desconocido'}`,'error');return;}
   if(currentReviewQuestion&&result.id===currentReviewQuestion.ID){currentReviewQuestion.Revision_humana=result.revision_humana;currentReviewQuestion.Estado_QA=result.estado_qa;}
+  rememberConfirmedReview(result);
   setReviewStatus(pendingReviewAction==='approve'?'Aprobada y registrada':'Observada y registrada','ok');
   if(typeof updateStats==='function')updateStats();if(typeof applyFilters==='function')applyFilters();pendingReviewAction='';
 });
