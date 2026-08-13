@@ -35,7 +35,7 @@ assets/accessibility/accessibility.css
 assets/accessibility/accessibility.js
 ```
 
-La página matriz utiliza además `focus-fix.css` como corrección local del comportamiento del foco de teclado cuando la preferencia reforzada está desactivada. Este archivo pertenece únicamente al portal raíz y no forma parte del núcleo compartido que consumen las aplicaciones.
+El comportamiento del foco normal y reforzado se resuelve directamente desde el núcleo compartido, sin hojas de corrección locales en la matriz.
 
 La documentación de integración se encuentra en `docs/ACCESSIBILITY.md`.
 
