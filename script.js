@@ -32,6 +32,41 @@
 })();
 
 (() => {
+  const currentAccess = {
+    'Quiz Bible': 'https://neuronova-apps.github.io/quizbible-app/',
+    'Mi Momento': 'https://neuronova-apps.github.io/mimomento-app/',
+    'Brailux': 'https://neuronova-apps.github.io/brailux-app/',
+    'English Fast': 'https://neuronova-apps.github.io/englishfast-app/',
+    'Sudolux': 'https://neuronova-apps.github.io/sudolux-app/',
+    'Crucilux': 'https://neuronova-apps.github.io/crucilux-app/',
+    'Motiva': 'https://neuronova-apps.github.io/motiva-app/'
+  };
+
+  document.querySelectorAll('.app-card').forEach((card) => {
+    const appName = card.querySelector('.card-content h3')?.textContent.trim();
+    const url = currentAccess[appName];
+    if (!url) return;
+
+    const actions = card.querySelector('.card-actions');
+    if (!actions) return;
+
+    let access = actions.querySelector('.card-button');
+    if (!access || access.tagName !== 'A') {
+      const replacement = document.createElement('a');
+      replacement.className = 'card-button';
+      replacement.innerHTML = 'Abrir app <span aria-hidden="true">↗</span>';
+      if (access) access.replaceWith(replacement);
+      else actions.prepend(replacement);
+      access = replacement;
+    }
+
+    access.href = url;
+    access.setAttribute('aria-label', `Abrir ${appName}`);
+    access.removeAttribute('aria-disabled');
+  });
+})();
+
+(() => {
   document.querySelectorAll('.app-card .card-actions').forEach((actions) => {
     if (actions.querySelector('.play-store-button')) return;
 
