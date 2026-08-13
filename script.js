@@ -1,4 +1,12 @@
 (() => {
+  if (!document.querySelector('link[rel="icon"]')) {
+    const favicon = document.createElement('link');
+    favicon.rel = 'icon';
+    favicon.type = 'image/svg+xml';
+    favicon.href = '/favicon.svg';
+    document.head.appendChild(favicon);
+  }
+
   if (!document.querySelector('link[data-neuronova-performance]')) {
     const link = document.createElement('link');
     link.rel = 'stylesheet';
