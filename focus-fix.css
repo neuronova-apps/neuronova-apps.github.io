@@ -1,5 +1,0 @@
-/* Corrección aislada de auditoría para el portal raíz. */
-html:not([data-nova-focus="strong"]) body :focus-visible {
-  outline: revert !important;
-  outline-offset: revert !important;
-}
