@@ -156,11 +156,19 @@
   padding-top: 44px !important;
 }
 
+.app-line-heading {
+  margin-bottom: 22px;
+}
+
 .app-grid {
   grid-template-columns: repeat(auto-fill, minmax(280px, 340px)) !important;
   justify-content: start;
   align-items: stretch;
   gap: 16px !important;
+}
+
+.app-grid-spaced {
+  margin-bottom: 64px;
 }
 
 .app-card {
