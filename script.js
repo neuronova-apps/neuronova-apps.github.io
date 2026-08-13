@@ -1,3 +1,8 @@
+const focusFix = document.createElement('link');
+focusFix.rel = 'stylesheet';
+focusFix.href = 'focus-fix.css';
+document.head.appendChild(focusFix);
+
 const menuButton = document.querySelector('.menu-button');
 const mainNav = document.querySelector('.main-nav');
 const year = document.querySelector('#year');
