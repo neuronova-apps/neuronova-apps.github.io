@@ -34,7 +34,7 @@
   content: "NN";
   display: block;
   color: var(--cyan);
-  font-size: 3.15rem;
+  font-size: 2.55rem;
   font-weight: 950;
   letter-spacing: -.13em;
   line-height: .9;
@@ -85,18 +85,19 @@
 }
 
 .core {
-  width: 132px !important;
-  height: 132px !important;
-  border-radius: 35px !important;
+  width: 107px !important;
+  height: 107px !important;
+  border-radius: 28px !important;
 }
 
 .core-ring {
-  border-radius: 27px !important;
+  inset: 7px !important;
+  border-radius: 22px !important;
 }
 
 .core small {
-  margin-top: 7px !important;
-  font-size: .68rem;
+  margin-top: 6px !important;
+  font-size: .55rem;
 }
 
 .node {
