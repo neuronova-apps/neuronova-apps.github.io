@@ -168,8 +168,7 @@ html[data-nova-motion="reduce"] *::after {
   scroll-behavior: auto !important;
 }
 
-html[data-nova-focus="strong"] :focus-visible,
-body :focus-visible {
+html[data-nova-focus="strong"] :focus-visible {
   outline: 3px solid #ffe600 !important;
   outline-offset: 4px !important;
 }
