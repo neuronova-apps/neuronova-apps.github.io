@@ -21,6 +21,7 @@ https://neuronova-apps.github.io/assets/accessibility/accessibility.js
 El módulo incorpora:
 
 - tamaño de texto en tres niveles: normal, grande y extra grande;
+- modo día para páginas de tema oscuro, con ocultamiento automático del control cuando la página ya es clara o deshabilita esta opción;
 - alto contraste;
 - espaciado ampliado entre letras y palabras;
 - interlineado amplio;
@@ -51,6 +52,14 @@ Cada página puede cargar directamente los archivos centrales:
 ```
 
 También puede utilizarse un cargador JavaScript local cuando la arquitectura de la aplicación lo requiera. El recurso final siempre debe proceder del repositorio matriz.
+
+## Comportamiento del foco en la matriz
+
+El núcleo compartido mantiene la preferencia `focus` con dos estados: `strong` y `normal`. El modo reforzado aplica un contorno de alto contraste a los elementos que reciben foco mediante teclado.
+
+La página matriz carga adicionalmente `focus-fix.css` para restablecer el estilo de foco normal del navegador cuando la preferencia reforzada está desactivada. Esta hoja es un ajuste local del portal raíz y no forma parte de los dos archivos centrales indicados anteriormente.
+
+Las aplicaciones que consumen únicamente `accessibility.css` y `accessibility.js` no cargan automáticamente `focus-fix.css`. La integración compartida debe seguir considerando como núcleo oficial únicamente los recursos ubicados en `/assets/accessibility/`.
 
 ## Principios
 

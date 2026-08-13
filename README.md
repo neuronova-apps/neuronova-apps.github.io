@@ -35,6 +35,8 @@ assets/accessibility/accessibility.css
 assets/accessibility/accessibility.js
 ```
 
+La página matriz utiliza además `focus-fix.css` como corrección local del comportamiento del foco de teclado cuando la preferencia reforzada está desactivada. Este archivo pertenece únicamente al portal raíz y no forma parte del núcleo compartido que consumen las aplicaciones.
+
 La documentación de integración se encuentra en `docs/ACCESSIBILITY.md`.
 
 El directorio `quiz-bible-banco/` contiene una herramienta editorial de consulta y revisión del Banco Maestro de Quiz Bible. Sus archivos de datos forman parte del flujo de revisión y no deben confundirse con los archivos de presentación de la página matriz.
