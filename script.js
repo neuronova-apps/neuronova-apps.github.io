@@ -1,13 +1,4 @@
 (() => {
-  if (!document.querySelector('style[data-neuronova-hero-scale]')) {
-    const style = document.createElement('style');
-    style.dataset.neuronovaHeroScale = 'true';
-    style.textContent = '.core{width:121.5px;height:121.5px;border-radius:32.4px}.core-ring{inset:8.1px;border-radius:25.2px}.core strong{font-size:3.078rem}.core small{margin-top:8.1px;font-size:.81em}';
-    document.head.appendChild(style);
-  }
-})();
-
-(() => {
   if (!document.querySelector('link[rel="icon"]')) {
     const favicon = document.createElement('link');
     favicon.rel = 'icon';
@@ -38,6 +29,16 @@
     script.dataset.neuronovaA11y = 'true';
     document.head.appendChild(script);
   }
+
+  requestAnimationFrame(() => {
+    let style = document.querySelector('style[data-neuronova-core-scale]');
+    if (!style) {
+      style = document.createElement('style');
+      style.dataset.neuronovaCoreScale = 'true';
+      document.head.appendChild(style);
+    }
+    style.textContent = '.core{width:107px!important;height:107px!important;border-radius:28px!important}.core-ring{inset:7px!important;border-radius:22px!important}.core strong::after{font-size:2.55rem!important}.core small{margin-top:6px!important;font-size:.55rem!important}';
+  });
 })();
 
 (() => {
