@@ -9,7 +9,7 @@ Neuronova Apps utiliza un núcleo central de accesibilidad alojado en el reposit
 /assets/accessibility/accessibility.js
 ```
 
-Direcciones públicas previstas:
+Direcciones públicas:
 
 ```text
 https://neuronova-apps.github.io/assets/accessibility/accessibility.css
@@ -53,13 +53,11 @@ Cada página puede cargar directamente los archivos centrales:
 
 También puede utilizarse un cargador JavaScript local cuando la arquitectura de la aplicación lo requiera. El recurso final siempre debe proceder del repositorio matriz.
 
-## Comportamiento del foco en la matriz
+## Comportamiento del foco
 
-El núcleo compartido mantiene la preferencia `focus` con dos estados: `strong` y `normal`. El modo reforzado aplica un contorno de alto contraste a los elementos que reciben foco mediante teclado.
+El núcleo compartido mantiene la preferencia `focus` con dos estados: `strong` y `normal`. El modo reforzado aplica un contorno amarillo de alto contraste a los elementos que reciben foco mediante teclado.
 
-La página matriz carga adicionalmente `focus-fix.css` para restablecer el estilo de foco normal del navegador cuando la preferencia reforzada está desactivada. Esta hoja es un ajuste local del portal raíz y no forma parte de los dos archivos centrales indicados anteriormente.
-
-Las aplicaciones que consumen únicamente `accessibility.css` y `accessibility.js` no cargan automáticamente `focus-fix.css`. La integración compartida debe seguir considerando como núcleo oficial únicamente los recursos ubicados en `/assets/accessibility/`.
+Cuando la preferencia se establece en `normal`, el núcleo deja de imponer ese contorno y permite que cada página o el navegador utilicen su estilo de foco habitual. Esta lógica forma parte directamente de `accessibility.css`, por lo que la matriz y las aplicaciones que consumen el núcleo compartido reciben el mismo comportamiento sin hojas de corrección adicionales.
 
 ## Principios
 
