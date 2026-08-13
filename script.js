@@ -1,8 +1,3 @@
-const focusFix = document.createElement('link');
-focusFix.rel = 'stylesheet';
-focusFix.href = 'focus-fix.css';
-document.head.appendChild(focusFix);
-
 const menuButton = document.querySelector('.menu-button');
 const mainNav = document.querySelector('.main-nav');
 const year = document.querySelector('#year');
@@ -32,7 +27,7 @@ if (menuButton && mainNav) {
   });
 
   document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape') {
+    if (event.key === 'Escape' && mainNav.classList.contains('open')) {
       closeMenu();
       menuButton.focus();
     }
