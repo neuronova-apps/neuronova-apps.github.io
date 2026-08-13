@@ -1,5 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="NeuroNova">
   <rect width="512" height="512" rx="112" fill="#07111f"/>
-  <rect x="18" y="18" width="476" height="476" rx="96" fill="none" stroke="#2f6f8c" stroke-width="12"/>
-  <path d="M112 342V170h48l96 124V170h48l96 124V170h48v172h-48l-96-124v124h-48l-96-124v124z" fill="#58d3f5"/>
+  <rect x="16" y="16" width="480" height="480" rx="98" fill="none" stroke="#2f6f8c" stroke-width="10"/>
+  <rect x="30" y="30" width="452" height="452" rx="86" fill="none" stroke="#58d3f5" stroke-width="6"/>
+  <path d="M88 342V170h48l96 124V170h48l96 124V170h48v172h-48l-96-124v124h-48l-96-124v124z" fill="#58d3f5"/>
 </svg>
