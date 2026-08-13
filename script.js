@@ -1,4 +1,13 @@
 (() => {
+  const ensureStylesheet = (selector, href, datasetKey) => {
+    if (document.querySelector(selector)) return;
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = href;
+    if (datasetKey) link.dataset[datasetKey] = 'true';
+    document.head.appendChild(link);
+  };
+
   if (!document.querySelector('link[rel="icon"]')) {
     const favicon = document.createElement('link');
     favicon.rel = 'icon';
@@ -7,21 +16,17 @@
     document.head.appendChild(favicon);
   }
 
-  if (!document.querySelector('link[data-neuronova-performance]')) {
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = '/performance.css';
-    link.dataset.neuronovaPerformance = 'true';
-    document.head.appendChild(link);
-  }
+  ensureStylesheet(
+    'link[data-neuronova-performance]',
+    '/performance.css',
+    'neuronovaPerformance'
+  );
 
-  if (!document.querySelector('link[data-neuronova-a11y]')) {
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = '/assets/accessibility/accessibility.css';
-    link.dataset.neuronovaA11y = 'true';
-    document.head.appendChild(link);
-  }
+  ensureStylesheet(
+    'link[data-neuronova-a11y]',
+    '/assets/accessibility/accessibility.css',
+    'neuronovaA11y'
+  );
 
   if (!window.NeuronovaA11y && !document.querySelector('script[data-neuronova-a11y]')) {
     const script = document.createElement('script');
@@ -29,16 +34,6 @@
     script.dataset.neuronovaA11y = 'true';
     document.head.appendChild(script);
   }
-
-  requestAnimationFrame(() => {
-    let style = document.querySelector('style[data-neuronova-core-scale]');
-    if (!style) {
-      style = document.createElement('style');
-      style.dataset.neuronovaCoreScale = 'true';
-      document.head.appendChild(style);
-    }
-    style.textContent = '.core{width:107px!important;height:107px!important;border-radius:28px!important}.core-ring{inset:7px!important;border-radius:22px!important}.core strong::after{font-size:2.55rem!important}.core small{margin-top:6px!important;font-size:.55rem!important}';
-  });
 })();
 
 (() => {
