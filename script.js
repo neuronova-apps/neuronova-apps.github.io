@@ -2,7 +2,7 @@
   if (!document.querySelector('style[data-neuronova-hero-scale]')) {
     const style = document.createElement('style');
     style.dataset.neuronovaHeroScale = 'true';
-    style.textContent = '.core{width:135px;height:135px;border-radius:36px}.core-ring{inset:9px;border-radius:28px}.core strong{font-size:3.42rem}.core small{margin-top:9px;font-size:.9em}';
+    style.textContent = '.core{width:121.5px;height:121.5px;border-radius:32.4px}.core-ring{inset:8.1px;border-radius:25.2px}.core strong{font-size:3.078rem}.core small{margin-top:8.1px;font-size:.81em}';
     document.head.appendChild(style);
   }
 })();
