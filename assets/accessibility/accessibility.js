@@ -72,6 +72,13 @@
         applicationCategory: 'GameApplication',
         featureList: ['Niveles progresivos', 'Partidas interactivas', 'Retos de lógica']
       },
+      '/crucilux-app/': {
+        name: 'Crucilux',
+        url: `${baseUrl}crucilux-app/`,
+        description: 'Aplicación de crucigramas y retos de palabras orientada a ejercitar vocabulario, memoria, razonamiento verbal y atención.',
+        applicationCategory: 'GameApplication',
+        featureList: ['Crucigramas progresivos', 'Retos de vocabulario', 'Ejercitación verbal']
+      },
       '/motiva-app/': {
         name: 'Motiva',
         url: `${baseUrl}motiva-app/`,
