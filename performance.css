@@ -243,6 +243,37 @@
 }
 .feature-list li::before { top: 10px; width: 6px; height: 6px; }
 
+.availability-block {
+  display: grid;
+  gap: 9px;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(157, 194, 224, .12);
+}
+
+.availability-item {
+  display: grid;
+  grid-template-columns: 104px 1fr;
+  gap: 9px;
+  margin: 0;
+  color: #b9c7d5;
+  font-size: .79rem;
+  line-height: 1.42;
+}
+
+.availability-item strong {
+  color: var(--app-accent);
+  font-size: .64rem;
+  font-weight: 850;
+  letter-spacing: .07em;
+  line-height: 1.45;
+  text-transform: uppercase;
+}
+
+.availability-item.future strong {
+  color: #8193a8;
+}
+
 .card-actions {
   margin-top: 0;
   padding-top: 18px;
@@ -361,6 +392,11 @@
 
   .app-card {
     max-width: 100%;
+  }
+
+  .availability-item {
+    grid-template-columns: 1fr;
+    gap: 2px;
   }
 }
 
