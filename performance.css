@@ -111,6 +111,39 @@
   padding: 6px 10px !important;
 }
 
+/* Las siete aplicaciones se representan dentro del sistema orbital existente. */
+.node b,
+.data-chip b {
+  font-size: 0;
+}
+
+.node b::after,
+.data-chip b::after {
+  display: block;
+  font-size: .78rem;
+  font-weight: 950;
+  letter-spacing: -.02em;
+  line-height: 1;
+}
+
+.node-one b::after { content: "QB"; color: #ffd37a; }
+.node-two b::after { content: "MM"; color: #b28dff; }
+.node-three b::after { content: "BR"; color: #65ddff; }
+.node-four b::after { content: "EF"; color: #7f9cff; }
+
+.data-chip {
+  min-width: 42px;
+  min-height: 36px !important;
+  padding: 6px 9px !important;
+  border-radius: 12px !important;
+  letter-spacing: 0;
+}
+
+.data-chip b::after { font-size: .7rem; }
+.chip-one b::after { content: "SU"; color: #6ce7b0; }
+.chip-two b::after { content: "CR"; color: #ff9f7a; }
+.chip-three b::after { content: "MO"; color: #f2a6d7; }
+
 .hero-metrics {
   width: 100%;
   margin-top: 26px !important;
