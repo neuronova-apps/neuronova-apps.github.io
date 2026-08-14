@@ -1,20 +1,8 @@
-/* Optimización visual y de rendimiento para Neuronova Apps */
+/* Capa de refinamiento para Neuronova Apps.
+   styles.css conserva la base visual; este archivo contiene únicamente
+   ajustes consolidados de presentación actual y optimizaciones de rendimiento. */
 
-/* Reduce el coste de composición sin cambiar la identidad visual. */
-.ambient {
-  width: 420px;
-  height: 420px;
-  filter: blur(82px);
-  opacity: .12;
-  transform: translateZ(0);
-}
-
-.site-header {
-  backdrop-filter: blur(12px) saturate(125%);
-  -webkit-backdrop-filter: blur(12px) saturate(125%);
-}
-
-/* Identidad NN sin sustituir la estructura HTML actual. */
+/* Identidad del shell */
 .brand-symbol svg { display: none; }
 .brand-symbol::after {
   content: "NN";
@@ -27,9 +15,7 @@
   transform: translateX(-1px);
 }
 
-.core strong {
-  font-size: 0 !important;
-}
+.core strong { font-size: 0; }
 .core strong::after {
   content: "NN";
   display: block;
@@ -41,27 +27,25 @@
   transform: translateX(-3px);
 }
 
-/* Hero más compacto: conserva la composición y permite ver las métricas en el primer pantallazo. */
+/* Hero compacto */
 .hero {
-  min-height: auto !important;
-  align-items: start !important;
-  padding: 24px 0 28px !important;
+  min-height: auto;
+  align-items: start;
+  padding: 24px 0 28px;
 }
 
 .hero-grid {
-  grid-template-columns: minmax(0, 1.08fr) minmax(330px, .92fr) !important;
-  gap: clamp(30px, 5vw, 64px) !important;
-  align-items: center !important;
+  grid-template-columns: minmax(0, 1.08fr) minmax(330px, .92fr);
+  gap: clamp(30px, 5vw, 64px);
+  align-items: center;
 }
 
-.hero-copy .eyebrow {
-  margin-bottom: 10px;
-}
+.hero-copy .eyebrow { margin-bottom: 10px; }
 
 .hero h1 {
   max-width: 720px;
   margin-bottom: 15px;
-  font-size: clamp(2.15rem, 4.25vw, 4rem) !important;
+  font-size: clamp(2.15rem, 4.25vw, 4rem);
   line-height: 1.01;
 }
 
@@ -71,56 +55,48 @@
   line-height: 1.55;
 }
 
-.hero-actions {
-  margin-top: 21px !important;
-}
-
-.hero .button {
-  min-height: 46px;
-}
+.hero-actions { margin-top: 21px; }
+.hero .button { min-height: 46px; }
 
 .hero-visual {
-  width: min(100%, 430px) !important;
+  width: min(100%, 430px);
   align-self: center;
 }
 
 .core {
-  width: 107px !important;
-  height: 107px !important;
-  border-radius: 28px !important;
+  width: 107px;
+  height: 107px;
+  border-radius: 28px;
 }
 
 .core-ring {
-  inset: 7px !important;
-  border-radius: 22px !important;
+  inset: 7px;
+  border-radius: 22px;
 }
 
 .core small {
-  margin-top: 6px !important;
+  margin-top: 6px;
   font-size: .55rem;
 }
 
 .node {
-  width: 48px !important;
-  height: 48px !important;
-  border-radius: 15px !important;
+  width: 48px;
+  height: 48px;
+  border-radius: 15px;
 }
 
 .data-chip {
-  width: 48px !important;
-  min-width: 48px !important;
-  height: 48px !important;
-  min-height: 48px !important;
-  padding: 0 !important;
-  border-radius: 15px !important;
+  width: 48px;
+  min-width: 48px;
+  height: 48px;
+  min-height: 48px;
+  padding: 0;
+  border-radius: 15px;
   letter-spacing: 0;
 }
 
-/* Las siete aplicaciones se representan dentro del sistema orbital existente. */
 .node b,
-.data-chip b {
-  font-size: 0;
-}
+.data-chip b { font-size: 0; }
 
 .node b::after,
 .data-chip b::after {
@@ -141,7 +117,7 @@
 
 .hero-metrics {
   width: 100%;
-  margin-top: 26px !important;
+  margin-top: 26px;
   padding: 16px 18px;
   border: 1px solid rgba(157, 194, 224, .12);
   border-radius: 18px;
@@ -150,59 +126,31 @@
 
 .hero-metrics > div {
   flex: 1 1 0;
-  min-width: 0 !important;
-  padding-right: 18px !important;
-  margin-right: 18px !important;
+  min-width: 0;
+  padding-right: 18px;
+  margin-right: 18px;
 }
 
-.hero-metrics strong {
-  font-size: 1.1rem !important;
-}
+.hero-metrics strong { font-size: 1.1rem; }
+.hero-metrics span { font-size: .76rem; }
 
-.hero-metrics span {
-  font-size: .76rem !important;
-}
-
-.hero-visual,
-.orbit,
-.node,
-.data-chip,
-.pulse-dot {
-  backface-visibility: hidden;
-}
-
-/* El navegador puede omitir el renderizado inicial de secciones fuera de pantalla. */
-.apps-section,
-.ecosystem-section,
-.site-footer {
-  content-visibility: auto;
-  contain-intrinsic-size: 1px 900px;
-}
-
-/* Reduce el vacío entre el hero y el encabezado de Aplicaciones. */
-.apps-section {
-  padding-top: 44px !important;
-}
-
-.app-line-heading {
-  margin-bottom: 22px;
-}
+/* Catálogo de aplicaciones */
+.apps-section { padding-top: 44px; }
+.app-line-heading { margin-bottom: 22px; }
 
 .app-grid {
-  grid-template-columns: repeat(auto-fill, minmax(280px, 340px)) !important;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 340px));
   justify-content: start;
   align-items: stretch;
-  gap: 16px !important;
+  gap: 16px;
 }
 
-.app-grid-spaced {
-  margin-bottom: 64px;
-}
+.app-grid-spaced { margin-bottom: 64px; }
 
 .app-card {
-  min-height: 0 !important;
+  min-height: 0;
   width: 100%;
-  padding: 18px !important;
+  padding: 18px;
   border-radius: 22px;
 }
 
@@ -214,14 +162,10 @@
 }
 
 .braille-dots { font-size: 1.75rem; }
-
-.status {
-  padding: 5px 8px;
-  font-size: .68rem;
-}
-
-.card-content { margin-top: 22px !important; }
+.status { padding: 5px 8px; font-size: .68rem; }
+.card-content { margin-top: 22px; }
 .app-category { margin-bottom: 7px; font-size: .68rem; }
+
 .app-card h4 {
   margin-top: 0;
   margin-bottom: 10px;
@@ -229,19 +173,12 @@
   letter-spacing: -.04em;
   line-height: 1.05;
 }
+
 .app-card .card-content > p:not(.app-category) {
   margin: 0;
   font-size: .9rem;
   line-height: 1.5;
 }
-
-.feature-list { margin-top: 14px; }
-.feature-list li {
-  padding: 4px 0 4px 18px;
-  font-size: .82rem;
-  line-height: 1.4;
-}
-.feature-list li::before { top: 10px; width: 6px; height: 6px; }
 
 .availability-block {
   display: grid;
@@ -270,15 +207,13 @@
   text-transform: uppercase;
 }
 
-.availability-item.future strong {
-  color: #8193a8;
-}
+.availability-item.future strong { color: #8193a8; }
 
 .card-actions {
   margin-top: 0;
   padding-top: 18px;
   flex-wrap: wrap;
-  gap: 9px !important;
+  gap: 9px;
 }
 
 .card-button {
@@ -287,63 +222,49 @@
   font-size: .82rem;
 }
 
-.play-store-button {
-  min-height: 40px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 0 12px;
-  border: 1px solid rgba(255,255,255,.16);
-  border-radius: 12px;
-  color: #a9b8c8;
-  background: rgba(255,255,255,.035);
-  font-size: .78rem;
-  font-weight: 800;
-  line-height: 1.15;
-  white-space: nowrap;
-  cursor: default;
-  user-select: none;
+/* Rendimiento: estas reglas sí responden a coste de composición/renderizado. */
+.ambient {
+  width: 420px;
+  height: 420px;
+  filter: blur(82px);
+  opacity: .12;
+  transform: translateZ(0);
 }
 
-.play-store-button::before {
-  content: "▶";
-  display: inline-grid;
-  place-items: center;
-  width: 18px;
-  height: 18px;
-  border-radius: 5px;
-  color: #dce7f3;
-  background: rgba(255,255,255,.07);
-  font-size: .58rem;
+.site-header {
+  backdrop-filter: blur(12px) saturate(125%);
+  -webkit-backdrop-filter: blur(12px) saturate(125%);
 }
 
-/* Cuando el hero sale de pantalla, sus animaciones dejan de consumir recursos. */
+.hero-visual,
+.orbit,
+.node,
+.data-chip,
+.pulse-dot { backface-visibility: hidden; }
+
+.apps-section,
+.ecosystem-section,
+.site-footer {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 900px;
+}
+
 .hero.performance-paused .hero-visual,
 .hero.performance-paused .orbit,
 .hero.performance-paused .node,
 .hero.performance-paused .data-chip,
 .hero.performance-paused .pulse-dot {
-  animation-play-state: paused !important;
+  animation-play-state: paused;
 }
 
 @media (max-width: 900px) {
-  .hero-grid {
-    grid-template-columns: 1fr !important;
-  }
-
+  .hero-grid { grid-template-columns: 1fr; }
   .hero-visual {
-    width: min(82vw, 390px) !important;
-    justify-self: center !important;
+    width: min(82vw, 390px);
+    justify-self: center;
   }
-
-  .hero-metrics {
-    margin-top: 22px !important;
-  }
-
-  .apps-section {
-    padding-top: 36px !important;
-  }
+  .hero-metrics { margin-top: 22px; }
+  .apps-section { padding-top: 36px; }
 }
 
 @media (max-width: 700px) {
@@ -359,53 +280,28 @@
     -webkit-backdrop-filter: blur(9px) saturate(115%);
   }
 
-  .hero {
-    padding: 20px 0 32px !important;
-  }
+  .hero { padding: 20px 0 32px; }
 
   .hero h1 {
-    font-size: clamp(1.9rem, 9vw, 3.1rem) !important;
+    font-size: clamp(1.9rem, 9vw, 3.1rem);
     line-height: 1.03;
   }
 
-  .hero-metrics {
-    padding: 14px 15px;
-  }
+  .hero-metrics { padding: 14px 15px; }
 
   .hero-metrics > div {
     flex: 1 1 30%;
-    padding-right: 10px !important;
-    margin-right: 10px !important;
+    padding-right: 10px;
+    margin-right: 10px;
   }
 
-  .hero-metrics span {
-    font-size: .68rem !important;
-  }
-
-  .apps-section {
-    padding-top: 30px !important;
-  }
-
-  .app-grid {
-    grid-template-columns: 1fr !important;
-  }
-
-  .app-card {
-    max-width: 100%;
-  }
+  .hero-metrics span { font-size: .68rem; }
+  .apps-section { padding-top: 30px; }
+  .app-grid { grid-template-columns: 1fr; }
+  .app-card { max-width: 100%; }
 
   .availability-item {
     grid-template-columns: 1fr;
     gap: 2px;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hero-visual,
-  .orbit,
-  .node,
-  .data-chip,
-  .pulse-dot {
-    animation: none !important;
   }
 }
