@@ -26,6 +26,128 @@
 
   const root = document.documentElement;
 
+  function injectStructuredData() {
+    if (document.querySelector('script[data-neuronova-schema="true"]')) return;
+
+    const baseUrl = 'https://neuronova-apps.github.io/';
+    const websiteId = `${baseUrl}#website`;
+    const normalizePath = path => {
+      const clean = String(path || '/').replace(/index\.html$/i, '');
+      return clean.endsWith('/') ? clean : `${clean}/`;
+    };
+
+    const apps = {
+      '/quizbible-app/': {
+        name: 'Quiz Bible',
+        url: `${baseUrl}quizbible-app/`,
+        description: 'Experiencia de preguntas bíblicas pensada para aprender, recordar y descubrir contenidos mediante desafíos breves y progresivos.',
+        applicationCategory: 'EducationalApplication',
+        featureList: ['Preguntas bíblicas', 'Niveles progresivos', 'Aprendizaje interactivo']
+      },
+      '/mimomento-app/': {
+        name: 'Mi Momento',
+        url: `${baseUrl}mimomento-app/`,
+        description: 'Gestor personal de devocionales, oraciones y reflexiones pensado para acompañar el hábito espiritual diario desde un espacio organizado.',
+        applicationCategory: 'LifestyleApplication',
+        featureList: ['Devocionales diarios', 'Planes por propósito', 'Diario y seguimiento']
+      },
+      '/brailux-app/': {
+        name: 'Brailux',
+        url: `${baseUrl}brailux-app/`,
+        description: 'Aplicación orientada al aprendizaje y práctica del sistema Braille mediante una experiencia digital accesible, clara y progresiva.',
+        applicationCategory: 'EducationalApplication',
+        featureList: ['Aprendizaje guiado', 'Práctica interactiva', 'Accesibilidad integrada']
+      },
+      '/englishfast-app/': {
+        name: 'English Fast',
+        url: `${baseUrl}englishfast-app/`,
+        description: 'Aplicación para fortalecer el aprendizaje del inglés mediante teoría breve, práctica contextualizada y diferentes modalidades de juego.',
+        applicationCategory: 'EducationalApplication',
+        featureList: ['Gramática y vocabulario', 'Práctica fonética', 'Multijuegos']
+      },
+      '/sudolux-app/': {
+        name: 'Sudolux',
+        url: `${baseUrl}sudolux-app/`,
+        description: 'Sudoku digital enfocado en una experiencia limpia y progresiva, con retos de lógica para practicar concentración y resolución de problemas.',
+        applicationCategory: 'GameApplication',
+        featureList: ['Niveles progresivos', 'Partidas interactivas', 'Retos de lógica']
+      },
+      '/motiva-app/': {
+        name: 'Motiva',
+        url: `${baseUrl}motiva-app/`,
+        description: 'Espacio de frases motivacionales y reflexivas pensado para ofrecer mensajes breves que acompañen distintos momentos del día.',
+        applicationCategory: 'LifestyleApplication',
+        featureList: ['Frases seleccionadas', 'Personalización', 'Experiencia cotidiana']
+      }
+    };
+
+    const buildAppNode = app => ({
+      '@type': 'WebApplication',
+      '@id': `${app.url}#app`,
+      name: app.name,
+      url: app.url,
+      description: app.description,
+      applicationCategory: app.applicationCategory,
+      operatingSystem: 'Web',
+      inLanguage: 'es-PE',
+      applicationSuite: 'Neuronova Apps',
+      featureList: app.featureList,
+      isPartOf: {'@id': websiteId}
+    });
+
+    const path = normalizePath(window.location.pathname);
+    let structuredData;
+
+    if (path === '/') {
+      const appNodes = Object.values(apps).map(buildAppNode);
+      structuredData = {
+        '@context': 'https://schema.org',
+        '@graph': [
+          {
+            '@type': 'WebSite',
+            '@id': websiteId,
+            url: baseUrl,
+            name: 'Neuronova Apps',
+            description: 'Ecosistema de aplicaciones web orientadas al aprendizaje, la accesibilidad, el bienestar, la espiritualidad y el entretenimiento.',
+            inLanguage: 'es-PE',
+            hasPart: appNodes.map(app => ({'@id': app['@id']}))
+          },
+          {
+            '@type': 'ItemList',
+            '@id': `${baseUrl}#apps`,
+            name: 'Aplicaciones de Neuronova Apps',
+            numberOfItems: appNodes.length,
+            itemListElement: appNodes.map((app, index) => ({
+              '@type': 'ListItem',
+              position: index + 1,
+              item: {
+                '@id': app['@id'],
+                name: app.name,
+                url: app.url
+              }
+            }))
+          },
+          ...appNodes
+        ]
+      };
+    } else if (apps[path]) {
+      structuredData = {
+        '@context': 'https://schema.org',
+        ...buildAppNode(apps[path])
+      };
+    } else {
+      return;
+    }
+
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.dataset.neuronovaSchema = 'true';
+    script.textContent = JSON.stringify(structuredData);
+    document.head.appendChild(script);
+  }
+
+  injectStructuredData();
+
   function parseRgb(color) {
     const match = String(color || '').match(/rgba?\((\d+(?:\.\d+)?)[,\s]+(\d+(?:\.\d+)?)[,\s]+(\d+(?:\.\d+)?)/i);
     if (!match) return null;
