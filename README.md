@@ -76,9 +76,9 @@ El comportamiento del foco normal y reforzado se resuelve directamente desde el 
 
 ### Contador público de visitas
 
-La matriz incluye un contador visual de solicitudes mediante el servicio externo Hits (`hits.sh`). La integración utiliza únicamente una imagen SVG remota: no incorpora JavaScript de analítica, cookies, `localStorage`, backend propio ni GitHub Actions como servidor de conteo.
+La matriz incluye un contador visual de solicitudes mediante el servicio externo Hits (`hits.sh`). La integración utiliza el HTML recomendado por el propio servicio: una imagen SVG remota enlazada con su panel público de estadísticas. No incorpora JavaScript de analítica, cookies, `localStorage`, backend propio ni GitHub Actions como servidor de conteo.
 
-La solicitud del SVG utiliza `referrerpolicy="no-referrer"`. El contador representa cargas registradas del recurso y no debe interpretarse como número de personas o visitantes únicos.
+El contador representa cargas registradas del recurso y no debe interpretarse como número de personas o visitantes únicos.
 
 El directorio `quiz-bible-banco/` contiene una herramienta editorial de consulta y revisión del Banco Maestro de Quiz Bible. Sus archivos de datos forman parte del flujo de revisión y no deben confundirse con los archivos de presentación de la página matriz.
 
@@ -102,7 +102,7 @@ La matriz no ejecuta ni controla la lógica interna de las aplicaciones. El esta
 
 Las pruebas automáticas de accesibilidad y documentación reducen regresiones, pero no sustituyen la validación funcional, editorial ni manual de cada aplicación.
 
-El contador de visitas depende de un servicio externo y contabiliza solicitudes al recurso del contador. Puede incluir recargas, automatizaciones o tráfico no humano y no constituye analítica de usuarios únicos. Si el servicio externo deja de estar disponible, la funcionalidad principal de Neuronova continúa operativa y solo deja de mostrarse el contador.
+El contador de visitas depende de un servicio externo y contabiliza solicitudes al recurso del contador. Puede incluir recargas, automatizaciones o tráfico no humano y no constituye analítica de usuarios únicos. Si el servicio externo deja de estar disponible o es bloqueado por el navegador, la funcionalidad principal de Neuronova continúa operativa; el enlace del contador permite abrir su panel público cuando el navegador lo permita.
 
 ## Roadmap
 
