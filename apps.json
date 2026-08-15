@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "lastReviewed": "2026-08-15",
+  "description": "Fuente de verdad de la matriz Neuronova Apps para estados, disponibilidad y enlaces de las aplicaciones del ecosistema.",
+  "apps": [
+    {
+      "id": "quiz-bible",
+      "name": "Quiz Bible",
+      "status": "MVP web",
+      "availableNow": "Quiz jugable con preguntas aprobadas, explicación educativa, referencia bíblica, puntuación y progreso local.",
+      "inDevelopment": "Ampliación del banco de preguntas, niveles progresivos y mejoras de la experiencia interactiva.",
+      "url": "https://neuronova-apps.github.io/quizbible-app/",
+      "actionLabel": "Practicar en Quiz Bible",
+      "ariaLabel": "Practicar en la versión web de Quiz Bible"
+    },
+    {
+      "id": "mi-momento",
+      "name": "Mi Momento",
+      "status": "Demo web",
+      "availableNow": "Demo con devocionales, oraciones, diario y seguimiento guardado localmente.",
+      "inDevelopment": "Biblioteca definitiva de contenidos y ampliación de planes.",
+      "url": "https://neuronova-apps.github.io/mimomento-app/",
+      "actionLabel": "Probar demo web",
+      "ariaLabel": "Probar la demo web de Mi Momento"
+    },
+    {
+      "id": "brailux",
+      "name": "Brailux",
+      "status": "MVP web",
+      "availableNow": "Contenidos para aprender Braille y actividades de práctica interactiva.",
+      "inDevelopment": "Ampliación de rutas de práctica y sistema completo de progreso XP.",
+      "url": "https://neuronova-apps.github.io/brailux-app/",
+      "actionLabel": "Aprender en Brailux",
+      "ariaLabel": "Abrir la versión web de Brailux"
+    },
+    {
+      "id": "english-fast",
+      "name": "English Fast",
+      "status": "MVP web",
+      "availableNow": "Práctica de vocabulario y gramática con resultados, repaso de errores y progreso local.",
+      "inDevelopment": "Ampliación de niveles, audio y modalidades adicionales de práctica.",
+      "url": "https://neuronova-apps.github.io/englishfast-app/",
+      "actionLabel": "Practicar en web",
+      "ariaLabel": "Practicar inglés en English Fast"
+    },
+    {
+      "id": "sudolux",
+      "name": "Sudolux",
+      "status": "Demo web",
+      "availableNow": "Reglas, técnicas básicas y una partida clásica 9 × 9 con notas, validación y progreso local.",
+      "inDevelopment": "Ampliación de modos de juego, retos y progresión.",
+      "url": "https://neuronova-apps.github.io/sudolux-app/",
+      "actionLabel": "Probar Sudoku",
+      "ariaLabel": "Probar la demo web de Sudolux"
+    },
+    {
+      "id": "crucilux",
+      "name": "Crucilux",
+      "status": "MVP web",
+      "availableNow": "Tres retos de crucigrama con pistas graduales, comprobación y progreso local.",
+      "inDevelopment": "Más niveles, categorías y tipos de pistas.",
+      "url": "https://neuronova-apps.github.io/crucilux-app/",
+      "actionLabel": "Jugar en web",
+      "ariaLabel": "Jugar Crucilux en la web"
+    },
+    {
+      "id": "motiva",
+      "name": "Motiva",
+      "status": "Demo web",
+      "availableNow": "Frase del día, selección por necesidad, categorías y exploración del contenido disponible.",
+      "inDevelopment": "Ampliación del banco y nuevas opciones de personalización.",
+      "url": "https://neuronova-apps.github.io/motiva-app/",
+      "actionLabel": "Explorar Motiva",
+      "ariaLabel": "Explorar la demo web de Motiva"
+    }
+  ]
+}
