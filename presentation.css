@@ -3,29 +3,25 @@
    styles.css conserva la base estructural y este archivo agrupa únicamente
    ajustes de identidad, composición y responsive del portal. */
 
-/* Identidad del shell */
-.brand-symbol svg { display: none; }
-.brand-symbol::after {
-  content: "NN";
-  display: block;
-  color: var(--cyan);
-  font-size: .88rem;
-  font-weight: 950;
-  letter-spacing: -.12em;
-  line-height: 1;
-  transform: translateX(-1px);
+/* Identidad del shell: favicon.svg es la única fuente visual de NN. */
+.brand-symbol {
+  padding: 0;
+  border: 0;
+  background: url('favicon.svg') center / contain no-repeat;
+  box-shadow: none;
+  overflow: hidden;
 }
 
-.core strong { font-size: 0; }
-.core strong::after {
-  content: "NN";
-  display: block;
-  color: var(--cyan);
-  font-size: 2.55rem;
-  font-weight: 950;
-  letter-spacing: -.13em;
-  line-height: .9;
-  transform: translateX(-3px);
+.brand-symbol svg,
+.brand-symbol::after {
+  display: none;
+  content: none;
+}
+
+.core strong,
+.core-ring,
+.core small {
+  display: none;
 }
 
 /* Hero compacto */
@@ -67,17 +63,12 @@
 .core {
   width: 107px;
   height: 107px;
+  padding: 0;
+  border: 0;
   border-radius: 28px;
-}
-
-.core-ring {
-  inset: 7px;
-  border-radius: 22px;
-}
-
-.core small {
-  margin-top: 6px;
-  font-size: .55rem;
+  background: url('favicon.svg') center / contain no-repeat;
+  box-shadow: 0 0 46px rgba(101, 221, 255, .13);
+  overflow: hidden;
 }
 
 .node {
