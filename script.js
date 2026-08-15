@@ -3,7 +3,10 @@ const mainNav = document.querySelector('.main-nav');
 const year = document.querySelector('#year');
 const revealItems = document.querySelectorAll('.reveal');
 const hero = document.querySelector('.hero');
-const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const reduceMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+let reduceMotion = reduceMotionQuery.matches;
+let revealObserver = null;
+let heroObserver = null;
 
 const appFaviconMap = new Map([
   ['Quiz Bible', 'https://neuronova-apps.github.io/quizbible-app/favicon.svg'],
@@ -117,6 +120,77 @@ const syncAppCards = async () => {
   }
 };
 
+const showRevealItems = () => {
+  revealItems.forEach((item) => item.classList.add('visible'));
+};
+
+const setupRevealObserver = () => {
+  if (revealObserver) {
+    revealObserver.disconnect();
+    revealObserver = null;
+  }
+
+  if (reduceMotion || !('IntersectionObserver' in window)) {
+    showRevealItems();
+    return;
+  }
+
+  revealObserver = new IntersectionObserver((entries, currentObserver) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        currentObserver.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.12,
+    rootMargin: '0px 0px -35px 0px'
+  });
+
+  revealItems.forEach((item) => {
+    if (!item.classList.contains('visible')) {
+      revealObserver.observe(item);
+    }
+  });
+};
+
+const setupHeroObserver = () => {
+  if (heroObserver) {
+    heroObserver.disconnect();
+    heroObserver = null;
+  }
+
+  if (!hero) {
+    return;
+  }
+
+  if (reduceMotion || !('IntersectionObserver' in window)) {
+    hero.classList.remove('performance-paused');
+    return;
+  }
+
+  heroObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      hero.classList.toggle('performance-paused', !entry.isIntersecting);
+    });
+  }, {
+    threshold: 0.02
+  });
+
+  heroObserver.observe(hero);
+};
+
+const syncMotionPreference = (event) => {
+  reduceMotion = event.matches;
+
+  if (reduceMotion) {
+    showRevealItems();
+  }
+
+  setupRevealObserver();
+  setupHeroObserver();
+};
+
 syncAppCards();
 
 if (year) {
@@ -161,34 +235,11 @@ if (menuButton && mainNav) {
   window.addEventListener('pageshow', closeMenu);
 }
 
-if (reduceMotion) {
-  revealItems.forEach((item) => item.classList.add('visible'));
-} else if ('IntersectionObserver' in window) {
-  const observer = new IntersectionObserver((entries, currentObserver) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        currentObserver.unobserve(entry.target);
-      }
-    });
-  }, {
-    threshold: 0.12,
-    rootMargin: '0px 0px -35px 0px'
-  });
+setupRevealObserver();
+setupHeroObserver();
 
-  revealItems.forEach((item) => observer.observe(item));
-} else {
-  revealItems.forEach((item) => item.classList.add('visible'));
-}
-
-if (hero && !reduceMotion && 'IntersectionObserver' in window) {
-  const heroObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      hero.classList.toggle('performance-paused', !entry.isIntersecting);
-    });
-  }, {
-    threshold: 0.02
-  });
-
-  heroObserver.observe(hero);
+if (typeof reduceMotionQuery.addEventListener === 'function') {
+  reduceMotionQuery.addEventListener('change', syncMotionPreference);
+} else if (typeof reduceMotionQuery.addListener === 'function') {
+  reduceMotionQuery.addListener(syncMotionPreference);
 }
