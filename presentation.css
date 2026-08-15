@@ -1,0 +1,277 @@
+/* Capa de presentación consolidada de Neuronova Apps.
+   Contiene refinamientos visuales que antes estaban mezclados con performance.css.
+   styles.css conserva la base estructural y este archivo agrupa únicamente
+   ajustes de identidad, composición y responsive del portal. */
+
+/* Identidad del shell */
+.brand-symbol svg { display: none; }
+.brand-symbol::after {
+  content: "NN";
+  display: block;
+  color: var(--cyan);
+  font-size: .88rem;
+  font-weight: 950;
+  letter-spacing: -.12em;
+  line-height: 1;
+  transform: translateX(-1px);
+}
+
+.core strong { font-size: 0; }
+.core strong::after {
+  content: "NN";
+  display: block;
+  color: var(--cyan);
+  font-size: 2.55rem;
+  font-weight: 950;
+  letter-spacing: -.13em;
+  line-height: .9;
+  transform: translateX(-3px);
+}
+
+/* Hero compacto */
+.hero {
+  min-height: auto;
+  align-items: start;
+  padding: 24px 0 28px;
+}
+
+.hero-grid {
+  grid-template-columns: minmax(0, 1.08fr) minmax(330px, .92fr);
+  gap: clamp(30px, 5vw, 64px);
+  align-items: center;
+}
+
+.hero-copy .eyebrow { margin-bottom: 10px; }
+
+.hero h1 {
+  max-width: 720px;
+  margin-bottom: 15px;
+  font-size: clamp(2.15rem, 4.25vw, 4rem);
+  line-height: 1.01;
+}
+
+.hero .lead {
+  max-width: 700px;
+  font-size: clamp(.94rem, 1.3vw, 1.05rem);
+  line-height: 1.55;
+}
+
+.hero-actions { margin-top: 21px; }
+.hero .button { min-height: 46px; }
+
+.hero-visual {
+  width: min(100%, 430px);
+  align-self: center;
+}
+
+.core {
+  width: 107px;
+  height: 107px;
+  border-radius: 28px;
+}
+
+.core-ring {
+  inset: 7px;
+  border-radius: 22px;
+}
+
+.core small {
+  margin-top: 6px;
+  font-size: .55rem;
+}
+
+.node {
+  width: 48px;
+  height: 48px;
+  border-radius: 15px;
+}
+
+.data-chip {
+  width: 48px;
+  min-width: 48px;
+  height: 48px;
+  min-height: 48px;
+  padding: 0;
+  border-radius: 15px;
+  letter-spacing: 0;
+}
+
+.node b,
+.data-chip b { font-size: 0; }
+
+.node b::after,
+.data-chip b::after {
+  display: block;
+  font-size: .76rem;
+  font-weight: 950;
+  letter-spacing: -.02em;
+  line-height: 1;
+}
+
+.node-one b::after { content: "QB"; color: #ffd37a; }
+.node-two b::after { content: "MM"; color: #b28dff; }
+.node-three b::after { content: "BR"; color: #65ddff; }
+.node-four b::after { content: "EF"; color: #7f9cff; }
+.chip-one b::after { content: "SU"; color: #6ce7b0; }
+.chip-two b::after { content: "CR"; color: #ff9f7a; }
+.chip-three b::after { content: "MO"; color: #f2a6d7; }
+
+.hero-metrics {
+  width: 100%;
+  margin-top: 26px;
+  padding: 16px 18px;
+  border: 1px solid rgba(157, 194, 224, .12);
+  border-radius: 18px;
+  background: rgba(8, 20, 34, .38);
+}
+
+.hero-metrics > div {
+  flex: 1 1 0;
+  min-width: 0;
+  padding-right: 18px;
+  margin-right: 18px;
+}
+
+.hero-metrics strong { font-size: 1.1rem; }
+.hero-metrics span { font-size: .76rem; }
+
+/* Catálogo de aplicaciones */
+.apps-section { padding-top: 44px; }
+.app-line-heading { margin-bottom: 22px; }
+
+.app-grid {
+  grid-template-columns: repeat(auto-fill, minmax(280px, 340px));
+  justify-content: start;
+  align-items: stretch;
+  gap: 16px;
+}
+
+.app-grid-spaced { margin-bottom: 64px; }
+
+.app-card {
+  min-height: 0;
+  width: 100%;
+  padding: 18px;
+  border-radius: 22px;
+}
+
+.app-icon {
+  width: 52px;
+  height: 52px;
+  padding: 11px;
+  border-radius: 16px;
+}
+
+.app-icon.has-favicon {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  overflow: hidden;
+}
+
+.app-icon.has-favicon img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+  border-radius: 16px;
+}
+
+.braille-dots { font-size: 1.75rem; }
+.status { padding: 5px 8px; font-size: .68rem; }
+.card-content { margin-top: 22px; }
+.app-category { margin-bottom: 7px; font-size: .68rem; }
+
+.app-card h4 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 1.72rem;
+  letter-spacing: -.04em;
+  line-height: 1.05;
+}
+
+.app-card .card-content > p:not(.app-category) {
+  margin: 0;
+  font-size: .9rem;
+  line-height: 1.5;
+}
+
+.availability-block {
+  display: grid;
+  gap: 9px;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(157, 194, 224, .12);
+}
+
+.availability-item {
+  display: grid;
+  grid-template-columns: 104px 1fr;
+  gap: 9px;
+  margin: 0;
+  color: #b9c7d5;
+  font-size: .79rem;
+  line-height: 1.42;
+}
+
+.availability-item strong {
+  color: var(--app-accent);
+  font-size: .64rem;
+  font-weight: 850;
+  letter-spacing: .07em;
+  line-height: 1.45;
+  text-transform: uppercase;
+}
+
+.availability-item.future strong { color: #8193a8; }
+
+.card-actions {
+  margin-top: 0;
+  padding-top: 18px;
+  flex-wrap: wrap;
+  gap: 9px;
+}
+
+.card-button {
+  min-height: 40px;
+  padding: 0 12px;
+  font-size: .82rem;
+}
+
+@media (max-width: 900px) {
+  .hero-grid { grid-template-columns: 1fr; }
+  .hero-visual {
+    width: min(82vw, 390px);
+    justify-self: center;
+  }
+  .hero-metrics { margin-top: 22px; }
+  .apps-section { padding-top: 36px; }
+}
+
+@media (max-width: 700px) {
+  .hero { padding: 20px 0 32px; }
+
+  .hero h1 {
+    font-size: clamp(1.9rem, 9vw, 3.1rem);
+    line-height: 1.03;
+  }
+
+  .hero-metrics { padding: 14px 15px; }
+
+  .hero-metrics > div {
+    flex: 1 1 30%;
+    padding-right: 10px;
+    margin-right: 10px;
+  }
+
+  .hero-metrics span { font-size: .68rem; }
+  .apps-section { padding-top: 30px; }
+  .app-grid { grid-template-columns: 1fr; }
+  .app-card { max-width: 100%; }
+
+  .availability-item {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+}
