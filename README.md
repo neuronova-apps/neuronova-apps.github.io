@@ -28,6 +28,20 @@ La matriz reúne siete aplicaciones:
 
 La página matriz se publica desde este repositorio. Cada aplicación mantiene un repositorio independiente para evitar acoplamientos innecesarios y permitir que su desarrollo, pruebas y despliegues evolucionen por separado.
 
+### Fuente de verdad de estados
+
+El archivo `apps.json` es la fuente central de la matriz para los datos que cambian con mayor frecuencia en cada aplicación:
+
+- estado actual;
+- funciones disponibles ahora;
+- funciones que continúan en desarrollo;
+- enlace público;
+- texto y etiqueta accesible del botón de acceso.
+
+`script.js` carga este archivo y sincroniza las tarjetas de la matriz. De esta forma, los cambios de estado no deben mantenerse manualmente en varios lugares. Si `apps.json` no puede cargarse, la matriz conserva el contenido HTML existente como respaldo y no bloquea la navegación.
+
+Cuando una aplicación cambie de etapa o incorpore una función que deba mostrarse en la matriz, debe actualizarse primero `apps.json`. Los repositorios de cada aplicación continúan siendo la referencia técnica detallada sobre su implementación y desarrollo propio.
+
 El núcleo compartido de accesibilidad se encuentra en:
 
 ```text
