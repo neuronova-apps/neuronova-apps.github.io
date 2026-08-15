@@ -120,6 +120,17 @@ const syncAppCards = async () => {
   }
 };
 
+const syncAccessibilityLauncherName = () => {
+  const launcher = document.querySelector('.nova-a11y-launcher');
+
+  if (!launcher) {
+    return;
+  }
+
+  launcher.setAttribute('aria-label', 'Accesibilidad');
+  launcher.setAttribute('title', 'Abrir opciones de accesibilidad (Alt + A)');
+};
+
 const showRevealItems = () => {
   revealItems.forEach((item) => item.classList.add('visible'));
 };
@@ -237,6 +248,12 @@ if (menuButton && mainNav) {
 
 setupRevealObserver();
 setupHeroObserver();
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', syncAccessibilityLauncherName, { once: true });
+} else {
+  syncAccessibilityLauncherName();
+}
 
 if (typeof reduceMotionQuery.addEventListener === 'function') {
   reduceMotionQuery.addEventListener('change', syncMotionPreference);
