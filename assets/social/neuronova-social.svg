@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Neuronova Apps</title>
+  <desc id="desc">Imagen social del ecosistema Neuronova Apps con sus siete aplicaciones.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#020817"/>
+      <stop offset="52%" stop-color="#07162b"/>
+      <stop offset="100%" stop-color="#0b2340"/>
+    </linearGradient>
+    <linearGradient id="cyan" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#65ddff"/>
+      <stop offset="100%" stop-color="#7f9cff"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="45%" r="55%">
+      <stop offset="0%" stop-color="#65ddff" stop-opacity=".18"/>
+      <stop offset="100%" stop-color="#65ddff" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="10"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="630" rx="34" fill="url(#bg)"/>
+  <circle cx="930" cy="115" r="290" fill="url(#glow)"/>
+  <circle cx="188" cy="600" r="260" fill="#b28dff" opacity=".045"/>
+
+  <g opacity=".16" stroke="#65ddff" fill="none">
+    <path d="M0 470C220 410 350 535 575 470S960 400 1200 465"/>
+    <path d="M0 520C245 455 420 565 650 505S1015 450 1200 510"/>
+    <circle cx="940" cy="202" r="135"/>
+    <circle cx="940" cy="202" r="180" stroke-dasharray="8 12"/>
+  </g>
+
+  <g transform="translate(72 76)">
+    <rect width="116" height="116" rx="27" fill="#10243d" stroke="#58d3f5" stroke-width="3"/>
+    <rect x="9" y="9" width="98" height="98" rx="21" fill="none" stroke="#58d3f5" stroke-opacity=".22"/>
+    <g transform="translate(9 0) scale(.22)" fill="#58d3f5">
+      <path d="M86 344V168h54l116 128V168h56v176h-54L142 216v128z"/>
+      <path d="M200 344V168h54l116 128V168h56v176h-54L256 216v128z"/>
+    </g>
+  </g>
+
+  <g font-family="Inter,Segoe UI,Arial,sans-serif">
+    <text x="218" y="118" fill="#f5f8fc" font-size="54" font-weight="850" letter-spacing="-2">Neuronova</text>
+    <text x="218" y="160" fill="#65ddff" font-size="25" font-weight="800" letter-spacing="9">APPS</text>
+    <text x="74" y="238" fill="#f5f8fc" font-size="42" font-weight="820" letter-spacing="-1.4">Un ecosistema digital para</text>
+    <text x="74" y="287" fill="url(#cyan)" font-size="42" font-weight="820" letter-spacing="-1.4">aprender, practicar y disfrutar.</text>
+    <text x="75" y="337" fill="#aebdcd" font-size="20">Siete aplicaciones independientes, una identidad común y una base accesible.</text>
+  </g>
+
+  <g transform="translate(74 395)" font-family="Inter,Segoe UI,Arial,sans-serif">
+    <g transform="translate(0 0)">
+      <rect width="132" height="116" rx="20" fill="#0d1b2c" stroke="#ffd37a" stroke-opacity=".6"/>
+      <text x="66" y="58" fill="#ffd37a" font-size="30" font-weight="900" text-anchor="middle">QB</text>
+      <text x="66" y="91" fill="#dbe7f2" font-size="14" font-weight="700" text-anchor="middle">Quiz Bible</text>
+    </g>
+    <g transform="translate(148 0)">
+      <rect width="132" height="116" rx="20" fill="#0d1b2c" stroke="#b28dff" stroke-opacity=".65"/>
+      <text x="66" y="58" fill="#b28dff" font-size="30" font-weight="900" text-anchor="middle">MM</text>
+      <text x="66" y="91" fill="#dbe7f2" font-size="14" font-weight="700" text-anchor="middle">Mi Momento</text>
+    </g>
+    <g transform="translate(296 0)">
+      <rect width="132" height="116" rx="20" fill="#0d1b2c" stroke="#65ddff" stroke-opacity=".65"/>
+      <text x="66" y="58" fill="#65ddff" font-size="30" font-weight="900" text-anchor="middle">BR</text>
+      <text x="66" y="91" fill="#dbe7f2" font-size="14" font-weight="700" text-anchor="middle">Brailux</text>
+    </g>
+    <g transform="translate(444 0)">
+      <rect width="132" height="116" rx="20" fill="#0d1b2c" stroke="#7f9cff" stroke-opacity=".65"/>
+      <text x="66" y="58" fill="#7f9cff" font-size="30" font-weight="900" text-anchor="middle">EF</text>
+      <text x="66" y="91" fill="#dbe7f2" font-size="14" font-weight="700" text-anchor="middle">English Fast</text>
+    </g>
+    <g transform="translate(592 0)">
+      <rect width="132" height="116" rx="20" fill="#0d1b2c" stroke="#6ce7b0" stroke-opacity=".65"/>
+      <text x="66" y="58" fill="#6ce7b0" font-size="30" font-weight="900" text-anchor="middle">SU</text>
+      <text x="66" y="91" fill="#dbe7f2" font-size="14" font-weight="700" text-anchor="middle">Sudolux</text>
+    </g>
+    <g transform="translate(740 0)">
+      <rect width="132" height="116" rx="20" fill="#0d1b2c" stroke="#ff9f7a" stroke-opacity=".65"/>
+      <text x="66" y="58" fill="#ff9f7a" font-size="30" font-weight="900" text-anchor="middle">CR</text>
+      <text x="66" y="91" fill="#dbe7f2" font-size="14" font-weight="700" text-anchor="middle">Crucilux</text>
+    </g>
+    <g transform="translate(888 0)">
+      <rect width="132" height="116" rx="20" fill="#0d1b2c" stroke="#f2a6d7" stroke-opacity=".65"/>
+      <text x="66" y="58" fill="#f2a6d7" font-size="30" font-weight="900" text-anchor="middle">MO</text>
+      <text x="66" y="91" fill="#dbe7f2" font-size="14" font-weight="700" text-anchor="middle">Motiva</text>
+    </g>
+  </g>
+
+  <rect x="74" y="550" width="1020" height="1" fill="#65ddff" opacity=".18"/>
+  <text x="74" y="588" fill="#8fa2b7" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="17" font-weight="650">Aprendizaje · Accesibilidad · Bienestar · Espiritualidad · Entretenimiento</text>
+  <circle cx="1080" cy="76" r="5" fill="#65ddff"/>
+  <circle cx="1110" cy="102" r="3" fill="#b28dff"/>
+  <circle cx="1045" cy="122" r="2.5" fill="#7f9cff"/>
+</svg>
