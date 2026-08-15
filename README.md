@@ -42,16 +42,29 @@ El archivo `apps.json` es la fuente central de la matriz para los datos que camb
 
 Cuando una aplicación cambie de etapa o incorpore una función que deba mostrarse en la matriz, debe actualizarse primero `apps.json`. Los repositorios de cada aplicación continúan siendo la referencia técnica detallada sobre su implementación y desarrollo propio.
 
-El núcleo compartido de accesibilidad se encuentra en:
+### Núcleo compartido de accesibilidad
+
+La versión estable actual del núcleo compartido es `v1`:
+
+```text
+assets/accessibility/v1/accessibility.css
+assets/accessibility/v1/accessibility.js
+```
+
+Las rutas históricas se mantienen como compatibilidad y permanecen ancladas a `v1`:
 
 ```text
 assets/accessibility/accessibility.css
 assets/accessibility/accessibility.js
 ```
 
+Las nuevas integraciones deben utilizar rutas versionadas. Los cambios incompatibles no deben modificar `v1`; deben publicarse en una nueva versión, por ejemplo `v2`, para que cada aplicación pueda migrar de forma deliberada y probada.
+
+`assets/accessibility/manifest.json` registra la versión estable y `.github/workflows/accessibility-core-guard.yml` comprueba que `v1` permanezca sin cambios accidentales y que las rutas de compatibilidad sigan siendo idénticas a esa versión.
+
 El comportamiento del foco normal y reforzado se resuelve directamente desde el núcleo compartido, sin hojas de corrección locales en la matriz.
 
-La documentación de integración se encuentra en `docs/ACCESSIBILITY.md`.
+La documentación de integración y de control de versiones se encuentra en `docs/ACCESSIBILITY.md`.
 
 El directorio `quiz-bible-banco/` contiene una herramienta editorial de consulta y revisión del Banco Maestro de Quiz Bible. Sus archivos de datos forman parte del flujo de revisión y no deben confundirse con los archivos de presentación de la página matriz.
 
