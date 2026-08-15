@@ -1,0 +1,24 @@
+{
+  "name": "Neuronova Apps Accessibility Core",
+  "currentVersion": "v1",
+  "released": "2026-08-15",
+  "status": "stable",
+  "versionedPaths": {
+    "css": "/assets/accessibility/v1/accessibility.css",
+    "js": "/assets/accessibility/v1/accessibility.js"
+  },
+  "legacyCompatibilityPaths": {
+    "css": "/assets/accessibility/accessibility.css",
+    "js": "/assets/accessibility/accessibility.js"
+  },
+  "policy": {
+    "v1Immutable": true,
+    "legacyPathsFrozenTo": "v1",
+    "breakingChangesRequireNewMajorVersion": true,
+    "recommendedIntegrationVersion": "v1"
+  },
+  "gitBlobPins": {
+    "css": "c2f191025938f4e9c65bbd7df873991931584cf4",
+    "js": "748f8ffdf5e63ace52d5013add73ee03a83cb59f"
+  }
+}
