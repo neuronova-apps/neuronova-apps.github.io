@@ -26,13 +26,20 @@ const syncCardIconWithFavicon = (card, appName) => {
     return;
   }
 
+  const currentImage = icon.querySelector('img');
+  if (currentImage?.src === faviconUrl) {
+    icon.classList.add('has-favicon');
+    icon.setAttribute('aria-hidden', 'true');
+    return;
+  }
+
   const originalMarkup = icon.innerHTML;
   const originalAriaHidden = icon.getAttribute('aria-hidden');
   const favicon = document.createElement('img');
   favicon.src = faviconUrl;
   favicon.alt = '';
   favicon.decoding = 'async';
-  favicon.loading = 'lazy';
+  favicon.loading = 'eager';
 
   favicon.addEventListener('load', () => {
     icon.replaceChildren(favicon);
@@ -50,6 +57,17 @@ const syncCardIconWithFavicon = (card, appName) => {
       icon.setAttribute('aria-hidden', originalAriaHidden);
     }
   }, { once: true });
+};
+
+const syncAllCardFavicons = () => {
+  document.querySelectorAll('.app-card').forEach((card) => {
+    const title = card.querySelector('h4');
+    const appName = title ? title.textContent.trim() : '';
+
+    if (appName) {
+      syncCardIconWithFavicon(card, appName);
+    }
+  });
 };
 
 const syncAppCards = async () => {
@@ -72,8 +90,6 @@ const syncAppCards = async () => {
       if (!app) {
         return;
       }
-
-      syncCardIconWithFavicon(card, appName);
 
       const status = card.querySelector('.status');
       if (status && app.status) {
@@ -202,6 +218,7 @@ const syncMotionPreference = (event) => {
   setupHeroObserver();
 };
 
+syncAllCardFavicons();
 syncAppCards();
 
 if (year) {
