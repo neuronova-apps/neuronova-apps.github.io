@@ -1,0 +1,317 @@
+/* Neuronova Apps · Accessibility Core */
+:root {
+  --nova-a11y-panel-bg: #0b1422;
+  --nova-a11y-panel-surface: #111e30;
+  --nova-a11y-text: #f7fbff;
+  --nova-a11y-muted: #b8c5d4;
+  --nova-a11y-line: rgba(255, 255, 255, 0.16);
+  --nova-a11y-accent: #68d9ff;
+  --nova-a11y-accent-2: #9e8cff;
+}
+
+html[data-nova-font-size="1"] { font-size: 100%; }
+html[data-nova-font-size="2"] { font-size: 112.5%; }
+html[data-nova-font-size="3"] { font-size: 125%; }
+
+html[data-nova-spacing="wide"] body :where(p, li, a, button, label, input, textarea, select, h1, h2, h3, h4, h5, h6) {
+  letter-spacing: 0.055em !important;
+  word-spacing: 0.14em !important;
+}
+
+html[data-nova-line-height="wide"] body :where(p, li) {
+  line-height: 1.9 !important;
+}
+
+html[data-nova-dyslexia="on"] body :where(main, header, footer) {
+  font-family: Arial, Verdana, Tahoma, sans-serif !important;
+}
+html[data-nova-dyslexia="on"] body :where(p, li, a, button, label, input, textarea, select) {
+  letter-spacing: 0.035em !important;
+  word-spacing: 0.12em !important;
+  line-height: 1.8 !important;
+}
+html[data-nova-dyslexia="on"] body :where(em, i) {
+  font-style: normal !important;
+}
+
+html[data-nova-links="strong"] body main a:not(.nova-a11y-launcher):not(.nova-a11y-control),
+html[data-nova-links="strong"] body footer a {
+  text-decoration: underline !important;
+  text-decoration-thickness: 0.13em !important;
+  text-underline-offset: 0.22em !important;
+}
+
+/* Modo día compartido. Solo se activa en páginas que la capa JS identifica como oscuras. */
+html[data-nova-theme="day"] {
+  color-scheme: light !important;
+  --bg: #f4f7fb !important;
+  --bg-deep: #e9eff7 !important;
+  --surface: rgba(255, 255, 255, .94) !important;
+  --surface-strong: #ffffff !important;
+  --surface-soft: rgba(14, 36, 61, .055) !important;
+  --text: #102033 !important;
+  --muted: #526579 !important;
+  --line: rgba(28, 63, 96, .18) !important;
+  --shadow: 0 18px 48px rgba(32, 58, 87, .12) !important;
+}
+html[data-nova-theme="day"] body {
+  background: #f4f7fb !important;
+  color: #102033 !important;
+}
+html[data-nova-theme="day"] body::before {
+  opacity: .24 !important;
+}
+html[data-nova-theme="day"] body :where(.ambient) {
+  opacity: .075 !important;
+}
+html[data-nova-theme="day"] body :where(.site-header, header) {
+  background-color: rgba(248, 251, 255, .9) !important;
+  border-color: rgba(28, 63, 96, .14) !important;
+}
+html[data-nova-theme="day"] body :where(.app-card, .card, .route-card, .practice-card, .info-card, .tech-card, .leaderboard, .download-panel, .generator-lab, .mode-demo, .principles article) {
+  background-color: rgba(255, 255, 255, .9) !important;
+  border-color: rgba(28, 63, 96, .16) !important;
+  color: #102033 !important;
+  box-shadow: 0 14px 38px rgba(32, 58, 87, .08) !important;
+}
+html[data-nova-theme="day"] body :where(p, li, small, .lead, .muted, .app-category, .hero-metrics span) {
+  color: #526579 !important;
+}
+html[data-nova-theme="day"] body :where(h1, h2, h3, h4, h5, h6, strong) {
+  color: #102033;
+}
+html[data-nova-theme="day"] body :where(.button.ghost, .card-button, .play-store-button) {
+  background: rgba(255, 255, 255, .82) !important;
+  color: #18324d !important;
+  border-color: rgba(28, 63, 96, .2) !important;
+}
+html[data-nova-theme="day"] body :where(input, textarea, select) {
+  background: #fff !important;
+  color: #102033 !important;
+  border-color: rgba(28, 63, 96, .24) !important;
+}
+html[data-nova-theme="day"] .nova-a11y-launcher {
+  border-color: rgba(28,63,96,.18);
+  background: linear-gradient(135deg, #ffffff, #edf4fb);
+  color: #102033;
+  box-shadow: 0 16px 40px rgba(32,58,87,.18);
+}
+html[data-nova-theme="day"] .nova-a11y-panel {
+  --nova-a11y-panel-bg: #ffffff;
+  --nova-a11y-panel-surface: #f1f5fa;
+  --nova-a11y-text: #102033;
+  --nova-a11y-muted: #586b7e;
+  --nova-a11y-line: rgba(28,63,96,.18);
+  background: rgba(255,255,255,.98);
+  color: var(--nova-a11y-text);
+  box-shadow: 0 28px 70px rgba(32,58,87,.22);
+}
+html[data-nova-theme="day"] .nova-a11y-head {
+  background: rgba(255,255,255,.98);
+}
+html[data-nova-theme="day"] .nova-a11y-close {
+  color: #102033;
+}
+html[data-nova-theme="day"] .nova-a11y-control[aria-pressed="true"],
+html[data-nova-theme="day"] .nova-a11y-control.active {
+  color: #102033;
+  background: rgba(104,217,255,.2);
+}
+
+html[data-nova-contrast="high"] {
+  --bg: #000 !important;
+  --surface: #050505 !important;
+  --surface-2: #101010 !important;
+  --text: #fff !important;
+  --muted: #fff !important;
+  --accent: #ffe600 !important;
+  --accent-2: #00eaff !important;
+  --line: rgba(255, 255, 255, 0.65) !important;
+}
+html[data-nova-contrast="high"] body {
+  background: #000 !important;
+  color: #fff !important;
+}
+html[data-nova-contrast="high"] body :where(.ambient, .orbit, .scan-line) {
+  opacity: 0.18 !important;
+}
+html[data-nova-contrast="high"] body :where(section, article, header, footer, nav, .card, .app-card, .route-card, .practice-card, .info-card, .tech-card, .leaderboard, .download-panel, .generator-lab, .mode-demo) {
+  border-color: rgba(255, 255, 255, 0.7) !important;
+}
+html[data-nova-contrast="high"] body a {
+  color: #00eaff !important;
+}
+html[data-nova-contrast="high"] body :where(button, .button, .card-button, .route-action) {
+  border-color: #fff !important;
+}
+
+/* Alto contraste tiene prioridad sobre modo día cuando ambos están seleccionados. */
+html[data-nova-theme="day"][data-nova-contrast="high"] body {
+  background: #000 !important;
+  color: #fff !important;
+}
+html[data-nova-theme="day"][data-nova-contrast="high"] body :where(.site-header, header, .app-card, .card, .route-card, .practice-card, .info-card, .tech-card, .leaderboard, .download-panel, .generator-lab, .mode-demo, .principles article) {
+  background-color: #050505 !important;
+  color: #fff !important;
+  border-color: rgba(255,255,255,.7) !important;
+}
+html[data-nova-theme="day"][data-nova-contrast="high"] body :where(p, li, small, .lead, .muted, .app-category, .hero-metrics span, h1, h2, h3, h4, h5, h6, strong) {
+  color: #fff !important;
+}
+
+html[data-nova-motion="reduce"] *,
+html[data-nova-motion="reduce"] *::before,
+html[data-nova-motion="reduce"] *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+  scroll-behavior: auto !important;
+}
+
+html[data-nova-focus="strong"] :focus-visible {
+  outline: 3px solid #ffe600 !important;
+  outline-offset: 4px !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.nova-a11y-launcher {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 99990;
+  min-width: 52px;
+  min-height: 52px;
+  padding: 0 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid rgba(255,255,255,.22);
+  border-radius: 999px;
+  background: linear-gradient(135deg, #111e30, #182a43);
+  color: #fff;
+  box-shadow: 0 16px 45px rgba(0,0,0,.34);
+  font: 700 0.95rem/1 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  cursor: pointer;
+}
+.nova-a11y-launcher:hover { transform: translateY(-2px); }
+.nova-a11y-launcher .nova-a11y-aa {
+  min-width: 30px;
+  min-height: 30px;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--nova-a11y-accent), var(--nova-a11y-accent-2));
+  color: #07111f;
+  font-weight: 900;
+}
+
+.nova-a11y-panel {
+  position: fixed;
+  right: 18px;
+  bottom: 84px;
+  z-index: 99991;
+  width: min(390px, calc(100vw - 24px));
+  max-height: min(720px, calc(100vh - 110px));
+  overflow: auto;
+  display: none;
+  border: 1px solid var(--nova-a11y-line);
+  border-radius: 22px;
+  background: rgba(11,20,34,.98);
+  color: var(--nova-a11y-text);
+  box-shadow: 0 28px 70px rgba(0,0,0,.45);
+  backdrop-filter: blur(18px);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+  letter-spacing: normal !important;
+  word-spacing: normal !important;
+  line-height: 1.45 !important;
+}
+.nova-a11y-panel[aria-hidden="false"] { display: block; }
+
+.nova-a11y-head {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 18px;
+  border-bottom: 1px solid var(--nova-a11y-line);
+  background: rgba(11,20,34,.98);
+}
+.nova-a11y-head h2 { margin: 0 0 4px; font-size: 1.12rem; line-height: 1.2; }
+.nova-a11y-head p { margin: 0; color: var(--nova-a11y-muted); font-size: .82rem; }
+.nova-a11y-close {
+  width: 38px;
+  height: 38px;
+  flex: 0 0 38px;
+  border: 1px solid var(--nova-a11y-line);
+  border-radius: 11px;
+  background: var(--nova-a11y-panel-surface);
+  color: #fff;
+  font: 700 1.1rem/1 system-ui, sans-serif;
+  cursor: pointer;
+}
+
+.nova-a11y-body { padding: 16px 18px 18px; }
+.nova-a11y-group { padding: 14px 0; border-bottom: 1px solid var(--nova-a11y-line); }
+.nova-a11y-group:first-child { padding-top: 0; }
+.nova-a11y-group:last-of-type { border-bottom: 0; }
+.nova-a11y-label { display: block; margin-bottom: 9px; color: var(--nova-a11y-muted); font-size: .78rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.nova-a11y-choice-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.nova-a11y-toggle-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+
+.nova-a11y-control {
+  min-height: 44px;
+  padding: 10px 11px;
+  border: 1px solid var(--nova-a11y-line);
+  border-radius: 12px;
+  background: var(--nova-a11y-panel-surface);
+  color: var(--nova-a11y-text);
+  font: 700 .86rem/1.2 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  text-align: center;
+  cursor: pointer;
+}
+.nova-a11y-control[aria-pressed="true"],
+.nova-a11y-control.active {
+  border-color: var(--nova-a11y-accent);
+  background: rgba(104,217,255,.16);
+  color: #fff;
+  box-shadow: inset 0 0 0 1px rgba(104,217,255,.22);
+}
+.nova-a11y-control:hover { border-color: rgba(104,217,255,.7); }
+.nova-a11y-control small { display: block; margin-top: 4px; color: var(--nova-a11y-muted); font-weight: 500; }
+.nova-a11y-reset { width: 100%; margin-top: 14px; }
+.nova-a11y-hint { margin: 12px 0 0; color: var(--nova-a11y-muted); font-size: .78rem; }
+
+.nova-reading-guide {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 50%;
+  z-index: 99980;
+  height: 3.2rem;
+  pointer-events: none;
+  display: none;
+  border-top: 2px solid rgba(255,230,0,.75);
+  border-bottom: 2px solid rgba(255,230,0,.75);
+  background: rgba(255,230,0,.06);
+  box-shadow: 0 -100vh 0 100vh rgba(0,0,0,.10);
+}
+html[data-nova-guide="on"] .nova-reading-guide { display: block; }
+
+@media (max-width: 640px) {
+  .nova-a11y-launcher { right: 12px; bottom: 12px; }
+  .nova-a11y-launcher .nova-a11y-text-label { display: none; }
+  .nova-a11y-panel { right: 12px; bottom: 76px; width: calc(100vw - 24px); }
+  .nova-a11y-toggle-grid { grid-template-columns: 1fr; }
+}
