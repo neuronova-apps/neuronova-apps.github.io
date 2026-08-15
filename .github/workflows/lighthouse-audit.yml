@@ -1,0 +1,67 @@
+name: Lighthouse quality audit
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '47 12 * * 1'
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/lighthouse-audit.yml'
+      - 'lighthouserc.mobile.json'
+      - 'lighthouserc.desktop.json'
+      - 'index.html'
+      - 'styles.css'
+      - 'presentation.css'
+      - 'performance.css'
+      - 'script.js'
+      - 'apps.json'
+      - 'favicon.svg'
+      - 'assets/social/**'
+      - 'assets/accessibility/**'
+
+permissions:
+  contents: read
+
+jobs:
+  lighthouse:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install Lighthouse CI
+        run: npm install --global @lhci/cli@0.15.x
+
+      - name: Resolve Chrome
+        shell: bash
+        run: |
+          CHROME_BIN="$(command -v google-chrome || command -v google-chrome-stable || command -v chromium || true)"
+          if [ -z "$CHROME_BIN" ]; then
+            echo "No se encontró Chrome o Chromium en el runner."
+            exit 1
+          fi
+          echo "CHROME_PATH=$CHROME_BIN" >> "$GITHUB_ENV"
+          "$CHROME_BIN" --version
+
+      - name: Lighthouse mobile
+        run: lhci autorun --config=lighthouserc.mobile.json
+
+      - name: Lighthouse desktop
+        run: lhci autorun --config=lighthouserc.desktop.json
+
+      - name: Upload Lighthouse evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-audit-${{ github.run_number }}
+          path: artifacts/lighthouse/
+          if-no-files-found: warn
+          retention-days: 90
