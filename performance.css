@@ -161,6 +161,22 @@
   border-radius: 16px;
 }
 
+.app-icon.has-favicon {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  overflow: hidden;
+}
+
+.app-icon.has-favicon img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+  border-radius: 16px;
+}
+
 .braille-dots { font-size: 1.75rem; }
 .status { padding: 5px 8px; font-size: .68rem; }
 .card-content { margin-top: 22px; }
