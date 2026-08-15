@@ -51,7 +51,7 @@ const syncCardIconWithFavicon = (card, appName) => {
 
 const syncAppCards = async () => {
   try {
-    const response = await fetch('apps.json', { cache: 'no-store' });
+    const response = await fetch('apps.json');
 
     if (!response.ok) {
       throw new Error(`No se pudo cargar apps.json (${response.status})`);
