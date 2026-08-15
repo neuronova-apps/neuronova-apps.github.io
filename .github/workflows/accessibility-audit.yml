@@ -1,0 +1,51 @@
+name: Accessibility ecosystem audit
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 12 * * 1'
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/accessibility-audit.yml'
+      - 'scripts/accessibility-audit.mjs'
+      - 'assets/accessibility/**'
+      - 'index.html'
+      - 'styles.css'
+      - 'script.js'
+      - 'docs/ACCESSIBILITY*.md'
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install audit dependencies
+        run: npm install --no-save playwright @axe-core/playwright
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Audit matrix and applications
+        run: node scripts/accessibility-audit.mjs
+
+      - name: Upload accessibility evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: accessibility-audit-${{ github.run_number }}
+          path: artifacts/accessibility/
+          if-no-files-found: warn
+          retention-days: 90
