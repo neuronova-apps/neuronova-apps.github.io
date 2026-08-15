@@ -1,0 +1,34 @@
+name: Documentation standard audit
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '37 12 * * 1'
+  push:
+    branches: [main]
+    paths:
+      - 'README.md'
+      - 'docs/DOCUMENTATION_STANDARD.md'
+      - 'docs/README_TEMPLATE.md'
+      - 'scripts/documentation-audit.mjs'
+      - '.github/workflows/documentation-standard.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Audit ecosystem README files
+        run: node scripts/documentation-audit.mjs
