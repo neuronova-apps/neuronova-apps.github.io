@@ -1,8 +1,6 @@
-@import url('presentation.css');
-
 /* Optimizaciones de rendimiento de Neuronova Apps.
-   Los refinamientos visuales viven en presentation.css para evitar mezclar
-   composición de interfaz con reglas destinadas a reducir coste de renderizado. */
+   Los refinamientos visuales viven en presentation.css, cargado directamente
+   desde index.html para evitar una dependencia CSS en cascada. */
 
 .ambient {
   width: 420px;
