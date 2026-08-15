@@ -24,6 +24,16 @@ La matriz reúne siete aplicaciones:
 - **Crucilux:** crucigramas y retos de vocabulario para ejercitación verbal.
 - **Motiva:** frases motivacionales y reflexivas para distintos momentos del día.
 
+## Estado
+
+Ecosistema web funcional en desarrollo continuo. La matriz está publicada mediante GitHub Pages y organiza siete aplicaciones web independientes con distintos niveles de madurez.
+
+## Alcance actual
+
+Neuronova Apps actúa como matriz de identidad, navegación, documentación y componentes compartidos. No sustituye la arquitectura interna de cada aplicación ni centraliza su lógica funcional. Cada proyecto conserva su propio repositorio, ciclo de desarrollo, pruebas y despliegue.
+
+La matriz mantiene información resumida de estado mediante `apps.json`, mientras cada repositorio de aplicación conserva la descripción técnica detallada de su implementación.
+
 ## Arquitectura
 
 La página matriz se publica desde este repositorio. Cada aplicación mantiene un repositorio independiente para evitar acoplamientos innecesarios y permitir que su desarrollo, pruebas y despliegues evolucionen por separado.
@@ -64,9 +74,33 @@ Las nuevas integraciones deben utilizar rutas versionadas. Los cambios incompati
 
 El comportamiento del foco normal y reforzado se resuelve directamente desde el núcleo compartido, sin hojas de corrección locales en la matriz.
 
-La documentación de integración y de control de versiones se encuentra en `docs/ACCESSIBILITY.md`.
-
 El directorio `quiz-bible-banco/` contiene una herramienta editorial de consulta y revisión del Banco Maestro de Quiz Bible. Sus archivos de datos forman parte del flujo de revisión y no deben confundirse con los archivos de presentación de la página matriz.
+
+## Accesibilidad
+
+Neuronova mantiene un núcleo compartido de accesibilidad versionado y un protocolo de verificación sistemática. La documentación técnica se encuentra en `docs/ACCESSIBILITY.md` y el protocolo de auditoría en `docs/ACCESSIBILITY_AUDIT.md`.
+
+La auditoría automática del ecosistema utiliza Playwright y axe-core sobre la matriz y las siete aplicaciones. Las pruebas automáticas son evidencia parcial y no equivalen a una certificación WCAG. Las revisiones manuales con teclado, lector de pantalla, zoom, contraste, movimiento y dispositivos deben registrarse por separado.
+
+## Gobernanza documental
+
+El estándar común de documentación se encuentra en `docs/DOCUMENTATION_STANDARD.md` y la plantilla para nuevas aplicaciones en `docs/README_TEMPLATE.md`.
+
+Los README de las aplicaciones deben mantener secciones comunes sobre estado, alcance, funciones, tecnología, accesibilidad, privacidad, limitaciones, roadmap, desarrollo local, estructura, enlaces, integración con Neuronova, autoría y fecha de revisión.
+
+`apps.json` es la fuente resumida de la matriz. El README de cada aplicación sigue siendo la referencia técnica de su propio repositorio. Cuando exista una discrepancia, debe corregirse la fuente correspondiente en el mismo ciclo de cambio.
+
+## Limitaciones conocidas
+
+La matriz no ejecuta ni controla la lógica interna de las aplicaciones. El estado global depende de que cada repositorio mantenga actualizada su documentación y de que los controles automáticos se complementen con revisión humana.
+
+Las pruebas automáticas de accesibilidad y documentación reducen regresiones, pero no sustituyen la validación funcional, editorial ni manual de cada aplicación.
+
+## Roadmap
+
+Las prioridades del ecosistema son consolidar las siete aplicaciones existentes, mantener sincronizados los estados de la matriz, ampliar las pruebas automáticas, completar revisiones manuales de accesibilidad y fortalecer estándares compartidos antes de incorporar nuevos proyectos.
+
+Los cambios incompatibles del núcleo de accesibilidad deben publicarse como nuevas versiones y migrarse de forma controlada por aplicación.
 
 ## Repositorios de aplicaciones
 
@@ -92,6 +126,6 @@ Los cambios del repositorio matriz deben preservar la independencia de cada apli
 
 Proyecto personal desarrollado por Gabriel Berrospi.
 
-## Estado
+## Última revisión
 
-Proyecto en desarrollo. GitHub se utiliza para documentar su evolución, mantener organizada la arquitectura y conservar una separación clara entre la matriz, los módulos compartidos y las aplicaciones del ecosistema.
+2026-08-15
