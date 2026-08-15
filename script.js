@@ -5,6 +5,73 @@ const revealItems = document.querySelectorAll('.reveal');
 const hero = document.querySelector('.hero');
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+const syncAppCards = async () => {
+  try {
+    const response = await fetch('apps.json', { cache: 'no-store' });
+
+    if (!response.ok) {
+      throw new Error(`No se pudo cargar apps.json (${response.status})`);
+    }
+
+    const data = await response.json();
+    const apps = Array.isArray(data.apps) ? data.apps : [];
+    const appsByName = new Map(apps.map((app) => [app.name, app]));
+
+    document.querySelectorAll('.app-card').forEach((card) => {
+      const title = card.querySelector('h4');
+      const app = title ? appsByName.get(title.textContent.trim()) : null;
+
+      if (!app) {
+        return;
+      }
+
+      const status = card.querySelector('.status');
+      if (status && app.status) {
+        const dot = status.querySelector('span') || document.createElement('span');
+        status.replaceChildren(dot, document.createTextNode(` ${app.status}`));
+        status.dataset.source = 'apps.json';
+      }
+
+      const availabilityItems = card.querySelectorAll('.availability-item');
+      const availableNow = availabilityItems[0]?.querySelector('span');
+      const inDevelopment = availabilityItems[1]?.querySelector('span');
+
+      if (availableNow && app.availableNow) {
+        availableNow.textContent = app.availableNow;
+      }
+
+      if (inDevelopment && app.inDevelopment) {
+        inDevelopment.textContent = app.inDevelopment;
+      }
+
+      const action = card.querySelector('.card-button');
+      if (action) {
+        if (app.url) {
+          action.href = app.url;
+        }
+
+        if (app.ariaLabel) {
+          action.setAttribute('aria-label', app.ariaLabel);
+        }
+
+        if (app.actionLabel) {
+          action.replaceChildren(
+            document.createTextNode(`${app.actionLabel} `),
+            Object.assign(document.createElement('span'), {
+              textContent: '↗'
+            })
+          );
+          action.lastElementChild.setAttribute('aria-hidden', 'true');
+        }
+      }
+    });
+  } catch (error) {
+    console.warn('Neuronova Apps: se mantiene el contenido HTML de respaldo porque no fue posible sincronizar apps.json.', error);
+  }
+};
+
+syncAppCards();
+
 if (year) {
   year.textContent = new Date().getFullYear();
 }
