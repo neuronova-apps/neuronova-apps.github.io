@@ -5,6 +5,50 @@ const revealItems = document.querySelectorAll('.reveal');
 const hero = document.querySelector('.hero');
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+const appFaviconMap = new Map([
+  ['Quiz Bible', 'https://neuronova-apps.github.io/quizbible-app/favicon.svg'],
+  ['Mi Momento', 'https://neuronova-apps.github.io/mimomento-app/favicon.svg'],
+  ['Brailux', 'https://neuronova-apps.github.io/brailux-app/favicon.svg'],
+  ['English Fast', 'https://neuronova-apps.github.io/englishfast-app/favicon.svg'],
+  ['Sudolux', 'https://neuronova-apps.github.io/sudolux-app/favicon.svg'],
+  ['Crucilux', 'https://neuronova-apps.github.io/crucilux-app/favicon.svg'],
+  ['Motiva', 'https://neuronova-apps.github.io/motiva-app/favicon.svg']
+]);
+
+const syncCardIconWithFavicon = (card, appName) => {
+  const icon = card.querySelector('.app-icon');
+  const faviconUrl = appFaviconMap.get(appName);
+
+  if (!icon || !faviconUrl) {
+    return;
+  }
+
+  const originalMarkup = icon.innerHTML;
+  const originalAriaHidden = icon.getAttribute('aria-hidden');
+  const favicon = document.createElement('img');
+  favicon.src = faviconUrl;
+  favicon.alt = '';
+  favicon.decoding = 'async';
+  favicon.loading = 'lazy';
+
+  favicon.addEventListener('load', () => {
+    icon.replaceChildren(favicon);
+    icon.classList.add('has-favicon');
+    icon.setAttribute('aria-hidden', 'true');
+  }, { once: true });
+
+  favicon.addEventListener('error', () => {
+    icon.classList.remove('has-favicon');
+    icon.innerHTML = originalMarkup;
+
+    if (originalAriaHidden === null) {
+      icon.removeAttribute('aria-hidden');
+    } else {
+      icon.setAttribute('aria-hidden', originalAriaHidden);
+    }
+  }, { once: true });
+};
+
 const syncAppCards = async () => {
   try {
     const response = await fetch('apps.json', { cache: 'no-store' });
@@ -19,11 +63,14 @@ const syncAppCards = async () => {
 
     document.querySelectorAll('.app-card').forEach((card) => {
       const title = card.querySelector('h4');
-      const app = title ? appsByName.get(title.textContent.trim()) : null;
+      const appName = title ? title.textContent.trim() : '';
+      const app = appName ? appsByName.get(appName) : null;
 
       if (!app) {
         return;
       }
+
+      syncCardIconWithFavicon(card, appName);
 
       const status = card.querySelector('.status');
       if (status && app.status) {
