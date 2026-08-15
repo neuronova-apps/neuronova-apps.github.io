@@ -1,0 +1,51 @@
+name: Accessibility core guard
+
+on:
+  push:
+    paths:
+      - 'assets/accessibility/**'
+      - '.github/workflows/accessibility-core-guard.yml'
+  pull_request:
+    paths:
+      - 'assets/accessibility/**'
+      - '.github/workflows/accessibility-core-guard.yml'
+
+jobs:
+  protect-v1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Verify frozen v1 and legacy compatibility files
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          EXPECTED_CSS_SHA='c2f191025938f4e9c65bbd7df873991931584cf4'
+          EXPECTED_JS_SHA='748f8ffdf5e63ace52d5013add73ee03a83cb59f'
+
+          CSS_SHA="$(git hash-object assets/accessibility/v1/accessibility.css)"
+          JS_SHA="$(git hash-object assets/accessibility/v1/accessibility.js)"
+
+          if [ "$CSS_SHA" != "$EXPECTED_CSS_SHA" ]; then
+            echo "accessibility.css v1 fue modificado. Los cambios incompatibles deben publicarse en una nueva versión."
+            exit 1
+          fi
+
+          if [ "$JS_SHA" != "$EXPECTED_JS_SHA" ]; then
+            echo "accessibility.js v1 fue modificado. Los cambios incompatibles deben publicarse en una nueva versión."
+            exit 1
+          fi
+
+          cmp --silent assets/accessibility/accessibility.css assets/accessibility/v1/accessibility.css || {
+            echo "La ruta CSS de compatibilidad dejó de corresponder a v1."
+            exit 1
+          }
+
+          cmp --silent assets/accessibility/accessibility.js assets/accessibility/v1/accessibility.js || {
+            echo "La ruta JS de compatibilidad dejó de corresponder a v1."
+            exit 1
+          }
+
+          echo "Accessibility Core v1 permanece estable y las rutas heredadas siguen ancladas a v1."
