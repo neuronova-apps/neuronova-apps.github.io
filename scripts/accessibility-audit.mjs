@@ -22,7 +22,8 @@ const results = [];
 let blockingFindings = 0;
 
 for (const [name, url] of targets) {
-  const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
+  const context = await browser.newContext({ viewport: { width: 1440, height: 1000 } });
+  const page = await context.newPage();
   let pageResult;
 
   try {
@@ -76,7 +77,7 @@ for (const [name, url] of targets) {
       totals: { violations: 0, seriousOrCritical: 1 }
     };
   } finally {
-    await page.close();
+    await context.close();
   }
 
   results.push(pageResult);
