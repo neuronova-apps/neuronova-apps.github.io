@@ -77,11 +77,15 @@ if (year) {
 }
 
 if (menuButton && mainNav) {
+  const responsiveMenu = window.matchMedia('(max-width: 980px)');
+
   const closeMenu = () => {
     mainNav.classList.remove('open');
     menuButton.setAttribute('aria-expanded', 'false');
     menuButton.setAttribute('aria-label', 'Abrir menú de navegación');
   };
+
+  closeMenu();
 
   menuButton.addEventListener('click', () => {
     const isOpen = mainNav.classList.toggle('open');
@@ -105,6 +109,9 @@ if (menuButton && mainNav) {
       closeMenu();
     }
   });
+
+  responsiveMenu.addEventListener('change', closeMenu);
+  window.addEventListener('pageshow', closeMenu);
 }
 
 if (reduceMotion) {
