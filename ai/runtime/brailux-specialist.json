@@ -75,7 +75,7 @@
       "title": "Números en Braille",
       "facts": [
         "El signo de número se forma con los puntos 3-4-5-6.",
-        "Después del signo de número, las formas correspondientes a A-J se interpretan como las cifras 1, 2, 3, 4, 5, 6, 7, 8, 9 y 0, respectivamente.",
+        "Después del signo de número, las configuraciones de la primera serie Braille A-J se interpretan respectivamente como las cifras 1, 2, 3, 4, 5, 6, 7, 8, 9 y 0.",
         "El signo de mayúscula se forma con los puntos 4-6 y precede a la letra correspondiente."
       ],
       "sourceUrl": "https://neuronova-apps.github.io/brailux-app/numeros-braille.html"
