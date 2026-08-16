@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Panel de seguimiento del ciclo de desarrollo de las aplicaciones de Neuronova Apps, desde la idea inicial hasta la publicación en Google Play.">
+  <meta name="description" content="Panel de seguimiento del desarrollo web y Android de las aplicaciones de Neuronova Apps.">
   <meta name="robots" content="noindex, follow">
   <meta name="theme-color" content="#07111f">
   <title>Seguimiento de proyectos | Neuronova Apps</title>
@@ -30,8 +30,8 @@
     <section class="hero">
       <div class="container">
         <p class="eyebrow">Control de desarrollo</p>
-        <h1>Seguimiento de proyectos</h1>
-        <p class="lead">Una ruta única para controlar cada aplicación de Neuronova desde la definición inicial hasta su publicación en Google Play. Las casillas se guardan únicamente en este navegador.</p>
+        <h1>Seguimiento web y app</h1>
+        <p class="lead">Control separado del avance de la presencia web y del desarrollo de la aplicación. Cada proyecto conserva sus propios marcadores y el panel calcula también un avance combinado.</p>
       </div>
     </section>
 
@@ -40,11 +40,13 @@
         <div>
           <p class="eyebrow">Ecosistema completo</p>
           <h2 id="ecosystem-title">Avance general de NeuroNova</h2>
-          <p id="overallDetail">0 de 0 hitos completados entre todas las aplicaciones.</p>
+          <p id="overallDetail">0 hitos completados entre web y apps.</p>
         </div>
-        <div class="overall-value">
-          <strong id="overallProgressValue">0%</strong>
-          <div class="progress-track" role="progressbar" aria-label="Avance global del ecosistema" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="overallProgressTrack">
+        <div class="overall-metrics" aria-label="Resumen global del ecosistema">
+          <div><span>Combinado</span><strong id="overallProgressValue">0%</strong></div>
+          <div><span>Apps</span><strong id="overallAppValue">0%</strong></div>
+          <div><span>Web</span><strong id="overallWebValue">0%</strong></div>
+          <div class="progress-track overall-track" role="progressbar" aria-label="Avance global combinado" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="overallProgressTrack">
             <span id="overallProgressBar"></span>
           </div>
         </div>
@@ -69,13 +71,18 @@
 
         <div class="progress-summary" aria-live="polite">
           <div>
-            <span class="summary-label">Avance de la aplicación</span>
+            <span class="summary-label" id="currentProgressLabel">Avance de la app</span>
             <strong id="progressValue">0%</strong>
           </div>
-          <div class="progress-track" role="progressbar" aria-label="Avance de la aplicación seleccionada" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <div class="progress-track" role="progressbar" aria-label="Avance de la ruta seleccionada" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
             <span id="progressBar"></span>
           </div>
           <p id="progressDetail">0 de 0 hitos completados</p>
+        </div>
+
+        <div class="mode-switch" role="group" aria-label="Tipo de seguimiento">
+          <button id="appMode" class="mode-button active" type="button" aria-pressed="true">App</button>
+          <button id="webMode" class="mode-button" type="button" aria-pressed="false">Web</button>
         </div>
 
         <div class="drive-panel" aria-live="polite">
@@ -91,7 +98,7 @@
         <div class="panel-actions">
           <button id="expandAll" type="button">Expandir fases</button>
           <button id="collapseAll" type="button">Contraer fases</button>
-          <button id="resetProject" class="danger" type="button">Reiniciar proyecto</button>
+          <button id="resetProject" class="danger" type="button">Reiniciar esta ruta</button>
         </div>
       </div>
 
@@ -102,9 +109,9 @@
       </div>
 
       <div class="section-heading">
-        <p class="eyebrow">Ruta completa</p>
+        <p class="eyebrow" id="routeEyebrow">Ruta de la aplicación</p>
         <h2 id="panel-title">Del concepto a Play Store</h2>
-        <p>Las fases están ordenadas para evitar dar por terminado un proyecto solo porque el APK funciona. El cierre incluye calidad, beta, documentación, ficha comercial, cumplimiento y publicación.</p>
+        <p id="routeDescription">La ruta de app cubre definición, desarrollo, contenido, pruebas, release, beta y publicación en Google Play.</p>
       </div>
 
       <div id="roadmap" class="roadmap"></div>
