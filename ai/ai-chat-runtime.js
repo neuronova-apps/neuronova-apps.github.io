@@ -11,6 +11,7 @@ import {
 
 import { firebaseConfig, AI_RUNTIME_CONFIG } from './ai-config.js';
 import { buildRuntimeSelection, currentAppFromPath } from './runtime-selector.js';
+import { RESPONSE_STYLE_INSTRUCTION } from './response-style.js';
 
 const {
   modelName: MODEL_NAME,
@@ -53,7 +54,9 @@ ACCESIBILIDAD
 Adapta la comunicación cuando sea útil, pero no atribuyas a una aplicación funciones de accesibilidad que no estén confirmadas en el contexto.
 
 TRANSPARENCIA
-Eres un asistente virtual. Responde en el idioma del usuario y mantén una comunicación clara, breve y precisa.`;
+Eres un asistente virtual. Responde en el idioma del usuario y mantén una comunicación clara, breve y precisa.
+
+${RESPONSE_STYLE_INSTRUCTION}`;
 
 let runtimeBankPromise = null;
 let appCheckInitialized = false;
@@ -165,7 +168,7 @@ const buildGroundedPrompt = async (prompt) => {
   const runtime = await loadRuntimeBank();
   const context = buildRuntimeSelection(runtime, prompt, window.location.pathname);
 
-  return `[CONTEXTO_BANCO_NEURONOVA]\n${JSON.stringify(context)}\n[FIN_CONTEXTO_BANCO_NEURONOVA]\n\n[CONSULTA_USUARIO]\n${prompt}\n[FIN_CONSULTA_USUARIO]\n\nResponde únicamente con el contexto autorizado para cualquier hecho sobre NeuroNova. Si el contexto no contiene el dato, aplica fallback y no lo inventes.`;
+  return `[CONTEXTO_BANCO_NEURONOVA]\n${JSON.stringify(context)}\n[FIN_CONTEXTO_BANCO_NEURONOVA]\n\n[CONSULTA_USUARIO]\n${prompt}\n[FIN_CONSULTA_USUARIO]\n\nResponde primero con la conclusión concreta. Para cualquier hecho sobre NeuroNova usa únicamente el contexto autorizado. Si falta el dato, aplica fallback y no lo inventes. Conserva por separado web, banco de contenido, Android/APK, beta y Google Play cuando esa distinción sea relevante.`;
 };
 
 const loadStyles = () => {
