@@ -11,6 +11,8 @@ const neuronovaProjects = [
 const banksFolderUrl = 'https://drive.google.com/drive/folders/14qy2_kcHHFRFGon42cm12U725s8eSBmv';
 const appsOverview = document.querySelector('#appsOverview');
 const overallProgressValue = document.querySelector('#overallProgressValue');
+const overallAppValue = document.querySelector('#overallAppValue');
+const overallWebValue = document.querySelector('#overallWebValue');
 const overallProgressBar = document.querySelector('#overallProgressBar');
 const overallProgressTrack = document.querySelector('#overallProgressTrack');
 const overallDetail = document.querySelector('#overallDetail');
@@ -18,37 +20,37 @@ const driveBankName = document.querySelector('#driveBankName');
 const driveBankNote = document.querySelector('#driveBankNote');
 const driveBankLink = document.querySelector('#driveBankLink');
 
-function projectStats(projectId) {
-  const state = readState(projectId);
-  const total = phases.reduce((sum, phase) => sum + phase.items.length, 0);
-  let completed = 0;
-  phases.forEach((phase, phaseIndex) => {
-    phase.items.forEach((_, itemIndex) => {
-      if (state[itemId(phaseIndex, itemIndex)]) completed += 1;
-    });
-  });
+function combinedStats(projectId) {
+  const app = getStats(projectId, 'app');
+  const web = getStats(projectId, 'web');
+  const total = app.total + web.total;
+  const completed = app.completed + web.completed;
   const percent = total ? Math.round((completed / total) * 100) : 0;
-  return { total, completed, percent };
+  return { app, web, total, completed, percent };
 }
 
 function renderOverview() {
   appsOverview.innerHTML = '';
-  let ecosystemCompleted = 0;
-  let ecosystemTotal = 0;
+  let appCompleted = 0;
+  let appTotal = 0;
+  let webCompleted = 0;
+  let webTotal = 0;
 
   neuronovaProjects.forEach(project => {
-    const stats = projectStats(project.id);
-    ecosystemCompleted += stats.completed;
-    ecosystemTotal += stats.total;
+    const stats = combinedStats(project.id);
+    appCompleted += stats.app.completed;
+    appTotal += stats.app.total;
+    webCompleted += stats.web.completed;
+    webTotal += stats.web.total;
 
     const button = document.createElement('button');
     button.type = 'button';
     button.className = `app-progress-card${projectSelect.value === project.id ? ' selected' : ''}`;
-    button.setAttribute('aria-label', `Ver seguimiento de ${project.name}, ${stats.percent}% completado`);
+    button.setAttribute('aria-label', `Ver seguimiento de ${project.name}. App ${stats.app.percent}%, web ${stats.web.percent}%, combinado ${stats.percent}%`);
     button.innerHTML = `
       <span class="app-progress-head"><strong>${project.name}</strong><b>${stats.percent}%</b></span>
       <span class="mini-progress"><i style="width:${stats.percent}%"></i></span>
-      <small>${stats.completed} de ${stats.total} hitos</small>
+      <span class="split-stats"><small>App <b>${stats.app.percent}%</b></small><small>Web <b>${stats.web.percent}%</b></small></span>
     `;
     button.addEventListener('click', () => {
       projectSelect.value = project.id;
@@ -58,48 +60,37 @@ function renderOverview() {
     appsOverview.append(button);
   });
 
-  const overallPercent = ecosystemTotal ? Math.round((ecosystemCompleted / ecosystemTotal) * 100) : 0;
+  const combinedCompleted = appCompleted + webCompleted;
+  const combinedTotal = appTotal + webTotal;
+  const overallPercent = combinedTotal ? Math.round((combinedCompleted / combinedTotal) * 100) : 0;
+  const appPercent = appTotal ? Math.round((appCompleted / appTotal) * 100) : 0;
+  const webPercent = webTotal ? Math.round((webCompleted / webTotal) * 100) : 0;
+
   overallProgressValue.textContent = `${overallPercent}%`;
+  overallAppValue.textContent = `${appPercent}%`;
+  overallWebValue.textContent = `${webPercent}%`;
   overallProgressBar.style.width = `${overallPercent}%`;
   overallProgressTrack.setAttribute('aria-valuenow', String(overallPercent));
-  overallDetail.textContent = `${ecosystemCompleted} de ${ecosystemTotal} hitos completados entre todas las aplicaciones.`;
-
+  overallDetail.textContent = `${combinedCompleted} de ${combinedTotal} hitos completados entre las rutas web y app.`;
   renderDriveLink();
 }
 
 function renderDriveLink() {
   const project = neuronovaProjects.find(item => item.id === projectSelect.value);
   if (!project) return;
-
   if (project.bankUrl) {
     driveBankName.textContent = project.bankName;
     driveBankNote.textContent = 'Acceso directo al banco maestro identificado para esta aplicación.';
     driveBankLink.href = project.bankUrl;
     driveBankLink.textContent = 'Abrir banco maestro';
-    driveBankLink.removeAttribute('aria-disabled');
-    driveBankLink.classList.remove('disabled');
   } else {
     driveBankName.textContent = 'Banco específico aún no vinculado';
     driveBankNote.textContent = 'No se encontró un banco maestro identificado con el nombre de esta aplicación. Se mantiene acceso a la carpeta general de bancos.';
     driveBankLink.href = banksFolderUrl;
     driveBankLink.textContent = 'Abrir carpeta bancos';
-    driveBankLink.removeAttribute('aria-disabled');
-    driveBankLink.classList.remove('disabled');
   }
 }
 
-projectSelect.addEventListener('change', () => {
-  requestAnimationFrame(renderOverview);
-});
-
-document.addEventListener('change', event => {
-  if (event.target.matches('.check-item input[type="checkbox"]')) {
-    requestAnimationFrame(renderOverview);
-  }
-});
-
-resetButton.addEventListener('click', () => {
-  requestAnimationFrame(renderOverview);
-});
-
+projectSelect.addEventListener('change', () => requestAnimationFrame(renderOverview));
+document.addEventListener('tracker-updated', () => requestAnimationFrame(renderOverview));
 renderOverview();
