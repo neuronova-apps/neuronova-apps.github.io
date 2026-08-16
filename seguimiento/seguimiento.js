@@ -1,128 +1,243 @@
 const appPhases = [
-  { title: 'Definición del proyecto', subtitle: 'Idea, propósito, alcance y criterios de éxito', items: [
-    ['Definir el problema o necesidad que resolverá la app', 'Dejar claro para quién se construye y qué valor principal ofrece.'],
-    ['Definir nombre, propósito y público objetivo', 'Evitar avanzar a diseño sin una identidad básica del producto.'],
-    ['Delimitar alcance inicial y funciones fuera de alcance', 'Separar el MVP de ideas que pueden incorporarse después.'],
-    ['Definir criterios de éxito del MVP', 'Especificar qué debe funcionar para considerar usable la primera versión.'],
-    ['Definir modelo gratuito, premium o monetización prevista', 'Aunque se implemente después, debe considerarse desde la arquitectura inicial.']
+  { title: 'Concepto e idea inicial', subtitle: 'Nacimiento de la aplicación y definición de su propósito', items: [
+    ['Registrar la idea inicial de la app', 'Definir qué se quiere crear antes de abrir herramientas de desarrollo.'],
+    ['Definir problema o necesidad que atenderá', 'Explicar qué utilidad concreta tendrá para el usuario.'],
+    ['Definir público objetivo', 'Identificar a quién estará dirigida la primera versión.'],
+    ['Definir nombre provisional o definitivo', 'Establecer una identidad de trabajo para el proyecto.'],
+    ['Definir función principal y alcance inicial', 'Separar el núcleo del producto de funciones futuras.'],
+    ['Definir criterios mínimos para considerar viable el proyecto', 'Determinar qué debe existir para continuar a desarrollo.']
   ]},
-  { title: 'Arquitectura y planificación', subtitle: 'Estructura técnica antes de construir pantallas', items: [
-    ['Crear repositorio y estructura base del proyecto', 'Configurar rama principal, README y organización inicial.'],
-    ['Definir arquitectura de datos y persistencia', 'Determinar qué se guarda localmente y qué podría requerir servicios externos.'],
-    ['Definir navegación y mapa de pantallas', 'Establecer las rutas principales antes de diseñar detalles visuales.'],
-    ['Definir dependencias, SDK mínimo y objetivo Android', 'Mantener compatibilidad con los requisitos vigentes de Google Play.'],
-    ['Definir estrategia de versiones y respaldos', 'VersionCode, versionName y control de cambios desde el inicio.']
+  { title: 'Creación del repositorio', subtitle: 'Base de control de versiones y organización del proyecto', items: [
+    ['Crear repositorio GitHub de la aplicación', 'Usar el nombre definitivo o el nombre de trabajo aprobado.'],
+    ['Configurar rama principal y archivo README', 'Dejar una descripción básica del proyecto y su finalidad.'],
+    ['Configurar .gitignore para Android', 'Evitar subir archivos locales, temporales o sensibles.'],
+    ['Definir estructura inicial de documentación', 'Registrar decisiones, versiones y cambios importantes.'],
+    ['Confirmar acceso y permisos del repositorio', 'Verificar que el repositorio pueda recibir commits y pushes.']
   ]},
-  { title: 'Diseño y experiencia', subtitle: 'Interfaz, accesibilidad y coherencia con Neuronova', items: [
-    ['Crear prototipo visual de las pantallas principales', 'Validar estructura y jerarquía antes de llevar todo a código.'],
-    ['Aplicar identidad visual propia y coherencia con Neuronova', 'Compartir patrones familiares sin perder la personalidad de cada app.'],
+  { title: 'Creación en Android Studio', subtitle: 'Proyecto Android real y primera compilación', items: [
+    ['Crear nuevo proyecto en Android Studio', 'Elegir plantilla y configuración técnica acorde con la app.'],
+    ['Definir package/applicationId provisional o definitivo', 'Evitar identificadores genéricos antes de publicación.'],
+    ['Configurar minSdk, targetSdk y compileSdk', 'Mantener compatibilidad con los requisitos vigentes.'],
+    ['Configurar Gradle, Kotlin y dependencias base', 'Dejar un proyecto sincronizado sin errores.'],
+    ['Ejecutar primera compilación debug', 'Confirmar que el proyecto base compila antes de añadir funciones.'],
+    ['Instalar y abrir la primera build en emulador o dispositivo', 'Verificar que el proyecto arranca correctamente.']
+  ]},
+  { title: 'Enlace Android Studio y GitHub', subtitle: 'Sincronización del proyecto local con su repositorio', items: [
+    ['Inicializar o verificar Git en el proyecto Android', 'Confirmar que Android Studio reconoce el repositorio local.'],
+    ['Configurar remote del repositorio GitHub', 'Vincular correctamente origin con el repo correspondiente.'],
+    ['Realizar commit inicial del proyecto Android', 'Guardar una base limpia y compilable.'],
+    ['Realizar primer push a GitHub', 'Confirmar que el código aparece en el repositorio remoto.'],
+    ['Verificar flujo commit, pull y push', 'Asegurar que Android Studio y GitHub quedan operativos entre sí.'],
+    ['Definir criterio de respaldos y versiones', 'Evitar trabajar durante largos periodos sin puntos recuperables.']
+  ]},
+  { title: 'Planificación y arquitectura', subtitle: 'Pantallas, datos, navegación y alcance del MVP', items: [
+    ['Definir mapa de pantallas y navegación', 'Ordenar el recorrido principal antes de construir toda la interfaz.'],
+    ['Definir arquitectura del código', 'Separar interfaz, lógica, datos y persistencia cuando corresponda.'],
+    ['Definir estructura de datos y almacenamiento', 'Determinar qué se guarda localmente y qué requiere otra fuente.'],
+    ['Definir funciones del MVP', 'Concentrar el primer ciclo en una versión realmente utilizable.'],
+    ['Definir funciones posteriores al MVP', 'Evitar sobrecargar el primer desarrollo.'],
+    ['Definir modelo gratuito, premium o monetización prevista', 'Considerarlo antes de cerrar la arquitectura.']
+  ]},
+  { title: 'Prototipo y diseño UX/UI', subtitle: 'Validación visual antes de consolidar el desarrollo', items: [
+    ['Crear prototipo de las pantallas principales', 'Validar jerarquía, navegación y distribución.'],
+    ['Revisar prototipo en formato de teléfono promedio', 'Confirmar que el diseño funciona en un tamaño realista.'],
+    ['Aplicar identidad propia de la app', 'Mantener coherencia con NeuroNova sin perder personalidad.'],
     ['Definir tema claro, oscuro y comportamiento predeterminado', 'Cuando corresponda al producto.'],
-    ['Implementar criterios de accesibilidad desde el diseño', 'Contraste, tamaños táctiles, foco, lectura y navegación.'],
-    ['Validar diseño vertical y horizontal cuando aplique', 'Evitar recortes, scroll innecesario o controles inaccesibles.']
+    ['Definir criterios de accesibilidad', 'Contraste, tamaños táctiles, lectura y navegación.'],
+    ['Aprobar estructura visual antes de la implementación extensa', 'Reducir retrabajos posteriores.']
   ]},
-  { title: 'Desarrollo del núcleo', subtitle: 'Funciones mínimas que hacen que la app sea realmente utilizable', items: [
-    ['Implementar navegación principal y estados de pantalla', 'La app debe poder recorrerse sin rutas rotas.'],
-    ['Implementar la función central del producto', 'Juego, aprendizaje, frases, devocionales u otra función principal.'],
-    ['Implementar almacenamiento de preferencias y progreso', 'Solo cuando sea necesario para la experiencia.'],
-    ['Gestionar errores y estados vacíos', 'La interfaz debe responder correctamente ante datos incompletos o acciones inválidas.'],
-    ['Eliminar funciones simuladas que puedan confundirse con funciones reales', 'Diferenciar demo, pendiente y funcionalidad completa.']
+  { title: 'Desarrollo funcional', subtitle: 'Construcción de la aplicación y de su función central', items: [
+    ['Implementar navegación principal', 'Todas las pantallas esenciales deben poder recorrerse.'],
+    ['Implementar función central del producto', 'Juego, aprendizaje, frases, devocionales u otra función principal.'],
+    ['Implementar estados de pantalla y manejo de errores', 'Evitar bloqueos ante acciones inválidas o datos faltantes.'],
+    ['Implementar preferencias y configuración', 'Solo las necesarias para la experiencia prevista.'],
+    ['Implementar progreso o persistencia cuando corresponda', 'Conservar información necesaria entre sesiones.'],
+    ['Eliminar funciones simuladas o placeholders engañosos', 'Diferenciar claramente lo funcional de lo pendiente.']
   ]},
-  { title: 'Contenido y banco de datos', subtitle: 'Calidad, coherencia y preparación del contenido definitivo', items: [
-    ['Definir estructura del banco de contenido', 'Campos, identificadores, categorías, niveles y metadatos necesarios.'],
-    ['Completar el contenido previsto para el MVP', 'Evitar publicar una app funcional con un banco insuficiente.'],
-    ['Auditar duplicados, errores, coherencia y dificultad', 'Aplicar controles específicos según el tipo de contenido.'],
-    ['Validar derechos de uso y atribuciones cuando correspondan', 'No incorporar contenido cuyo uso no esté autorizado.'],
-    ['Integrar el banco definitivo en la app', 'Verificar carga, rendimiento y manejo de registros inválidos.']
+  { title: 'Banco maestro y contenido', subtitle: 'Creación, depuración e integración del contenido de la app', items: [
+    ['Definir estructura del banco maestro', 'Campos, IDs, categorías, dificultad y metadatos.'],
+    ['Crear o consolidar el banco maestro', 'Trabajar sobre una fuente identificable y versionada.'],
+    ['Completar contenido previsto para el MVP', 'Evitar una app funcional con contenido insuficiente.'],
+    ['Auditar duplicados, coherencia y errores', 'Aplicar controles propios del tipo de banco.'],
+    ['Validar derechos de uso y atribuciones', 'Cuando existan textos o materiales de terceros.'],
+    ['Transformar el banco al formato requerido por la app', 'JSON, base local u otra estructura técnica.'],
+    ['Integrar y probar el banco definitivo', 'Comprobar carga, filtros y manejo de registros inválidos.']
   ]},
-  { title: 'Pruebas funcionales', subtitle: 'Comprobar comportamiento antes de considerar una beta', items: [
-    ['Probar recorrido completo de cada función principal', 'Desde apertura hasta cierre o finalización del flujo.'],
-    ['Probar persistencia al cerrar, volver y rotar el dispositivo', 'Cuando el tipo de app necesite conservar el estado.'],
-    ['Probar diferentes tamaños de pantalla y orientación', 'Teléfonos pequeños, promedio y grandes.'],
-    ['Probar accesibilidad y navegación por controles', 'Contraste, lectura, foco y tamaño de elementos interactivos.'],
-    ['Corregir errores bloqueantes y regresiones conocidas', 'No pasar a beta con fallos que impidan completar la función principal.']
+  { title: 'Pruebas internas de desarrollo', subtitle: 'Corrección progresiva antes de preparar la beta', items: [
+    ['Probar cada función principal', 'Validar el recorrido completo de uso.'],
+    ['Probar tamaños de pantalla y orientación', 'Revisar teléfonos pequeños, promedio y grandes.'],
+    ['Probar persistencia al cerrar, volver y rotar', 'Cuando la app deba conservar estado.'],
+    ['Probar accesibilidad y legibilidad', 'Contraste, foco, tamaños y controles.'],
+    ['Probar casos límite y errores frecuentes', 'Entradas inválidas, estados vacíos y acciones repetidas.'],
+    ['Corregir errores bloqueantes y regresiones', 'No avanzar a beta con fallos que impidan el uso principal.']
   ]},
-  { title: 'Preparación Android release', subtitle: 'Convertir el proyecto funcional en un candidato distribuible', items: [
-    ['Confirmar applicationId definitivo', 'Evitar identificadores temporales antes de publicar.'],
-    ['Configurar icono, nombre, versión y metadatos de la app', 'Revisar recursos de release y textos visibles.'],
-    ['Crear y proteger la clave de firma de producción', 'La pérdida de credenciales puede comprometer futuras actualizaciones.'],
-    ['Generar APK release firmado para pruebas', 'Comprobar instalación y comportamiento de la compilación release.'],
-    ['Generar AAB release firmado', 'Este será el formato de distribución para Google Play.']
+  { title: 'Beta interna instalable', subtitle: 'APK funcional para evaluación directa en dispositivos', items: [
+    ['Generar APK debug estable', 'Usarlo para las primeras pruebas reales.'],
+    ['Instalar APK en dispositivo físico', 'Comprobar funcionamiento fuera del emulador.'],
+    ['Realizar ronda de prueba personal completa', 'Registrar observaciones visuales y funcionales.'],
+    ['Corregir incidencias encontradas en dispositivo', 'Priorizar problemas que afectan experiencia o estabilidad.'],
+    ['Generar nueva APK después de correcciones', 'Confirmar que las correcciones no introducen regresiones.']
   ]},
-  { title: 'Beta y prueba cerrada', subtitle: 'Validación con usuarios antes de producción', items: [
-    ['Crear la aplicación en Google Play Console', 'Configurar datos básicos del proyecto.'],
-    ['Crear pista de prueba cerrada', 'Definir grupo de evaluadores y acceso a la versión.'],
-    ['Subir AAB firmado a la prueba cerrada', 'Verificar que Play Console acepte el paquete sin errores bloqueantes.'],
-    ['Completar el periodo de prueba requerido', 'Mantener el seguimiento de estabilidad y observaciones.'],
-    ['Registrar, priorizar y corregir incidencias de los evaluadores', 'Distinguir errores bloqueantes, importantes y mejoras posteriores.'],
-    ['Realizar compilación candidata después de las correcciones', 'Repetir pruebas esenciales antes de solicitar producción.']
+  { title: 'Preparación de release Android', subtitle: 'Conversión de la beta en un candidato distribuible', items: [
+    ['Confirmar applicationId definitivo', 'Debe permanecer estable para futuras actualizaciones.'],
+    ['Configurar nombre, icono y recursos de producción', 'Eliminar recursos temporales.'],
+    ['Configurar versionCode y versionName', 'Preparar el esquema de versiones para Play Store.'],
+    ['Crear y proteger clave de firma de producción', 'Mantener copia segura fuera del proyecto.'],
+    ['Configurar firma release', 'Verificar que Gradle puede generar artefactos firmados.'],
+    ['Generar APK release firmado', 'Probar instalación y comportamiento de la versión release.'],
+    ['Generar AAB release firmado', 'Preparar el formato que se distribuirá mediante Google Play.']
   ]},
-  { title: 'Ficha y cumplimiento de Play Store', subtitle: 'Información pública, políticas y formularios obligatorios', items: [
-    ['Preparar nombre, descripción corta y descripción completa', 'Textos definitivos y coherentes con la funcionalidad real.'],
-    ['Preparar icono, capturas y recursos gráficos de la ficha', 'Utilizar imágenes representativas de la versión que se publicará.'],
-    ['Publicar política de privacidad cuando corresponda', 'La URL debe ser estable y accesible.'],
-    ['Completar seguridad de datos y declaraciones de contenido', 'Responder según lo que la app realmente recopila o utiliza.'],
-    ['Completar clasificación de contenido y público objetivo', 'Evitar respuestas genéricas que no representen la aplicación.'],
-    ['Revisar permisos Android y eliminar los innecesarios', 'Cada permiso debe tener una razón funcional concreta.']
+  { title: 'Preparación de Google Play Console', subtitle: 'Cuenta, ficha inicial y configuración del proyecto', items: [
+    ['Crear la aplicación en Google Play Console', 'Registrar nombre, idioma y datos básicos.'],
+    ['Configurar datos del desarrollador', 'Comprobar que la información requerida esté completa.'],
+    ['Crear pista de prueba cerrada', 'Preparar el canal previo a producción.'],
+    ['Definir grupo de evaluadores', 'Registrar las cuentas que participarán en la prueba.'],
+    ['Subir AAB firmado a prueba cerrada', 'Resolver advertencias o errores bloqueantes.'],
+    ['Publicar la versión de prueba cerrada', 'Confirmar que los evaluadores pueden instalarla.']
   ]},
-  { title: 'Revisión final', subtitle: 'Control de calidad antes de enviar a producción', items: [
-    ['Realizar auditoría funcional completa de la versión candidata', 'Probar nuevamente los flujos críticos sobre el release final.'],
-    ['Realizar auditoría visual y de accesibilidad', 'Revisar legibilidad, contraste, tamaños y consistencia.'],
-    ['Verificar que no queden textos de prueba o datos temporales', 'Incluye nombres, URLs, claves, correos y recursos provisionales.'],
-    ['Confirmar que versión, firma y AAB sean los definitivos', 'No reemplazar accidentalmente el artefacto aprobado.'],
-    ['Respaldar código, clave de firma y documentación crítica', 'Mantener copias seguras separadas del entorno de desarrollo.']
+  { title: 'Prueba cerrada y correcciones', subtitle: 'Validación con usuarios antes de solicitar producción', items: [
+    ['Completar el periodo de prueba requerido', 'Mantener la pista activa según las condiciones aplicables.'],
+    ['Recoger incidencias y observaciones', 'Registrar problemas funcionales y de experiencia.'],
+    ['Clasificar incidencias por prioridad', 'Separar bloqueantes, importantes y mejoras futuras.'],
+    ['Aplicar correcciones necesarias', 'Resolver lo que comprometa estabilidad o calidad.'],
+    ['Generar y probar versión candidata', 'Repetir pruebas críticas tras las correcciones.'],
+    ['Actualizar AAB de prueba cuando corresponda', 'Validar en Play la versión que se pretende llevar a producción.']
   ]},
-  { title: 'Publicación en Google Play', subtitle: 'Cierre de la primera versión pública', items: [
-    ['Solicitar acceso o paso a producción', 'Realizar el proceso exigido por Play Console para la cuenta.'],
-    ['Crear lanzamiento de producción con el AAB aprobado', 'Incluir notas de versión claras para la primera publicación.'],
-    ['Enviar la versión a revisión de Google Play', 'Resolver cualquier observación antes de considerarla publicada.'],
-    ['Confirmar que la ficha esté disponible públicamente', 'Verificar desde un dispositivo o sesión externa.'],
-    ['Instalar la versión publicada desde Google Play y probarla', 'La validación final debe hacerse sobre la distribución real.'],
-    ['Registrar versión 1.0 como publicación completada', 'Cerrar el hito y abrir el ciclo de mantenimiento y próximas versiones.']
+  { title: 'Ficha y cumplimiento de Play Store', subtitle: 'Material público, políticas y declaraciones obligatorias', items: [
+    ['Preparar descripción corta y completa', 'Representar fielmente la funcionalidad real.'],
+    ['Preparar icono, capturas y recursos gráficos', 'Mostrar la versión que realmente se publicará.'],
+    ['Publicar política de privacidad cuando corresponda', 'Usar una URL pública y estable.'],
+    ['Completar seguridad de datos', 'Declarar únicamente lo que la app realmente recopila o utiliza.'],
+    ['Completar clasificación de contenido', 'Responder según la naturaleza real de la aplicación.'],
+    ['Completar público objetivo y declaraciones adicionales', 'Atender los formularios aplicables.'],
+    ['Revisar permisos Android', 'Eliminar permisos innecesarios antes del lanzamiento.']
+  ]},
+  { title: 'Auditoría final de producción', subtitle: 'Último control antes de enviar la app a Google', items: [
+    ['Realizar auditoría funcional completa', 'Probar todos los flujos críticos sobre release.'],
+    ['Realizar auditoría visual y de accesibilidad', 'Revisar consistencia, contraste y legibilidad.'],
+    ['Verificar que no existan datos de prueba', 'Eliminar textos, URLs, claves o recursos provisionales.'],
+    ['Confirmar firma, versión y AAB definitivos', 'No sustituir accidentalmente el artefacto aprobado.'],
+    ['Respaldar código y clave de firma', 'Mantener copias seguras para futuras versiones.'],
+    ['Dar aprobación interna al candidato de producción', 'Cerrar formalmente la fase de desarrollo inicial.']
+  ]},
+  { title: 'Publicación en Google Play', subtitle: 'Distribución pública de la primera versión', items: [
+    ['Solicitar acceso o paso a producción', 'Completar el proceso requerido por Play Console.'],
+    ['Crear lanzamiento de producción', 'Seleccionar el AAB candidato aprobado.'],
+    ['Añadir notas de la versión', 'Describir brevemente la primera publicación.'],
+    ['Enviar a revisión de Google Play', 'Atender cualquier observación de la revisión.'],
+    ['Confirmar publicación pública', 'Verificar que la ficha esté disponible externamente.'],
+    ['Instalar desde Google Play y realizar prueba final', 'Validar la distribución real recibida por el usuario.'],
+    ['Registrar versión 1.0 como completada', 'Abrir el ciclo posterior de mantenimiento y actualizaciones.']
   ]}
 ];
 
 const webPhases = [
-  { title: 'Definición web', subtitle: 'Propósito, alcance y relación con la app', items: [
-    ['Definir la función de la web del proyecto', 'Presentación, demo, documentación, soporte o combinación de estas funciones.'],
-    ['Definir información mínima que debe comunicar', 'Propósito, estado, acceso y relación con NeuroNova.'],
-    ['Definir estructura de navegación', 'Determinar secciones y jerarquía antes de ampliar el contenido.'],
-    ['Definir URL y ubicación dentro del ecosistema', 'Mantener una ruta estable y reconocible.']
+  { title: 'Concepto de la web', subtitle: 'Propósito, alcance y relación con la aplicación', items: [
+    ['Definir para qué existirá la web', 'Presentación, demo, documentación, soporte o combinación de funciones.'],
+    ['Definir público y mensaje principal', 'Determinar qué debe comprender una persona al entrar.'],
+    ['Definir relación entre web y app', 'Aclarar si presenta, complementa o permite probar la aplicación.'],
+    ['Definir nombre, URL y alcance inicial', 'Establecer una dirección coherente dentro de NeuroNova.'],
+    ['Definir criterio de finalización de la primera versión web', 'Precisar cuándo puede considerarse lista para publicar.']
   ]},
-  { title: 'Contenido y estructura', subtitle: 'Información clara, actualizada y coherente', items: [
-    ['Crear página principal funcional', 'La página debe explicar el proyecto sin depender de información externa.'],
-    ['Incluir estado real del proyecto', 'Diferenciar demo, MVP, desarrollo y disponibilidad pública.'],
-    ['Incluir enlaces relevantes', 'App, repositorio, privacidad, soporte o recursos según corresponda.'],
-    ['Revisar redacción, títulos y consistencia del contenido', 'Eliminar textos temporales, duplicados o contradictorios.']
+  { title: 'Repositorio y GitHub Pages', subtitle: 'Base técnica y publicación inicial del sitio', items: [
+    ['Crear repositorio GitHub de la web o confirmar el existente', 'Usar una estructura coherente con el ecosistema.'],
+    ['Configurar rama principal', 'Definir main como fuente estable cuando corresponda.'],
+    ['Crear README inicial', 'Documentar propósito y estructura básica.'],
+    ['Configurar .gitignore cuando sea necesario', 'Excluir archivos locales o temporales.'],
+    ['Activar o verificar GitHub Pages', 'Confirmar la fuente de publicación del sitio.'],
+    ['Comprobar URL pública inicial', 'Verificar que el sitio pueda desplegarse aunque todavía sea mínimo.']
   ]},
-  { title: 'Diseño responsive', subtitle: 'Experiencia visual coherente con NeuroNova', items: [
-    ['Aplicar identidad visual del proyecto', 'Mantener rasgos propios dentro del sistema visual de NeuroNova.'],
-    ['Validar navegación en escritorio', 'Evitar desbordes, superposiciones y jerarquías confusas.'],
-    ['Validar navegación en móvil', 'Comprobar lectura y controles en pantallas pequeñas.'],
-    ['Validar tamaños intermedios y orientación', 'Revisar tabletas y cambios de ancho relevantes.']
+  { title: 'Estructura web desde cero', subtitle: 'Archivos base, navegación y organización inicial', items: [
+    ['Crear index.html', 'Establecer el punto de entrada de la web.'],
+    ['Crear hoja de estilos principal', 'Separar la presentación del contenido.'],
+    ['Crear JavaScript cuando sea necesario', 'Añadir comportamiento sin mezclarlo innecesariamente con HTML.'],
+    ['Definir estructura de carpetas', 'Organizar assets, imágenes, scripts y documentos.'],
+    ['Crear navegación principal', 'Permitir desplazarse por las secciones esenciales.'],
+    ['Comprobar primera versión local', 'Abrir y recorrer la web antes de seguir ampliándola.']
   ]},
-  { title: 'Accesibilidad web', subtitle: 'Lectura, teclado, contraste y movimiento', items: [
-    ['Validar contraste y legibilidad', 'Texto, botones, estados y elementos informativos deben ser distinguibles.'],
-    ['Validar navegación por teclado y foco visible', 'Toda acción principal debe poder alcanzarse sin ratón.'],
-    ['Validar estructura semántica y etiquetas', 'Encabezados, enlaces, botones y formularios deben tener significado claro.'],
-    ['Validar reducción de movimiento y preferencias disponibles', 'Evitar depender de animaciones para comprender el contenido.']
+  { title: 'Arquitectura de información y prototipo', subtitle: 'Orden del contenido antes del diseño definitivo', items: [
+    ['Definir secciones de la página', 'Inicio, descripción, funciones, privacidad, contacto u otras necesarias.'],
+    ['Definir jerarquía de títulos y contenidos', 'Ordenar la información de mayor a menor relevancia.'],
+    ['Crear prototipo o versión visual preliminar', 'Validar distribución antes de pulir detalles.'],
+    ['Revisar prototipo en escritorio', 'Comprobar amplitud, lectura y navegación.'],
+    ['Revisar prototipo en móvil', 'Confirmar que el enfoque funciona en pantallas pequeñas.'],
+    ['Aprobar estructura antes del diseño final', 'Reducir cambios estructurales tardíos.']
   ]},
-  { title: 'SEO y presentación pública', subtitle: 'Metadatos, indexación y recursos compartidos', items: [
-    ['Configurar title y meta description', 'Describir de forma fiel la página y el proyecto.'],
-    ['Configurar favicon e identidad social', 'Usar recursos propios de la app cuando corresponda.'],
-    ['Configurar canonical, Open Graph y datos de indexación', 'Evitar URLs ambiguas o contenido duplicado.'],
-    ['Actualizar sitemap o enlaces del ecosistema', 'La matriz debe poder descubrir y enlazar correctamente el proyecto.']
+  { title: 'Contenido definitivo', subtitle: 'Información pública completa, coherente y actualizada', items: [
+    ['Redactar presentación del proyecto', 'Explicar qué es y para qué sirve.'],
+    ['Redactar funciones o características principales', 'Mostrar únicamente capacidades reales o claramente identificadas como futuras.'],
+    ['Indicar estado real del proyecto', 'Diferenciar desarrollo, demo, MVP, beta o publicación.'],
+    ['Incluir enlaces relevantes', 'Repositorio, app, privacidad, soporte o recursos.'],
+    ['Revisar ortografía y consistencia', 'Eliminar contradicciones, textos temporales y duplicados.'],
+    ['Confirmar que la web pueda entenderse sin contexto externo', 'La página debe ser autosuficiente para un visitante nuevo.']
   ]},
-  { title: 'Calidad web', subtitle: 'Pruebas funcionales, rendimiento y seguridad básica', items: [
-    ['Ejecutar validaciones de HTML, enlaces y JavaScript', 'Corregir errores que afecten carga o navegación.'],
-    ['Ejecutar prueba responsive en navegador', 'Comprobar flujos reales en distintos tamaños.'],
-    ['Ejecutar auditoría de accesibilidad', 'Corregir hallazgos relevantes antes de considerar estable la web.'],
-    ['Ejecutar auditoría de rendimiento y resiliencia', 'Revisar carga, recursos y fallos recuperables.']
+  { title: 'Diseño visual definitivo', subtitle: 'Identidad propia dentro del ecosistema NeuroNova', items: [
+    ['Aplicar identidad visual de la app', 'Usar colores, símbolo o rasgos propios.'],
+    ['Mantener coherencia con NeuroNova', 'Compartir patrones comunes sin convertir todas las webs en copias.'],
+    ['Implementar favicon', 'Usar el identificador visual aprobado.'],
+    ['Definir tipografía, espaciado y jerarquía visual', 'Asegurar lectura clara y consistente.'],
+    ['Revisar botones, tarjetas y estados interactivos', 'Mantener controles reconocibles y coherentes.'],
+    ['Eliminar elementos visuales provisionales', 'Dejar recursos preparados para publicación.']
   ]},
-  { title: 'Publicación y mantenimiento web', subtitle: 'Disponibilidad estable y actualización continua', items: [
-    ['Publicar versión estable en GitHub Pages', 'Confirmar que la URL pública carga correctamente.'],
-    ['Verificar enlaces desde la matriz NeuroNova', 'La app debe ser accesible desde el ecosistema principal.'],
-    ['Verificar información pública después del despliegue', 'Estado, enlaces y recursos deben coincidir con la versión publicada.'],
-    ['Definir criterio de actualización de la web', 'Actualizarla cuando cambie el estado, acceso o versión relevante de la app.']
+  { title: 'Funcionalidad web', subtitle: 'Interacciones, demos y componentes que deben funcionar', items: [
+    ['Implementar comportamiento de navegación', 'Menús, anclas y rutas deben responder correctamente.'],
+    ['Implementar componentes interactivos previstos', 'Demos, formularios, filtros, juegos o controles cuando correspondan.'],
+    ['Implementar persistencia local cuando sea necesaria', 'Guardar preferencias o progreso solo si aporta a la experiencia.'],
+    ['Gestionar estados vacíos y errores', 'Evitar interfaces rotas ante datos faltantes.'],
+    ['Verificar enlaces internos y externos', 'Eliminar rutas rotas o destinos provisionales.'],
+    ['Probar el flujo principal completo', 'Confirmar que la experiencia web puede completarse.']
+  ]},
+  { title: 'Diseño responsive', subtitle: 'Adaptación real a escritorio, tablet y móvil', items: [
+    ['Validar escritorio amplio', 'Comprobar distribución y límites de ancho.'],
+    ['Validar laptop o escritorio medio', 'Revisar cambios de columnas y espaciado.'],
+    ['Validar tableta', 'Comprobar navegación y tamaño de controles.'],
+    ['Validar teléfono promedio', 'Priorizar legibilidad y acciones principales.'],
+    ['Validar teléfono pequeño', 'Evitar desbordes y elementos inaccesibles.'],
+    ['Corregir scroll horizontal, recortes y superposiciones', 'La web debe adaptarse sin perder contenido esencial.']
+  ]},
+  { title: 'Accesibilidad web', subtitle: 'Lectura, teclado, contraste y preferencias de usuario', items: [
+    ['Validar estructura semántica', 'Usar encabezados, regiones y controles adecuados.'],
+    ['Validar navegación por teclado', 'Toda acción esencial debe ser alcanzable sin ratón.'],
+    ['Validar foco visible', 'La posición del teclado debe distinguirse claramente.'],
+    ['Validar contraste y legibilidad', 'Texto, botones y estados deben ser perceptibles.'],
+    ['Validar nombres accesibles y etiquetas', 'Enlaces, botones e imágenes deben comunicar su función.'],
+    ['Validar reducción de movimiento', 'Respetar preferencias cuando existan animaciones.'],
+    ['Validar panel o funciones de accesibilidad de NeuroNova cuando correspondan', 'Comprobar que las preferencias funcionan correctamente.']
+  ]},
+  { title: 'SEO y presentación pública', subtitle: 'Metadatos, indexación y representación en buscadores y redes', items: [
+    ['Configurar title y meta description', 'Describir fielmente la web.'],
+    ['Configurar canonical', 'Establecer la URL pública principal.'],
+    ['Configurar Open Graph', 'Preparar título, descripción e imagen para compartir.'],
+    ['Configurar Twitter Card u otros metadatos necesarios', 'Mantener una presentación coherente fuera del sitio.'],
+    ['Configurar robots e indexación', 'Definir si la página debe aparecer en buscadores.'],
+    ['Actualizar sitemap', 'Incluir las URLs públicas que corresponda indexar.'],
+    ['Verificar enlaces desde la matriz NeuroNova', 'La web debe poder descubrirse desde el ecosistema principal.']
+  ]},
+  { title: 'Validaciones automáticas y calidad', subtitle: 'Comprobaciones técnicas antes de considerar estable la web', items: [
+    ['Validar HTML y estructura de archivos', 'Detectar errores básicos de marcado o rutas.'],
+    ['Validar sintaxis JavaScript', 'Evitar fallos de carga por errores de código.'],
+    ['Validar enlaces y recursos', 'Comprobar que archivos y destinos existen.'],
+    ['Ejecutar pruebas de navegador', 'Revisar carga y flujo principal.'],
+    ['Ejecutar pruebas responsive', 'Comprobar varios tamaños de viewport.'],
+    ['Ejecutar auditoría de accesibilidad', 'Corregir hallazgos relevantes.'],
+    ['Ejecutar auditoría de rendimiento', 'Revisar carga, peso y estabilidad.'],
+    ['Ejecutar controles básicos de seguridad y resiliencia', 'Evitar patrones inseguros o fallos recuperables.']
+  ]},
+  { title: 'Publicación definitiva de la web', subtitle: 'Despliegue estable y verificación externa', items: [
+    ['Realizar commit de versión candidata', 'Dejar un punto claro antes del despliegue.'],
+    ['Realizar push a la rama publicada', 'Enviar la versión aprobada a GitHub.'],
+    ['Confirmar despliegue correcto en GitHub Pages', 'Esperar a que la versión pública quede disponible.'],
+    ['Abrir la URL en una sesión externa', 'Comprobar que no depende del entorno local.'],
+    ['Revisar navegación y recursos en producción', 'Confirmar que no existan diferencias con las pruebas locales.'],
+    ['Verificar favicon, metadatos y enlaces', 'Comprobar la presentación final.'],
+    ['Dar la web por publicada', 'Cerrar formalmente la primera versión estable.']
+  ]},
+  { title: 'Mantenimiento web', subtitle: 'Actualizaciones posteriores a la primera publicación', items: [
+    ['Definir cuándo debe actualizarse la web', 'Cambios de estado, funciones, versión o disponibilidad.'],
+    ['Mantener enlaces y políticas vigentes', 'Evitar referencias obsoletas.'],
+    ['Actualizar contenido al avanzar la app', 'La web debe representar el estado real del producto.'],
+    ['Repetir auditorías después de cambios importantes', 'Evitar regresiones de accesibilidad o rendimiento.'],
+    ['Registrar versiones relevantes', 'Mantener trazabilidad de cambios importantes.']
   ]}
 ];
 
@@ -145,9 +260,7 @@ const routeDescription = document.querySelector('#routeDescription');
 let trackerMode = 'app';
 
 function currentPhases() { return trackerMode === 'web' ? webPhases : appPhases; }
-function storageKey(project, mode = trackerMode) {
-  return mode === 'app' ? `neuronova-project-tracker:${project}:v1` : `neuronova-web-tracker:${project}:v1`;
-}
+function storageKey(project, mode = trackerMode) { return `neuronova-${mode}-tracker:${project}:v2`; }
 function readState(project, mode = trackerMode) {
   try { return JSON.parse(localStorage.getItem(storageKey(project, mode))) || {}; }
   catch { return {}; }
@@ -165,16 +278,16 @@ function phaseState(phaseIndex, state, phases = currentPhases()) {
 function setMode(mode) {
   trackerMode = mode;
   const appActive = mode === 'app';
-  appModeButton.classList.toggle('active', appActive);
-  webModeButton.classList.toggle('active', !appActive);
-  appModeButton.setAttribute('aria-pressed', String(appActive));
-  webModeButton.setAttribute('aria-pressed', String(!appActive));
-  currentProgressLabel.textContent = appActive ? 'Avance de la app' : 'Avance de la web';
-  routeEyebrow.textContent = appActive ? 'Ruta de la aplicación' : 'Ruta web';
-  panelTitle.textContent = appActive ? 'Del concepto a Play Store' : 'De la estructura a una web estable';
-  routeDescription.textContent = appActive
-    ? 'La ruta de app cubre definición, desarrollo, contenido, pruebas, release, beta y publicación en Google Play.'
-    : 'La ruta web cubre estructura, contenido, responsive, accesibilidad, SEO, calidad y publicación en GitHub Pages.';
+  appModeButton?.classList.toggle('active', appActive);
+  webModeButton?.classList.toggle('active', !appActive);
+  appModeButton?.setAttribute('aria-pressed', String(appActive));
+  webModeButton?.setAttribute('aria-pressed', String(!appActive));
+  if (currentProgressLabel) currentProgressLabel.textContent = appActive ? 'Avance de la app' : 'Avance de la web';
+  if (routeEyebrow) routeEyebrow.textContent = appActive ? 'Ruta completa de la aplicación' : 'Ruta completa de la web';
+  if (panelTitle) panelTitle.textContent = appActive ? 'De la idea a Google Play' : 'De la idea a la web publicada';
+  if (routeDescription) routeDescription.textContent = appActive
+    ? 'Seguimiento cronológico desde el concepto, creación del repositorio y proyecto en Android Studio, enlace con GitHub, desarrollo y pruebas, hasta la distribución pública en Google Play.'
+    : 'Seguimiento cronológico desde el concepto, creación del repositorio y archivos base, diseño y desarrollo web, hasta la publicación definitiva y mantenimiento.';
   render();
 }
 
@@ -183,29 +296,25 @@ function render() {
   const phases = currentPhases();
   const state = readState(project);
   roadmap.innerHTML = '';
-
   phases.forEach((phase, phaseIndex) => {
     const [stateName, stateLabel] = phaseState(phaseIndex, state, phases);
     const details = document.createElement('details');
     details.className = 'phase';
     details.dataset.state = stateName;
     details.open = phaseIndex === 0 || stateName === 'active';
-
     const summary = document.createElement('summary');
     summary.innerHTML = `<span class="phase-number">${String(phaseIndex + 1).padStart(2, '0')}</span><span class="phase-title"><strong>${phase.title}</strong><span>${phase.subtitle}</span></span><span class="phase-status">${stateLabel}</span>`;
-
     const body = document.createElement('div');
     body.className = 'phase-body';
     const checklist = document.createElement('div');
     checklist.className = 'checklist';
-
     phase.items.forEach(([title, description], itemIndex) => {
       const id = itemId(phaseIndex, itemIndex);
       const row = document.createElement('div');
       row.className = `check-item${state[id] ? ' completed' : ''}`;
       const checkbox = document.createElement('input');
       checkbox.type = 'checkbox';
-      checkbox.id = `${trackerMode}-${project}-${id}`;
+      checkbox.id = `${trackerMode}-${id}`;
       checkbox.checked = Boolean(state[id]);
       const label = document.createElement('label');
       label.htmlFor = checkbox.id;
@@ -220,7 +329,6 @@ function render() {
       row.append(checkbox, label);
       checklist.append(row);
     });
-
     body.append(checklist);
     details.append(summary, body);
     roadmap.append(details);
@@ -228,32 +336,33 @@ function render() {
   updateProgress(state, phases);
 }
 
-function getStats(project, mode) {
+function updateProgress(state, phases = currentPhases()) {
+  const total = phases.reduce((sum, phase) => sum + phase.items.length, 0);
+  let completed = 0;
+  phases.forEach((phase, phaseIndex) => phase.items.forEach((_, itemIndex) => { if (state[itemId(phaseIndex, itemIndex)]) completed += 1; }));
+  const percent = total ? Math.round((completed / total) * 100) : 0;
+  progressValue.textContent = `${percent}%`;
+  progressBar.style.width = `${percent}%`;
+  progressDetail.textContent = `${completed} de ${total} hitos completados`;
+  progressTrack?.setAttribute('aria-valuenow', String(percent));
+}
+
+function getStats(projectId, mode) {
   const phases = mode === 'web' ? webPhases : appPhases;
-  const state = readState(project, mode);
+  const state = readState(projectId, mode);
   const total = phases.reduce((sum, phase) => sum + phase.items.length, 0);
   let completed = 0;
   phases.forEach((phase, phaseIndex) => phase.items.forEach((_, itemIndex) => { if (state[itemId(phaseIndex, itemIndex)]) completed += 1; }));
   return { total, completed, percent: total ? Math.round((completed / total) * 100) : 0 };
 }
 
-function updateProgress(state, phases = currentPhases()) {
-  const total = phases.reduce((sum, phase) => sum + phase.items.length, 0);
-  const completed = phases.reduce((sum, phase, phaseIndex) => sum + phase.items.filter((_, itemIndex) => state[itemId(phaseIndex, itemIndex)]).length, 0);
-  const percent = total ? Math.round((completed / total) * 100) : 0;
-  progressValue.textContent = `${percent}%`;
-  progressBar.style.width = `${percent}%`;
-  progressDetail.textContent = `${completed} de ${total} hitos completados`;
-  progressTrack.setAttribute('aria-valuenow', String(percent));
-}
-
 projectSelect.addEventListener('change', () => { render(); document.dispatchEvent(new CustomEvent('tracker-updated')); });
-appModeButton.addEventListener('click', () => setMode('app'));
-webModeButton.addEventListener('click', () => setMode('web'));
+appModeButton?.addEventListener('click', () => setMode('app'));
+webModeButton?.addEventListener('click', () => setMode('web'));
 resetButton.addEventListener('click', () => {
   const projectName = projectSelect.options[projectSelect.selectedIndex].text;
   const routeName = trackerMode === 'app' ? 'app' : 'web';
-  if (!window.confirm(`¿Reiniciar todos los marcadores de la ${routeName} de ${projectName}?`)) return;
+  if (!window.confirm(`¿Reiniciar todos los marcadores de la ruta ${routeName} de ${projectName}?`)) return;
   localStorage.removeItem(storageKey(projectSelect.value));
   render();
   document.dispatchEvent(new CustomEvent('tracker-updated'));
@@ -261,4 +370,4 @@ resetButton.addEventListener('click', () => {
 expandButton.addEventListener('click', () => document.querySelectorAll('.phase').forEach(phase => { phase.open = true; }));
 collapseButton.addEventListener('click', () => document.querySelectorAll('.phase').forEach(phase => { phase.open = false; }));
 
-render();
+setMode('app');
