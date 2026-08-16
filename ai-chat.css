@@ -1,6 +1,6 @@
 .nova-ai-launcher {
   position: fixed;
-  right: 22px;
+  left: 22px;
   bottom: 22px;
   z-index: 180;
   width: 58px;
@@ -36,7 +36,7 @@
 
 .nova-ai-panel {
   position: fixed;
-  right: 22px;
+  left: 22px;
   bottom: 92px;
   z-index: 179;
   width: min(390px, calc(100vw - 28px));
@@ -243,12 +243,12 @@
 
 @media (max-width: 620px) {
   .nova-ai-launcher {
-    right: 14px;
+    left: 14px;
     bottom: 14px;
   }
 
   .nova-ai-panel {
-    right: 14px;
+    left: 14px;
     bottom: 82px;
     width: calc(100vw - 28px);
     height: min(620px, calc(100vh - 104px));
