@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Panel de seguimiento del ciclo de desarrollo de las aplicaciones de Neuronova Apps, desde la idea inicial hasta la publicación en Google Play.">
+  <meta name="robots" content="noindex, follow">
+  <meta name="theme-color" content="#07111f">
+  <title>Seguimiento de proyectos | Neuronova Apps</title>
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="seguimiento.css">
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido principal</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="../" aria-label="Volver a Neuronova Apps">
+        <span class="brand-symbol" aria-hidden="true">
+          <svg viewBox="0 0 48 48"><path d="M10 35V13l14 22V13l14 22V13" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <span class="brand-copy"><strong>Neuronova</strong><span>Apps</span></span>
+      </a>
+      <a class="back-link" href="../">Volver al ecosistema</a>
+    </div>
+  </header>
+
+  <main id="contenido">
+    <section class="hero">
+      <div class="container">
+        <p class="eyebrow">Control de desarrollo</p>
+        <h1>Seguimiento de proyectos</h1>
+        <p class="lead">Una ruta única para controlar cada aplicación de Neuronova desde la definición inicial hasta su publicación en Google Play. Las casillas se guardan únicamente en este navegador.</p>
+      </div>
+    </section>
+
+    <section class="container dashboard" aria-labelledby="panel-title">
+      <div class="project-panel">
+        <div class="project-field">
+          <label for="projectSelect">Aplicación</label>
+          <select id="projectSelect">
+            <option value="quizbible">Quiz Bible</option>
+            <option value="brailux">Brailux</option>
+            <option value="sudolux">Sudolux</option>
+            <option value="motiva">Motiva</option>
+            <option value="mimomento">Mi Momento</option>
+            <option value="englishfast">English Fast</option>
+            <option value="crucilux">Crucilux</option>
+          </select>
+        </div>
+
+        <div class="progress-summary" aria-live="polite">
+          <div>
+            <span class="summary-label">Avance general</span>
+            <strong id="progressValue">0%</strong>
+          </div>
+          <div class="progress-track" role="progressbar" aria-label="Avance general del proyecto" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+            <span id="progressBar"></span>
+          </div>
+          <p id="progressDetail">0 de 0 hitos completados</p>
+        </div>
+
+        <div class="panel-actions">
+          <button id="expandAll" type="button">Expandir fases</button>
+          <button id="collapseAll" type="button">Contraer fases</button>
+          <button id="resetProject" class="danger" type="button">Reiniciar proyecto</button>
+        </div>
+      </div>
+
+      <div class="status-key" aria-label="Interpretación del seguimiento">
+        <span><i class="dot pending"></i>Pendiente</span>
+        <span><i class="dot active"></i>En progreso</span>
+        <span><i class="dot done"></i>Fase completada</span>
+      </div>
+
+      <div class="section-heading">
+        <p class="eyebrow">Ruta completa</p>
+        <h2 id="panel-title">Del concepto a Play Store</h2>
+        <p>Las fases están ordenadas para evitar dar por terminado un proyecto solo porque el APK funciona. El cierre incluye calidad, beta, documentación, ficha comercial, cumplimiento y publicación.</p>
+      </div>
+
+      <div id="roadmap" class="roadmap"></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>Neuronova Apps · Seguimiento interno del desarrollo</p>
+      <a href="https://github.com/neuronova-apps" target="_blank" rel="noopener noreferrer">GitHub</a>
+    </div>
+  </footer>
+
+  <script src="seguimiento.js"></script>
+</body>
+</html>
