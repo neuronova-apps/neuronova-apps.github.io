@@ -277,3 +277,7 @@ if (typeof reduceMotionQuery.addEventListener === 'function') {
 } else if (typeof reduceMotionQuery.addListener === 'function') {
   reduceMotionQuery.addListener(syncMotionPreference);
 }
+
+import('./ai-chat.js').catch((error) => {
+  console.error('Neuronova Apps: no se pudo cargar el Asistente NeuroNova.', error);
+});
