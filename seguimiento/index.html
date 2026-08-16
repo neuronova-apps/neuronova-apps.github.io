@@ -34,6 +34,23 @@
       </div>
     </section>
 
+    <section class="container ecosystem-overview" aria-labelledby="ecosystem-title">
+      <div class="overall-card">
+        <div>
+          <p class="eyebrow">Ecosistema completo</p>
+          <h2 id="ecosystem-title">Avance general de NeuroNova</h2>
+          <p id="overallDetail">0 de 0 hitos completados entre todas las aplicaciones.</p>
+        </div>
+        <div class="overall-value">
+          <strong id="overallProgressValue">0%</strong>
+          <div class="progress-track" role="progressbar" aria-label="Avance global del ecosistema" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="overallProgressTrack">
+            <span id="overallProgressBar"></span>
+          </div>
+        </div>
+      </div>
+      <div id="appsOverview" class="apps-overview" aria-label="Avance por aplicación"></div>
+    </section>
+
     <section class="container dashboard" aria-labelledby="panel-title">
       <div class="project-panel">
         <div class="project-field">
@@ -51,13 +68,23 @@
 
         <div class="progress-summary" aria-live="polite">
           <div>
-            <span class="summary-label">Avance general</span>
+            <span class="summary-label">Avance de la aplicación</span>
             <strong id="progressValue">0%</strong>
           </div>
-          <div class="progress-track" role="progressbar" aria-label="Avance general del proyecto" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <div class="progress-track" role="progressbar" aria-label="Avance de la aplicación seleccionada" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
             <span id="progressBar"></span>
           </div>
           <p id="progressDetail">0 de 0 hitos completados</p>
+        </div>
+
+        <div class="drive-panel" aria-live="polite">
+          <span class="summary-label">Banco maestro en Google Drive</span>
+          <strong id="driveBankName">Banco no vinculado</strong>
+          <p id="driveBankNote">Puedes abrir la carpeta general de bancos mientras se define un banco específico.</p>
+          <div class="drive-actions">
+            <a id="driveBankLink" class="drive-button" href="#" target="_blank" rel="noopener noreferrer">Abrir banco maestro</a>
+            <a class="drive-button secondary" href="https://drive.google.com/drive/folders/14qy2_kcHHFRFGon42cm12U725s8eSBmv" target="_blank" rel="noopener noreferrer">Abrir carpeta bancos</a>
+          </div>
         </div>
 
         <div class="panel-actions">
