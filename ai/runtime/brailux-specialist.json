@@ -1,13 +1,14 @@
 {
   "schemaVersion": "1.0-brailux-specialist",
-  "specialistVersion": "1.0",
+  "specialistVersion": "1.1",
   "app": "Brailux",
-  "sourcePolicy": "Contenido derivado únicamente de páginas educativas validadas del repositorio público de Brailux. No completar huecos con conocimiento externo.",
+  "sourcePolicy": "Contenido derivado únicamente de páginas educativas validadas y de la lógica educativa pública del repositorio de Brailux. No completar huecos con conocimiento externo.",
   "sources": [
     "https://neuronova-apps.github.io/brailux-app/que-es-el-braille.html",
     "https://neuronova-apps.github.io/brailux-app/alfabeto-braille.html",
     "https://neuronova-apps.github.io/brailux-app/numeros-braille.html",
-    "https://neuronova-apps.github.io/brailux-app/como-aprender-braille.html"
+    "https://neuronova-apps.github.io/brailux-app/como-aprender-braille.html",
+    "https://neuronova-apps.github.io/brailux-app/script.js"
   ],
   "records": [
     {
@@ -102,6 +103,46 @@
         "Una aplicación visual puede explicar conceptos y ofrecer práctica, pero no reemplaza el desarrollo táctil que exige el uso real del Braille."
       ],
       "sourceUrl": "https://neuronova-apps.github.io/brailux-app/como-aprender-braille.html"
+    },
+    {
+      "id": "BRSP0009",
+      "category": "alfabeto_mapa",
+      "title": "Configuraciones A-J",
+      "facts": [
+        "A: punto 1.", "B: puntos 1-2.", "C: puntos 1-4.", "D: puntos 1-4-5.", "E: puntos 1-5.",
+        "F: puntos 1-2-4.", "G: puntos 1-2-4-5.", "H: puntos 1-2-5.", "I: puntos 2-4.", "J: puntos 2-4-5."
+      ],
+      "sourceUrl": "https://neuronova-apps.github.io/brailux-app/script.js"
+    },
+    {
+      "id": "BRSP0010",
+      "category": "alfabeto_mapa",
+      "title": "Configuraciones K-T",
+      "facts": [
+        "K: puntos 1-3.", "L: puntos 1-2-3.", "M: puntos 1-3-4.", "N: puntos 1-3-4-5.", "O: puntos 1-3-5.",
+        "P: puntos 1-2-3-4.", "Q: puntos 1-2-3-4-5.", "R: puntos 1-2-3-5.", "S: puntos 2-3-4.", "T: puntos 2-3-4-5."
+      ],
+      "sourceUrl": "https://neuronova-apps.github.io/brailux-app/script.js"
+    },
+    {
+      "id": "BRSP0011",
+      "category": "alfabeto_mapa",
+      "title": "Configuraciones U-Z",
+      "facts": [
+        "U: puntos 1-3-6.", "V: puntos 1-2-3-6.", "W: puntos 2-4-5-6.", "X: puntos 1-3-4-6.", "Y: puntos 1-3-4-5-6.", "Z: puntos 1-3-5-6."
+      ],
+      "sourceUrl": "https://neuronova-apps.github.io/brailux-app/script.js"
+    },
+    {
+      "id": "BRSP0012",
+      "category": "indicadores",
+      "title": "Indicadores básicos",
+      "facts": [
+        "Signo de número: puntos 3-4-5-6.",
+        "Signo de mayúscula: puntos 4-6.",
+        "El signo generador completo activa los puntos 1-2-3-4-5-6."
+      ],
+      "sourceUrl": "https://neuronova-apps.github.io/brailux-app/script.js"
     }
   ]
 }
