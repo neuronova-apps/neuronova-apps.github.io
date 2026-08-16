@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "architecture": "centralized",
+  "owner": "NeuroNova",
+  "service": "Firebase AI Logic / Gemini",
+  "activeFirebaseProjectId": "brailux",
+  "backendStatus": "ACTIVE_SHARED_PROVISIONAL",
+  "sharedClient": "https://neuronova-apps.github.io/ai-chat.js",
+  "runtimeBank": "https://neuronova-apps.github.io/apps.json",
+  "appCheckHost": "neuronova-apps.github.io",
+  "perRepositoryFirebaseConfigAllowed": false,
+  "migrationPolicy": {
+    "target": "Un único proyecto Firebase común de NeuroNova cuando exista y sea confirmado",
+    "rule": "No inventar ni sustituir projectId, appId, API key, App Check site key u otros identificadores sin valores emitidos por Firebase.",
+    "impact": "Los repos hermanos deben seguir cargando el cliente central. Una futura migración del backend se realiza en el repo matriz y no exige siete configuraciones independientes."
+  },
+  "notes": "El único proyecto Firebase actualmente confirmado en el cliente de producción es brailux. Se conserva para evitar interrumpir el chatbot mientras se decide o crea un proyecto Firebase específico de NeuroNova."
+}
