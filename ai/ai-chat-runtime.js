@@ -12,6 +12,7 @@ import {
 import { firebaseConfig, AI_RUNTIME_CONFIG } from './ai-config.js';
 import { buildRuntimeSelection, currentAppFromPath } from './runtime-selector.js';
 import { RESPONSE_STYLE_INSTRUCTION } from './response-style.js';
+import { buildDirectRuntimeAnswer } from './direct-answer.js';
 
 const {
   modelName: MODEL_NAME,
@@ -343,6 +344,15 @@ const initializeChat = () => {
     setBusy(true);
 
     try {
+      const runtime = await loadRuntimeBank();
+      const directAnswer = buildDirectRuntimeAnswer(prompt, runtime);
+
+      if (directAnswer) {
+        typingMessage.remove();
+        ui.messages.appendChild(createMessage('assistant', directAnswer));
+        return;
+      }
+
       if (!chat) chat = initializeFirebaseAI();
       const groundedPrompt = await buildGroundedPrompt(prompt);
       const result = await chat.sendMessage(groundedPrompt);
