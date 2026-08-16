@@ -40,6 +40,17 @@ function combinedStats(project) {
   return { app, web, total, completed, percent };
 }
 
+function progressRow(label, percent, type) {
+  return `
+    <span class="card-progress-row">
+      <span class="card-progress-label"><span>${label}</span><b>${percent}%</b></span>
+      <span class="mini-progress ${type}" role="progressbar" aria-label="${label} ${percent}%" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${percent}">
+        <i style="width:${percent}%"></i>
+      </span>
+    </span>
+  `;
+}
+
 function enforceProjectMode() {
   const project = neuronovaProjects.find(item => item.id === projectSelect.value);
   const isWebOnly = Boolean(project?.webOnly);
@@ -78,15 +89,20 @@ function renderOverview() {
       button.setAttribute('aria-label', `Ver seguimiento de ${project.name}. Proyecto únicamente web, ${stats.web.percent}% completado`);
       button.innerHTML = `
         <span class="app-progress-head"><strong>${project.name}</strong><b>${stats.web.percent}%</b></span>
-        <span class="mini-progress"><i style="width:${stats.web.percent}%"></i></span>
-        <span class="split-stats"><small>Web <b>${stats.web.percent}%</b></small><small>Solo web</small></span>
+        <span class="card-progress-stack single">
+          ${progressRow('Web', stats.web.percent, 'web')}
+        </span>
+        <span class="web-only-note">Solo web</span>
       `;
     } else {
       button.setAttribute('aria-label', `Ver seguimiento de ${project.name}. App ${stats.app.percent}%, web ${stats.web.percent}%, combinado ${stats.percent}%`);
       button.innerHTML = `
         <span class="app-progress-head"><strong>${project.name}</strong><b>${stats.percent}%</b></span>
-        <span class="mini-progress"><i style="width:${stats.percent}%"></i></span>
-        <span class="split-stats"><small>App <b>${stats.app.percent}%</b></small><small>Web <b>${stats.web.percent}%</b></small></span>
+        <span class="card-progress-stack">
+          ${progressRow('Combinado', stats.percent, 'combined')}
+          ${progressRow('App', stats.app.percent, 'app')}
+          ${progressRow('Web', stats.web.percent, 'web')}
+        </span>
       `;
     }
 
