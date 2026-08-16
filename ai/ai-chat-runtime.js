@@ -234,7 +234,7 @@ const createInterface = () => {
         <textarea class="nova-ai-input" rows="1" maxlength="${MAX_INPUT_LENGTH}" placeholder="Escribe tu consulta..." aria-label="Escribe tu consulta"></textarea>
         <button class="nova-ai-send" type="submit" aria-label="Enviar consulta">➤</button>
       </div>
-      <p class="nova-ai-note">Respuestas basadas en el Banco Maestro IA de NeuroNova. Verifica la información importante.</p>
+      <p class="nova-ai-note">Respuestas basadas en el Banco Maestro IA de NeuroNova. No compartas contraseñas, códigos, tokens ni datos sensibles.</p>
     </form>`;
 
   document.body.append(panel, launcher);
