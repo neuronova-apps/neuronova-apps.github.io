@@ -83,9 +83,31 @@ const findBrailuxFact = (predicate) => brailuxSpecialist?.records
   ?.flatMap((record) => record.facts || [])
   .find(predicate);
 
+const asksHowToLearnBraille = (text) => [
+  'como puedo aprender braille',
+  'como aprender braille',
+  'por donde empiezo a aprender braille',
+  'por donde comenzar a aprender braille',
+  'como empiezo con braille',
+  'como comenzar con braille'
+].some((term) => text.includes(term));
+
+const buildLearningPathAnswer = () => {
+  const record = brailuxSpecialist?.records?.find((item) => item.id === 'BRSP0007');
+  const sequenceFact = record?.facts?.find((item) => item.toLowerCase().startsWith('la secuencia es:'));
+  if (!sequenceFact) return null;
+
+  const sequence = sequenceFact.replace(/^La secuencia es:\s*/i, '').replace(/\.$/, '');
+  return `Para aprender Braille en Brailux, sigue esta ruta: ${sequence}.`;
+};
+
 const buildBrailuxDirectAnswer = (prompt) => {
   if (!brailuxSpecialist) return null;
   const text = normalizeText(prompt);
+
+  if (asksHowToLearnBraille(text)) {
+    return buildLearningPathAnswer();
+  }
 
   if (text.includes('signo de numero') || text.includes('indicador numerico')) {
     const fact = findBrailuxFact((item) => item.toLowerCase().startsWith('signo de número'));
