@@ -1,4 +1,5 @@
 const neuronovaProjects = [
+  { id: 'neuronova', name: 'NeuroNova Apps', webOnly: true, bankName: null, bankUrl: null },
   { id: 'quizbible', name: 'Quiz Bible', bankName: 'Quiz Bible - Banco maestro de preguntas', bankUrl: 'https://docs.google.com/spreadsheets/d/1DTr0mw4bfpTSMrHtQYNIUUV4-XjsedSTmqNlZZWmIvE/edit?usp=drivesdk' },
   { id: 'brailux', name: 'Brailux', bankName: null, bankUrl: null },
   { id: 'sudolux', name: 'Sudolux', bankName: null, bankUrl: null },
@@ -20,13 +21,36 @@ const driveBankName = document.querySelector('#driveBankName');
 const driveBankNote = document.querySelector('#driveBankNote');
 const driveBankLink = document.querySelector('#driveBankLink');
 
-function combinedStats(projectId) {
-  const app = getStats(projectId, 'app');
-  const web = getStats(projectId, 'web');
+function combinedStats(project) {
+  const web = getStats(project.id, 'web');
+  if (project.webOnly) {
+    return {
+      app: { total: 0, completed: 0, percent: null },
+      web,
+      total: web.total,
+      completed: web.completed,
+      percent: web.percent
+    };
+  }
+
+  const app = getStats(project.id, 'app');
   const total = app.total + web.total;
   const completed = app.completed + web.completed;
   const percent = total ? Math.round((completed / total) * 100) : 0;
   return { app, web, total, completed, percent };
+}
+
+function enforceProjectMode() {
+  const project = neuronovaProjects.find(item => item.id === projectSelect.value);
+  const isWebOnly = Boolean(project?.webOnly);
+
+  appModeButton.disabled = isWebOnly;
+  appModeButton.setAttribute('aria-disabled', String(isWebOnly));
+  appModeButton.title = isWebOnly ? 'El repo principal se controla únicamente como proyecto web.' : '';
+
+  if (isWebOnly && trackerMode !== 'web') {
+    setMode('web');
+  }
 }
 
 function renderOverview() {
@@ -37,21 +61,35 @@ function renderOverview() {
   let webTotal = 0;
 
   neuronovaProjects.forEach(project => {
-    const stats = combinedStats(project.id);
-    appCompleted += stats.app.completed;
-    appTotal += stats.app.total;
+    const stats = combinedStats(project);
+
+    if (!project.webOnly) {
+      appCompleted += stats.app.completed;
+      appTotal += stats.app.total;
+    }
     webCompleted += stats.web.completed;
     webTotal += stats.web.total;
 
     const button = document.createElement('button');
     button.type = 'button';
     button.className = `app-progress-card${projectSelect.value === project.id ? ' selected' : ''}`;
-    button.setAttribute('aria-label', `Ver seguimiento de ${project.name}. App ${stats.app.percent}%, web ${stats.web.percent}%, combinado ${stats.percent}%`);
-    button.innerHTML = `
-      <span class="app-progress-head"><strong>${project.name}</strong><b>${stats.percent}%</b></span>
-      <span class="mini-progress"><i style="width:${stats.percent}%"></i></span>
-      <span class="split-stats"><small>App <b>${stats.app.percent}%</b></small><small>Web <b>${stats.web.percent}%</b></small></span>
-    `;
+
+    if (project.webOnly) {
+      button.setAttribute('aria-label', `Ver seguimiento de ${project.name}. Proyecto únicamente web, ${stats.web.percent}% completado`);
+      button.innerHTML = `
+        <span class="app-progress-head"><strong>${project.name}</strong><b>${stats.web.percent}%</b></span>
+        <span class="mini-progress"><i style="width:${stats.web.percent}%"></i></span>
+        <span class="split-stats"><small>Web <b>${stats.web.percent}%</b></small><small>Solo web</small></span>
+      `;
+    } else {
+      button.setAttribute('aria-label', `Ver seguimiento de ${project.name}. App ${stats.app.percent}%, web ${stats.web.percent}%, combinado ${stats.percent}%`);
+      button.innerHTML = `
+        <span class="app-progress-head"><strong>${project.name}</strong><b>${stats.percent}%</b></span>
+        <span class="mini-progress"><i style="width:${stats.percent}%"></i></span>
+        <span class="split-stats"><small>App <b>${stats.app.percent}%</b></small><small>Web <b>${stats.web.percent}%</b></small></span>
+      `;
+    }
+
     button.addEventListener('click', () => {
       projectSelect.value = project.id;
       projectSelect.dispatchEvent(new Event('change'));
@@ -71,13 +109,24 @@ function renderOverview() {
   overallWebValue.textContent = `${webPercent}%`;
   overallProgressBar.style.width = `${overallPercent}%`;
   overallProgressTrack.setAttribute('aria-valuenow', String(overallPercent));
-  overallDetail.textContent = `${combinedCompleted} de ${combinedTotal} hitos completados entre las rutas web y app.`;
+  overallDetail.textContent = `${combinedCompleted} de ${combinedTotal} hitos completados. El repo principal aporta únicamente a la ruta web.`;
+
+  enforceProjectMode();
   renderDriveLink();
 }
 
 function renderDriveLink() {
   const project = neuronovaProjects.find(item => item.id === projectSelect.value);
   if (!project) return;
+
+  if (project.webOnly) {
+    driveBankName.textContent = 'No aplica al repo principal';
+    driveBankNote.textContent = 'NeuroNova Apps se registra aquí únicamente como web matriz, por lo que no requiere un banco maestro propio.';
+    driveBankLink.href = banksFolderUrl;
+    driveBankLink.textContent = 'Abrir carpeta general de bancos';
+    return;
+  }
+
   if (project.bankUrl) {
     driveBankName.textContent = project.bankName;
     driveBankNote.textContent = 'Acceso directo al banco maestro identificado para esta aplicación.';
@@ -91,6 +140,12 @@ function renderDriveLink() {
   }
 }
 
-projectSelect.addEventListener('change', () => requestAnimationFrame(renderOverview));
+projectSelect.addEventListener('change', () => {
+  enforceProjectMode();
+  requestAnimationFrame(renderOverview);
+});
+
 document.addEventListener('tracker-updated', () => requestAnimationFrame(renderOverview));
+
+enforceProjectMode();
 renderOverview();
