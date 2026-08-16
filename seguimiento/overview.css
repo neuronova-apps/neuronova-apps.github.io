@@ -1,0 +1,73 @@
+.ecosystem-overview { padding: 0 0 28px; }
+.overall-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(260px, .8fr);
+  gap: 28px;
+  align-items: center;
+  padding: 26px;
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  background: linear-gradient(135deg, rgba(105,210,255,.08), rgba(139,124,255,.08)), rgba(13,27,45,.88);
+  box-shadow: var(--shadow);
+}
+.overall-card h2 { margin: 0; font-size: clamp(1.7rem, 4vw, 2.7rem); line-height: 1.1; letter-spacing: -.03em; }
+.overall-card p:last-child { margin-bottom: 0; color: var(--muted); }
+.overall-value strong { display: block; margin-bottom: 10px; font-size: clamp(2.4rem, 7vw, 4rem); line-height: 1; text-align: right; }
+.apps-overview {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 14px;
+}
+.app-progress-card {
+  min-width: 0;
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: rgba(13,27,45,.72);
+  color: var(--text);
+  text-align: left;
+  cursor: pointer;
+}
+.app-progress-card:hover, .app-progress-card:focus-visible, .app-progress-card.selected {
+  border-color: rgba(105,210,255,.48);
+  background: rgba(105,210,255,.07);
+}
+.app-progress-head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+.app-progress-head strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.app-progress-head b { color: var(--accent); font-size: 1.18rem; }
+.mini-progress { display: block; height: 7px; margin: 12px 0 8px; overflow: hidden; border-radius: 999px; background: rgba(255,255,255,.08); }
+.mini-progress i { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--accent), var(--accent-2)); }
+.app-progress-card small { color: var(--muted); }
+.drive-panel {
+  grid-column: 1 / -1;
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: rgba(255,255,255,.025);
+}
+.drive-panel strong { display: block; overflow-wrap: anywhere; }
+.drive-panel p { margin: 5px 0 12px; color: var(--muted); font-size: .86rem; }
+.drive-actions { display: flex; flex-wrap: wrap; gap: 9px; }
+.drive-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 0 13px;
+  border-radius: 10px;
+  border: 1px solid rgba(105,210,255,.34);
+  background: rgba(105,210,255,.08);
+  color: var(--text);
+  text-decoration: none;
+}
+.drive-button.secondary { border-color: var(--border); background: transparent; color: var(--muted); }
+.drive-button:hover, .drive-button:focus-visible { border-color: rgba(105,210,255,.62); color: var(--text); }
+@media (max-width: 900px) {
+  .apps-overview { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 650px) {
+  .overall-card { grid-template-columns: 1fr; }
+  .overall-value strong { text-align: left; }
+  .apps-overview { grid-template-columns: 1fr; }
+}
