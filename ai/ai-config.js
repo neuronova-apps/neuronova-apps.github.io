@@ -15,6 +15,7 @@ export const AI_RUNTIME_CONFIG = Object.freeze({
   modelName: 'gemini-3.6-flash',
   recaptchaEnterpriseSiteKey: '6LdkTogtAAAAALAEqavcrDlzikG43X1RmnTvah_P',
   runtimeManifestUrl: `${NEURONOVA_ROOT}/ai/runtime/manifest.json`,
+  brailuxSpecialistUrl: `${NEURONOVA_ROOT}/ai/runtime/brailux-specialist.json`,
   chatStylesUrl: `${NEURONOVA_ROOT}/ai-chat.css`,
   maxInputLength: 1200
 });
