@@ -1,0 +1,107 @@
+{
+  "schemaVersion": "1.0-brailux-specialist",
+  "specialistVersion": "1.0",
+  "app": "Brailux",
+  "sourcePolicy": "Contenido derivado únicamente de páginas educativas validadas del repositorio público de Brailux. No completar huecos con conocimiento externo.",
+  "sources": [
+    "https://neuronova-apps.github.io/brailux-app/que-es-el-braille.html",
+    "https://neuronova-apps.github.io/brailux-app/alfabeto-braille.html",
+    "https://neuronova-apps.github.io/brailux-app/numeros-braille.html",
+    "https://neuronova-apps.github.io/brailux-app/como-aprender-braille.html"
+  ],
+  "records": [
+    {
+      "id": "BRSP0001",
+      "category": "fundamentos",
+      "title": "Qué es el Braille",
+      "facts": [
+        "El Braille es un sistema de lectoescritura basado en combinaciones de puntos en relieve.",
+        "Representa letras, números y otros signos mediante combinaciones dentro de una celda.",
+        "Puede adaptarse a distintas lenguas y áreas del conocimiento; no es una lengua independiente.",
+        "Louis Braille creó en 1825 el sistema que lleva su nombre."
+      ],
+      "sourceUrl": "https://neuronova-apps.github.io/brailux-app/que-es-el-braille.html"
+    },
+    {
+      "id": "BRSP0002",
+      "category": "celda",
+      "title": "Celda Braille de seis puntos",
+      "facts": [
+        "La celda básica se organiza en dos columnas verticales de tres posiciones.",
+        "En lectura, los puntos 1, 2 y 3 están en la columna izquierda y los puntos 4, 5 y 6 en la derecha.",
+        "Las seis posiciones permiten 64 configuraciones posibles si se cuenta también la celda vacía."
+      ],
+      "sourceUrl": "https://neuronova-apps.github.io/brailux-app/que-es-el-braille.html"
+    },
+    {
+      "id": "BRSP0003",
+      "category": "alfabeto",
+      "title": "Primera serie A-J",
+      "facts": [
+        "Las letras A-J utilizan únicamente los cuatro puntos superiores de la celda: 1, 2, 4 y 5.",
+        "Esta primera serie sirve como base para varias letras posteriores."
+      ],
+      "sourceUrl": "https://neuronova-apps.github.io/brailux-app/alfabeto-braille.html"
+    },
+    {
+      "id": "BRSP0004",
+      "category": "alfabeto",
+      "title": "Series posteriores del alfabeto",
+      "facts": [
+        "La serie K-T repite las formas de A-J y añade el punto 3.",
+        "Al incorporar el punto 6 a formas de la segunda serie aparecen nuevas configuraciones, entre ellas U, V, X, Y y Z.",
+        "La W es una excepción histórica a esa secuencia y utiliza los puntos 2-4-5-6."
+      ],
+      "sourceUrl": "https://neuronova-apps.github.io/brailux-app/alfabeto-braille.html"
+    },
+    {
+      "id": "BRSP0005",
+      "category": "espanol",
+      "title": "Signos específicos del español",
+      "facts": [
+        "Ñ: puntos 1-2-4-5-6.",
+        "Á: puntos 1-2-3-5-6.",
+        "É: puntos 2-3-4-6.",
+        "Í: puntos 3-4.",
+        "Ó: puntos 3-4-6.",
+        "Ú: puntos 2-3-4-5-6.",
+        "Ü: puntos 1-2-5-6."
+      ],
+      "sourceUrl": "https://neuronova-apps.github.io/brailux-app/alfabeto-braille.html"
+    },
+    {
+      "id": "BRSP0006",
+      "category": "numeros",
+      "title": "Números en Braille",
+      "facts": [
+        "El signo de número se forma con los puntos 3-4-5-6.",
+        "Después del signo de número, las formas correspondientes a A-J se interpretan como las cifras 1, 2, 3, 4, 5, 6, 7, 8, 9 y 0, respectivamente.",
+        "El signo de mayúscula se forma con los puntos 4-6 y precede a la letra correspondiente."
+      ],
+      "sourceUrl": "https://neuronova-apps.github.io/brailux-app/numeros-braille.html"
+    },
+    {
+      "id": "BRSP0007",
+      "category": "aprendizaje",
+      "title": "Ruta de aprendizaje de Brailux",
+      "facts": [
+        "Brailux propone una secuencia de seis unidades.",
+        "La secuencia es: comprender qué es el Braille; dominar la celda de seis puntos; aprender el alfabeto por series; diferenciar lectura y escritura; incorporar números y signos; practicar y revisar el progreso.",
+        "La ruta incluye reconocimiento visual de letras y un conversor didáctico.",
+        "El progreso local permite marcar unidades completadas y conservar resultados básicos en el mismo navegador."
+      ],
+      "sourceUrl": "https://neuronova-apps.github.io/brailux-app/como-aprender-braille.html"
+    },
+    {
+      "id": "BRSP0008",
+      "category": "limites",
+      "title": "Alcance didáctico de Brailux",
+      "facts": [
+        "Las actividades digitales de Brailux son complementarias y no sustituyen el aprendizaje táctil ni la formación especializada cuando sea necesaria.",
+        "En la enseñanza táctil también intervienen discriminación táctil, coordinación bimanual, orientación espacial y ergonomía.",
+        "Una aplicación visual puede explicar conceptos y ofrecer práctica, pero no reemplaza el desarrollo táctil que exige el uso real del Braille."
+      ],
+      "sourceUrl": "https://neuronova-apps.github.io/brailux-app/como-aprender-braille.html"
+    }
+  ]
+}
