@@ -15,6 +15,7 @@ El repo matriz `neuronova-apps/neuronova-apps.github.io` actúa como punto centr
 - `apps.json`: índice runtime oficial y liviano derivado del Banco Maestro IA v1.12.
 - `ai-chat.js`: cliente compartido del chatbot. Carga el índice, identifica la app o el tipo de consulta y envía a Gemini solo el contexto pertinente.
 - `ai-chat.css`: interfaz visual compartida.
+- `ai-backend.json`: registro técnico del backend Firebase común y de su política de migración.
 - Banco Maestro IA v1.12: fuente de verdad completa y auditada para futuras ampliaciones del runtime.
 
 La lógica del chatbot debe tratar el banco como fuente autorizada para cualquier afirmación sobre NeuroNova. Si un dato no está disponible, debe aplicar fallback y no completar con conocimiento general del modelo.
@@ -66,6 +67,23 @@ Los cambios validados en AI Studio deben trasladarse al banco o a las instruccio
 ## Firebase y App Check
 
 La web usa Firebase AI Logic y Firebase App Check. App Check debe mantenerse habilitado para proteger el acceso desde el cliente web. Para desarrollo local se debe usar el proveedor/debug token de App Check en lugar de habilitar `localhost` como dominio de reCAPTCHA.
+
+### Backend Firebase centralizado
+
+El único proyecto Firebase confirmado actualmente en el cliente funcional es `brailux`. Para no interrumpir el chatbot, se conserva temporalmente como backend compartido de la capa IA de NeuroNova.
+
+Esta decisión es de infraestructura y no convierte Brailux en la matriz del ecosistema: NeuroNova continúa siendo la matriz funcional y de contenido. El proyecto Firebase `brailux` actúa únicamente como backend técnico provisional mientras no exista un proyecto Firebase común de NeuroNova confirmado.
+
+Reglas de centralización:
+
+1. Los repos hermanos no deben copiar ni mantener configuraciones Firebase propias para el Asistente NeuroNova.
+2. Todos deben consumir el cliente central `https://neuronova-apps.github.io/ai-chat.js`.
+3. El estado del backend común queda registrado en `ai-backend.json`.
+4. No se cambiará `projectId`, `appId`, API key, clave de App Check ni otros identificadores por valores inventados.
+5. Cuando exista un proyecto Firebase definitivo de NeuroNova, la migración se realizará en el repo matriz y los repos hermanos seguirán usando el mismo cliente central.
+6. Antes de activar el nuevo backend se verificará App Check, dominios autorizados, Firebase AI Logic y una prueba real de respuesta.
+
+Estado actual: `ACTIVE_SHARED_PROVISIONAL` sobre el proyecto Firebase confirmado `brailux`.
 
 ## Próxima ampliación
 
