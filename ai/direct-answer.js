@@ -1,3 +1,5 @@
+import { buildBrailuxClassifiedBankAnswer } from './brailux-bank-classifier.js';
+
 // Respuestas deterministas para consultas cerradas del Banco Maestro y del runtime especialista Brailux.
 // Se usan cuando una respuesta puede derivarse directamente de una fuente autorizada sin generación.
 
@@ -321,6 +323,9 @@ const buildBrailuxDirectAnswer = (prompt) => {
   if (letter && !asksForOpenLetterExplanation(text)) {
     return buildLetterAnswer(letter);
   }
+
+  const classifiedAnswer = buildBrailuxClassifiedBankAnswer(prompt, brailuxSpecialist);
+  if (classifiedAnswer) return classifiedAnswer;
 
   return null;
 };
