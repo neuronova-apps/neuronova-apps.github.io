@@ -1,13 +1,14 @@
 {
   "schemaVersion": "1.0-brailux-specialist",
-  "specialistVersion": "1.1",
+  "specialistVersion": "1.2",
   "app": "Brailux",
-  "sourcePolicy": "Contenido derivado únicamente de páginas educativas validadas y de la lógica educativa pública del repositorio de Brailux. No completar huecos con conocimiento externo.",
+  "sourcePolicy": "Contenido derivado únicamente de páginas educativas validadas y de la lógica educativa pública del repositorio web de Brailux. No completar huecos con conocimiento externo.",
   "sources": [
     "https://neuronova-apps.github.io/brailux-app/que-es-el-braille.html",
     "https://neuronova-apps.github.io/brailux-app/alfabeto-braille.html",
     "https://neuronova-apps.github.io/brailux-app/numeros-braille.html",
     "https://neuronova-apps.github.io/brailux-app/como-aprender-braille.html",
+    "https://neuronova-apps.github.io/brailux-app/ejercicios-braille.html",
     "https://neuronova-apps.github.io/brailux-app/script.js"
   ],
   "records": [
@@ -109,8 +110,16 @@
       "category": "alfabeto_mapa",
       "title": "Configuraciones A-J",
       "facts": [
-        "A: punto 1.", "B: puntos 1-2.", "C: puntos 1-4.", "D: puntos 1-4-5.", "E: puntos 1-5.",
-        "F: puntos 1-2-4.", "G: puntos 1-2-4-5.", "H: puntos 1-2-5.", "I: puntos 2-4.", "J: puntos 2-4-5."
+        "A: punto 1.",
+        "B: puntos 1-2.",
+        "C: puntos 1-4.",
+        "D: puntos 1-4-5.",
+        "E: puntos 1-5.",
+        "F: puntos 1-2-4.",
+        "G: puntos 1-2-4-5.",
+        "H: puntos 1-2-5.",
+        "I: puntos 2-4.",
+        "J: puntos 2-4-5."
       ],
       "sourceUrl": "https://neuronova-apps.github.io/brailux-app/script.js"
     },
@@ -119,8 +128,16 @@
       "category": "alfabeto_mapa",
       "title": "Configuraciones K-T",
       "facts": [
-        "K: puntos 1-3.", "L: puntos 1-2-3.", "M: puntos 1-3-4.", "N: puntos 1-3-4-5.", "O: puntos 1-3-5.",
-        "P: puntos 1-2-3-4.", "Q: puntos 1-2-3-4-5.", "R: puntos 1-2-3-5.", "S: puntos 2-3-4.", "T: puntos 2-3-4-5."
+        "K: puntos 1-3.",
+        "L: puntos 1-2-3.",
+        "M: puntos 1-3-4.",
+        "N: puntos 1-3-4-5.",
+        "O: puntos 1-3-5.",
+        "P: puntos 1-2-3-4.",
+        "Q: puntos 1-2-3-4-5.",
+        "R: puntos 1-2-3-5.",
+        "S: puntos 2-3-4.",
+        "T: puntos 2-3-4-5."
       ],
       "sourceUrl": "https://neuronova-apps.github.io/brailux-app/script.js"
     },
@@ -129,7 +146,12 @@
       "category": "alfabeto_mapa",
       "title": "Configuraciones U-Z",
       "facts": [
-        "U: puntos 1-3-6.", "V: puntos 1-2-3-6.", "W: puntos 2-4-5-6.", "X: puntos 1-3-4-6.", "Y: puntos 1-3-4-5-6.", "Z: puntos 1-3-5-6."
+        "U: puntos 1-3-6.",
+        "V: puntos 1-2-3-6.",
+        "W: puntos 2-4-5-6.",
+        "X: puntos 1-3-4-6.",
+        "Y: puntos 1-3-4-5-6.",
+        "Z: puntos 1-3-5-6."
       ],
       "sourceUrl": "https://neuronova-apps.github.io/brailux-app/script.js"
     },
@@ -143,6 +165,109 @@
         "El signo generador completo activa los puntos 1-2-3-4-5-6."
       ],
       "sourceUrl": "https://neuronova-apps.github.io/brailux-app/script.js"
+    },
+    {
+      "id": "BRSP0013",
+      "category": "usos",
+      "title": "Usos del Braille",
+      "facts": [
+        "El Braille se utiliza para acceder a la palabra escrita.",
+        "Puede encontrarse en educación, señalización, productos, documentos y dispositivos tecnológicos.",
+        "También existen líneas Braille refrescables y teclados que trasladan la lógica de los puntos a entornos digitales."
+      ],
+      "sourceUrl": "https://neuronova-apps.github.io/brailux-app/que-es-el-braille.html"
+    },
+    {
+      "id": "BRSP0014",
+      "category": "lectura_escritura",
+      "title": "Diferencia entre lectura y escritura Braille",
+      "facts": [
+        "La lectura Braille se realiza de izquierda a derecha.",
+        "En la escritura manual con pauta o regleta negativa y punzón se trabaja desde el reverso del papel.",
+        "Otros dispositivos permiten escribir en el mismo sentido de lectura.",
+        "Comprender esta diferencia ayuda a evitar confusiones con la numeración de los puntos."
+      ],
+      "sourceUrl": "https://neuronova-apps.github.io/brailux-app/como-aprender-braille.html"
+    },
+    {
+      "id": "BRSP0015",
+      "category": "aprendizaje",
+      "title": "Estrategia para aprender el alfabeto por series",
+      "facts": [
+        "Brailux recomienda estudiar primero la serie A-J en lugar de memorizar todas las letras de forma aislada.",
+        "Después se observa cómo las configuraciones cambian al incorporar los puntos 3 y 6.",
+        "La forma de A se convierte en K al incorporar el punto 3.",
+        "La W debe aprenderse como excepción a la secuencia de transformación usada para otras letras finales."
+      ],
+      "sourceUrl": "https://neuronova-apps.github.io/brailux-app/alfabeto-braille.html"
+    },
+    {
+      "id": "BRSP0016",
+      "category": "aprendizaje",
+      "title": "Estrategia para aprender los números",
+      "facts": [
+        "Una estrategia propuesta por Brailux es dominar primero las formas A-J y después introducir el signo de número.",
+        "Las correspondencias son: 1=A, 2=B, 3=C, 4=D, 5=E, 6=F, 7=G, 8=H, 9=I y 0=J.",
+        "Esta relación permite aprender los números como reutilización de patrones conocidos en lugar de memorizar diez configuraciones nuevas."
+      ],
+      "sourceUrl": "https://neuronova-apps.github.io/brailux-app/numeros-braille.html"
+    },
+    {
+      "id": "BRSP0017",
+      "category": "practica",
+      "title": "Ejercicio para reconocer posiciones de la celda",
+      "facts": [
+        "Antes de trabajar con letras, Brailux propone practicar la ubicación de los seis puntos.",
+        "Un ejercicio sugerido es activar primero 1-2-3, después 4-5-6 y finalmente combinaciones mixtas como 1-4 o 2-4-5.",
+        "El objetivo es identificar las posiciones de la celda sin depender todavía de una letra concreta."
+      ],
+      "sourceUrl": "https://neuronova-apps.github.io/brailux-app/ejercicios-braille.html"
+    },
+    {
+      "id": "BRSP0018",
+      "category": "practica",
+      "title": "Ejercicio para relacionar letras y puntos",
+      "facts": [
+        "Brailux propone explorar las letras por series.",
+        "La práctica consiste en seleccionar una letra, observar sus puntos y compararla con otra de la serie siguiente.",
+        "La comparación ayuda a identificar qué punto se añadió y a comprender las transformaciones entre series."
+      ],
+      "sourceUrl": "https://neuronova-apps.github.io/brailux-app/ejercicios-braille.html"
+    },
+    {
+      "id": "BRSP0019",
+      "category": "practica",
+      "title": "Quiz de reconocimiento visual",
+      "facts": [
+        "El reto «¿Qué letra es?» muestra una celda Braille y ofrece cuatro opciones de respuesta.",
+        "Los resultados del quiz se guardan localmente en el navegador como parte del progreso básico de Brailux.",
+        "Una estrategia sugerida es observar primero los puntos activos, nombrarlos mentalmente y después elegir la letra."
+      ],
+      "sourceUrl": "https://neuronova-apps.github.io/brailux-app/ejercicios-braille.html"
+    },
+    {
+      "id": "BRSP0020",
+      "category": "herramientas",
+      "title": "Conversor didáctico de Brailux",
+      "facts": [
+        "El conversor didáctico permite escribir palabras cortas o números y observar una representación Braille básica.",
+        "La herramienta admite letras del alfabeto español, vocales acentuadas, ü, ñ y números.",
+        "Es una herramienta educativa básica y no sustituye un transcriptor Braille especializado."
+      ],
+      "sourceUrl": "https://neuronova-apps.github.io/brailux-app/ejercicios-braille.html"
+    },
+    {
+      "id": "BRSP0021",
+      "category": "funciones_web",
+      "title": "Funciones educativas confirmadas en Brailux web",
+      "facts": [
+        "Brailux web dispone de un constructor interactivo de la celda de seis puntos.",
+        "Dispone de exploración del alfabeto para observar letras y sus puntos.",
+        "Incluye un quiz visual de reconocimiento de letras.",
+        "Incluye un conversor didáctico para letras, signos admitidos y números.",
+        "Conserva progreso básico y resultados localmente en el mismo navegador."
+      ],
+      "sourceUrl": "https://neuronova-apps.github.io/brailux-app/ejercicios-braille.html"
     }
   ]
 }
