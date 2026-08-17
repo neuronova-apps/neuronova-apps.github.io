@@ -1,3 +1,5 @@
+import { recordAiRoute } from './route-audit.js';
+
 // Guardia de consumo para el chatbot web de NeuroNova.
 // Reduce llamadas accidentales a Firebase AI/Gemini sin afectar respuestas locales del banco.
 
@@ -108,6 +110,32 @@ const extractUserPrompt = async (input, init) => {
   }
 };
 
+const looksLikePotentialLocalMiss = (prompt = '') => {
+  const text = prompt
+    .toString()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/\s+/g, ' ')
+    .trim();
+
+  if (!text) return false;
+
+  const asksForGeneration = [
+    'explica', 'explicame', 'por que', 'porque', 'ejemplo', 'crea', 'invent', 'personaliz',
+    'hazme', 'evalua', 'corrige', 'adapta', 'compara', 'razona', 'justifica'
+  ].some((term) => text.includes(term));
+  if (asksForGeneration) return false;
+
+  const looksClosed = /^(que|cual|cuantos|cuantas|donde|quien|como se|para que)\b/.test(text);
+  if (!looksClosed) return false;
+
+  return [
+    'braille', 'brailux', 'celda', 'punto', 'alfabeto', 'letra', 'numero', 'cifra',
+    'quiz', 'conversor', 'progreso', 'regleta', 'punzon', 'mayuscula', 'signo'
+  ].some((term) => text.includes(term));
+};
+
 const setClientBlock = (reason) => {
   state.clientBlock = reason;
   globalThis.__novaAiUsageGuardState = state;
@@ -170,18 +198,27 @@ globalThis.fetch = async (input, init) => {
 
   clearClientBlock();
 
+  // Una limitación temporal vencida no debe contaminar errores posteriores.
+  if (state.providerBlock === 'rate-limit' && state.rateBlockedUntil <= Date.now()) {
+    state.providerBlock = null;
+    state.rateBlockedUntil = 0;
+  }
+
   if (state.providerBlock === 'daily-quota') {
+    recordAiRoute('blockedDailyQuota');
     setClientBlock('provider-quota');
     throw new Error('NEURONOVA_DAILY_QUOTA_BLOCKED');
   }
 
   if (state.rateBlockedUntil > Date.now()) {
     state.providerBlock = 'rate-limit';
+    recordAiRoute('blockedRateLimit');
     setClientBlock('provider-rate-limit');
     throw new Error('NEURONOVA_RATE_LIMIT_COOLDOWN');
   }
 
   if (getSessionCount() >= MAX_GENERATIVE_REQUESTS_PER_SESSION) {
+    recordAiRoute('blockedSessionLimit');
     setClientBlock('session-limit');
     throw new Error('NEURONOVA_SESSION_GENERATIVE_LIMIT');
   }
@@ -189,17 +226,30 @@ globalThis.fetch = async (input, init) => {
   const prompt = await extractUserPrompt(input, init);
   const now = Date.now();
   if (prompt && prompt === state.lastPrompt && now - state.lastPromptAt < DUPLICATE_WINDOW_MS) {
+    recordAiRoute('blockedDuplicate');
     setClientBlock('duplicate');
     throw new Error('NEURONOVA_DUPLICATE_GENERATIVE_REQUEST');
+  }
+
+  if (looksLikePotentialLocalMiss(prompt)) {
+    recordAiRoute('possibleLocalMisses');
   }
 
   state.lastPrompt = prompt;
   state.lastPromptAt = now;
   incrementSessionCount();
+  recordAiRoute('geminiAttempts');
 
-  const response = await originalFetch(input, init);
+  let response;
+  try {
+    response = await originalFetch(input, init);
+  } catch (error) {
+    recordAiRoute('geminiFetchError');
+    throw error;
+  }
 
   if (response.status === 429) {
+    recordAiRoute('gemini429');
     let providerText = '';
     try {
       providerText = await response.clone().text();
@@ -216,7 +266,10 @@ globalThis.fetch = async (input, init) => {
       state.rateBlockedUntil = Date.now() + TRANSIENT_RATE_LIMIT_MS;
     }
   } else if (response.ok) {
+    recordAiRoute('geminiHttpSuccess');
     state.providerBlock = null;
+  } else {
+    recordAiRoute('geminiHttpError');
   }
 
   globalThis.__novaAiUsageGuardState = state;
