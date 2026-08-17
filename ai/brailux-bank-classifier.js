@@ -64,9 +64,9 @@ const categoryBonus = (record, text) => {
   return aliases.some((alias) => text.includes(alias)) ? 3 : 0;
 };
 
-const scoreRecord = (record, text, queryTokens) => {
+const scoreRecord = (record, text, queryTokens, includeAlphabetMap = false) => {
   if (!record || !Array.isArray(record.facts)) return -Infinity;
-  if (record.category === 'alfabeto_mapa') return -Infinity;
+  if (!includeAlphabetMap && record.category === 'alfabeto_mapa') return -Infinity;
 
   const title = normalize(record.title || '');
   const titleTokens = tokenSet(record.title || '');
@@ -105,6 +105,69 @@ const buildAnswerFromRecord = (record, queryTokens) => {
   const relevant = ranked.filter((item) => item.score > 0);
   const selected = (relevant.length ? relevant : ranked).slice(0, limit).map((item) => item.fact.trim());
   return selected.join(' ');
+};
+
+const extractRequestedLetter = (value = '') => {
+  const text = value.toString().toLowerCase();
+  const patterns = [
+    /\bletra\s+([a-záéíóúüñ])\b/i,
+    /\bla\s+([a-záéíóúüñ])\b(?=.*\b(?:braille|punto|puntos)\b)/i,
+    /\b([a-záéíóúüñ])\s+en\s+braille\b/i
+  ];
+  for (const pattern of patterns) {
+    const match = text.match(pattern);
+    if (match) return match[1].toUpperCase();
+  }
+  return null;
+};
+
+const compactSpecialistRecord = (record, queryTokens, requestedLetter = null) => {
+  let facts = record.facts || [];
+  const exact = requestedLetter
+    ? facts.find((fact) => fact.toUpperCase().startsWith(`${requestedLetter}:`))
+    : null;
+
+  if (exact) {
+    facts = [exact];
+  } else {
+    const ranked = facts
+      .map((fact, index) => ({ fact, index, score: factRelevance(fact, queryTokens) }))
+      .sort((a, b) => b.score - a.score || a.index - b.index);
+    const relevant = ranked.filter((item) => item.score > 0);
+    facts = (relevant.length ? relevant : ranked).slice(0, 3).map((item) => item.fact);
+  }
+
+  if (!facts.length) return null;
+  return { id: record.id, title: record.title, facts };
+};
+
+export const buildBrailuxPromptContext = (prompt, specialist) => {
+  if (!specialist || specialist.app !== 'Brailux' || !Array.isArray(specialist.records)) return null;
+
+  const text = normalize(prompt);
+  const queryTokens = tokenSet(text);
+  if (!text || !queryTokens.size) return null;
+
+  const requestedLetter = extractRequestedLetter(prompt);
+  const ranked = specialist.records
+    .map((record) => {
+      let score = scoreRecord(record, text, queryTokens, true);
+      if (requestedLetter) {
+        const containsLetter = (record.facts || []).some((fact) => fact.toUpperCase().startsWith(`${requestedLetter}:`));
+        if (containsLetter) score = Math.max(score, 20);
+      }
+      return { record, score };
+    })
+    .filter((item) => Number.isFinite(item.score) && item.score >= 3)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 2);
+
+  const records = ranked
+    .map(({ record }) => compactSpecialistRecord(record, queryTokens, requestedLetter))
+    .filter(Boolean);
+
+  if (!records.length) return null;
+  return { specialistVersion: specialist.specialistVersion, records };
 };
 
 export const buildBrailuxClassifiedBankAnswer = (prompt, specialist) => {

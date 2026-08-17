@@ -13,6 +13,7 @@ import { firebaseConfig, AI_RUNTIME_CONFIG } from './ai-config.js';
 import { buildRuntimeSelection, currentAppFromPath } from './runtime-selector.js';
 import { RESPONSE_STYLE_INSTRUCTION } from './response-style.js';
 import { buildDirectRuntimeAnswer } from './direct-answer.js';
+import { buildBrailuxPromptContext } from './brailux-bank-classifier.js';
 
 const {
   modelName: MODEL_NAME,
@@ -60,6 +61,7 @@ Eres un asistente virtual. Responde en el idioma del usuario y mantén una comun
 ${RESPONSE_STYLE_INSTRUCTION}`;
 
 let runtimeBankPromise = null;
+let brailuxSpecialistPromise = null;
 let appCheckInitialized = false;
 
 const RUNTIME_ARRAY_KEYS = [
@@ -165,11 +167,100 @@ const loadRuntimeBank = () => {
   return runtimeBankPromise;
 };
 
+const loadBrailuxSpecialist = () => {
+  if (!window.location.pathname.toLowerCase().startsWith('/brailux-app/')) return Promise.resolve(null);
+  if (brailuxSpecialistPromise) return brailuxSpecialistPromise;
+
+  brailuxSpecialistPromise = fetch(new URL('./runtime/brailux-specialist.json', import.meta.url), { cache: 'no-store' })
+    .then((response) => {
+      if (!response.ok) throw new Error(`No se pudo cargar el especialista Brailux (${response.status})`);
+      return response.json();
+    })
+    .then((specialist) => {
+      if (specialist?.app !== 'Brailux' || !Array.isArray(specialist?.records)) {
+        throw new Error('El especialista Brailux no supera la validación mínima.');
+      }
+      return specialist;
+    })
+    .catch((error) => {
+      console.warn('Brailux prompt context:', error);
+      return null;
+    });
+
+  return brailuxSpecialistPromise;
+};
+
+const omitInternalMetadata = (record = {}) => {
+  const { id, priority, sourceUrl, ...rest } = record;
+  return rest;
+};
+
+const compactBaseResponses = (responses = [], prompt = '') => {
+  if (!responses.length) return [];
+  const text = prompt.toLowerCase();
+  const wantsDetail = ['explica', 'detalle', 'amplia', 'ampliar', 'profundiza', 'por que', 'porque']
+    .some((term) => text.includes(term));
+  const preferredVariant = wantsDetail ? 'Ampliada' : 'Corta';
+  const preferred = responses.find((item) => item.variant === preferredVariant) || responses[0];
+  if (!preferred) return [];
+  return [{
+    baseResponse: preferred.baseResponse,
+    usageConditions: preferred.usageConditions,
+    doNotSay: preferred.doNotSay
+  }];
+};
+
+const compactRuntimeContext = (context, prompt) => {
+  if (!context?.bankAvailable) return context;
+
+  const compact = {
+    bankAvailable: true,
+    bankVersion: context.bankVersion,
+    currentSiteContext: context.currentSiteContext,
+    mentionedApps: context.mentionedApps,
+    matchedIntents: (context.matchedIntents || []).map((item) => ({
+      intent: item.intent,
+      area: item.area,
+      requiresClarification: item.requiresClarification,
+      escalateSupport: item.escalateSupport
+    })),
+    globalInstructions: (context.globalInstructions || []).map((item) => ({
+      aiInstruction: item.aiInstruction,
+      fallback: item.fallback
+    })),
+    identity: (context.identity || []).map((item) => ({
+      officialFact: item.officialFact,
+      aiUsage: item.aiUsage
+    })),
+    apps: (context.apps || []).map(omitInternalMetadata),
+    baseResponses: compactBaseResponses(context.baseResponses || [], prompt),
+    support: (context.support || []).map(omitInternalMetadata),
+    accessibility: (context.accessibility || []).map(omitInternalMetadata),
+    securityPrivacy: (context.securityPrivacy || []).map(omitInternalMetadata),
+    fallbacks: (context.fallbacks || []).map(omitInternalMetadata),
+    resolverRules: (context.resolvers || []).map((item) => item.resolutionRule).filter(Boolean)
+  };
+
+  return Object.fromEntries(
+    Object.entries(compact).filter(([, value]) => !Array.isArray(value) || value.length > 0)
+  );
+};
+
 const buildGroundedPrompt = async (prompt) => {
   const runtime = await loadRuntimeBank();
-  const context = buildRuntimeSelection(runtime, prompt, window.location.pathname);
+  const selectedContext = buildRuntimeSelection(runtime, prompt, window.location.pathname);
+  const context = compactRuntimeContext(selectedContext, prompt);
 
-  return `[CONTEXTO_BANCO_NEURONOVA]\n${JSON.stringify(context)}\n[FIN_CONTEXTO_BANCO_NEURONOVA]\n\n[CONSULTA_USUARIO]\n${prompt}\n[FIN_CONSULTA_USUARIO]\n\nResponde primero con la conclusión concreta. Para cualquier hecho sobre NeuroNova usa únicamente el contexto autorizado. Si falta el dato, aplica fallback y no lo inventes. Conserva por separado web, banco de contenido, Android/APK, beta y Google Play cuando esa distinción sea relevante.`;
+  const specialist = await loadBrailuxSpecialist();
+  const specialistContext = specialist
+    ? buildBrailuxPromptContext(prompt, specialist)
+    : null;
+
+  const specialistBlock = specialistContext
+    ? `\n\n[CONTEXTO_ESPECIALISTA_BRAILUX]\n${JSON.stringify(specialistContext)}\n[FIN_CONTEXTO_ESPECIALISTA_BRAILUX]`
+    : '';
+
+  return `[CONTEXTO_BANCO_NEURONOVA]\n${JSON.stringify(context)}\n[FIN_CONTEXTO_BANCO_NEURONOVA]${specialistBlock}\n\n[CONSULTA_USUARIO]\n${prompt}\n[FIN_CONSULTA_USUARIO]\n\nResponde primero con la conclusión concreta. Para cualquier hecho sobre NeuroNova o Brailux usa únicamente el contexto autorizado incluido arriba. Si falta el dato, aplica fallback y no lo inventes.`;
 };
 
 const loadStyles = () => {
