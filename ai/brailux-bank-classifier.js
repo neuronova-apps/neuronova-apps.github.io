@@ -107,11 +107,12 @@ const buildAnswerFromRecord = (record, queryTokens) => {
   return selected.join(' ');
 };
 
-const extractRequestedLetter = (text) => {
+const extractRequestedLetter = (value = '') => {
+  const text = value.toString().toLowerCase();
   const patterns = [
-    /\bletra\s+([a-zñ])\b/i,
-    /\bla\s+([a-zñ])\b(?=.*\b(?:braille|punto|puntos)\b)/i,
-    /\b([a-zñ])\s+en\s+braille\b/i
+    /\bletra\s+([a-záéíóúüñ])\b/i,
+    /\bla\s+([a-záéíóúüñ])\b(?=.*\b(?:braille|punto|puntos)\b)/i,
+    /\b([a-záéíóúüñ])\s+en\s+braille\b/i
   ];
   for (const pattern of patterns) {
     const match = text.match(pattern);
@@ -122,10 +123,12 @@ const extractRequestedLetter = (text) => {
 
 const compactSpecialistRecord = (record, queryTokens, requestedLetter = null) => {
   let facts = record.facts || [];
+  const exact = requestedLetter
+    ? facts.find((fact) => fact.toUpperCase().startsWith(`${requestedLetter}:`))
+    : null;
 
-  if (record.category === 'alfabeto_mapa' && requestedLetter) {
-    const exact = facts.find((fact) => fact.toUpperCase().startsWith(`${requestedLetter}:`));
-    facts = exact ? [exact] : [];
+  if (exact) {
+    facts = [exact];
   } else {
     const ranked = facts
       .map((fact, index) => ({ fact, index, score: factRelevance(fact, queryTokens) }))
@@ -145,11 +148,11 @@ export const buildBrailuxPromptContext = (prompt, specialist) => {
   const queryTokens = tokenSet(text);
   if (!text || !queryTokens.size) return null;
 
-  const requestedLetter = extractRequestedLetter(text);
+  const requestedLetter = extractRequestedLetter(prompt);
   const ranked = specialist.records
     .map((record) => {
       let score = scoreRecord(record, text, queryTokens, true);
-      if (requestedLetter && record.category === 'alfabeto_mapa') {
+      if (requestedLetter) {
         const containsLetter = (record.facts || []).some((fact) => fact.toUpperCase().startsWith(`${requestedLetter}:`));
         if (containsLetter) score = Math.max(score, 20);
       }
