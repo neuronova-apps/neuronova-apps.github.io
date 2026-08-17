@@ -8,8 +8,8 @@ const normalize = (value = '') => value
   .trim();
 
 const STOP_WORDS = new Set([
-  'a', 'al', 'algo', 'como', 'con', 'cual', 'cuales', 'de', 'del', 'desde', 'donde', 'el', 'ella', 'en',
-  'es', 'esta', 'este', 'esto', 'hay', 'la', 'las', 'lo', 'los', 'me', 'mi', 'para', 'por', 'que', 'se',
+  'a', 'al', 'algo', 'como', 'con', 'cual', 'cuales', 'cuando', 'de', 'del', 'desde', 'donde', 'el', 'ella', 'en',
+  'es', 'esta', 'este', 'esto', 'hay', 'la', 'las', 'lo', 'los', 'me', 'mi', 'para', 'por', 'que', 'quien', 'se',
   'si', 'su', 'sus', 'un', 'una', 'uno', 'y', 'ya', 'braille', 'brailux'
 ]);
 
@@ -20,7 +20,7 @@ const OPEN_GENERATIVE_TERMS = [
 ];
 
 const CATEGORY_ALIASES = {
-  fundamentos: ['definicion', 'sistema', 'idioma', 'origen', 'historia', 'louis'],
+  fundamentos: ['definicion', 'sistema', 'idioma', 'origen', 'historia', 'louis', 'creador', 'creada', 'creado', 'creo'],
   celda: ['celda', 'posicion', 'posiciones', 'columna', 'columnas', 'estructura', 'combinacion', 'combinaciones', 'configuracion', 'configuraciones', 'patron', 'patrones'],
   alfabeto: ['alfabeto', 'serie', 'series', 'letra', 'letras'],
   espanol: ['espanol', 'ñ', 'acentuada', 'acentuadas', 'tilde', 'tildes', 'vocal', 'vocales'],
@@ -77,7 +77,7 @@ const scoreRecord = (record, text, queryTokens) => {
 
   for (const token of queryTokens) {
     if (titleTokens.has(token)) score += 3;
-    else if (factTokens.has(token)) score += 1;
+    else if (factTokens.has(token)) score += 2;
   }
 
   return score;
