@@ -54,6 +54,49 @@ const asksForExtraDetail = (text) => [
 const isBrailuxSite = globalThis.location?.pathname?.toLowerCase().startsWith('/brailux-app/') ?? false;
 let brailuxSpecialist = null;
 
+const safeAiErrorCode = (error) => {
+  const explicitCode = [error?.code, error?.status, error?.statusCode]
+    .find((value) => typeof value === 'string' || typeof value === 'number');
+
+  if (explicitCode !== undefined) {
+    const sanitized = String(explicitCode).replace(/[^a-z0-9_./:-]/gi, '').slice(0, 80);
+    if (sanitized) return sanitized;
+  }
+
+  const message = String(error?.message || '').toLowerCase();
+  if (message.includes('app check') || message.includes('appcheck')) return 'APP_CHECK';
+  if (message.includes('quota') || message.includes('rate limit')) return 'QUOTA';
+  if (message.includes('api key')) return 'API_KEY';
+  if (message.includes('permission') || message.includes('forbidden')) return 'PERMISSION';
+  if (message.includes('model') && message.includes('not found')) return 'MODEL_NOT_FOUND';
+
+  const httpMatch = message.match(/\b(400|401|403|404|408|409|429|500|502|503|504)\b/);
+  if (httpMatch) return `HTTP_${httpMatch[1]}`;
+
+  const name = String(error?.name || 'UNKNOWN').replace(/[^a-z0-9_-]/gi, '').slice(0, 40);
+  return name || 'UNKNOWN';
+};
+
+if (isBrailuxSite && !globalThis.__brailuxAiDiagnosticInstalled) {
+  globalThis.__brailuxAiDiagnosticInstalled = true;
+  const originalConsoleError = console.error.bind(console);
+
+  console.error = (...args) => {
+    originalConsoleError(...args);
+    if (args[0] !== 'NeuroNova AI:') return;
+
+    const diagnosticCode = safeAiErrorCode(args[1]);
+    globalThis.setTimeout(() => {
+      const messages = [...document.querySelectorAll('.nova-ai-message[data-state="error"]')];
+      const target = messages.at(-1);
+      if (!target || target.dataset.diagnosticApplied === 'true') return;
+
+      target.dataset.diagnosticApplied = 'true';
+      target.textContent = `${target.textContent} Código técnico: ${diagnosticCode}.`;
+    }, 0);
+  };
+}
+
 if (isBrailuxSite) {
   try {
     const response = await fetch(new URL('./runtime/brailux-specialist.json', import.meta.url), { cache: 'no-store' });
