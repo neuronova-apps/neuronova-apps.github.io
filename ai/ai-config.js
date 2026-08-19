@@ -13,7 +13,7 @@ export const firebaseConfig = Object.freeze({
 });
 
 export const AI_RUNTIME_CONFIG = Object.freeze({
-  backendStatus: 'ACTIVE_SHARED_PROVISIONAL',
+  backendStatus: 'ACTIVE_SHARED_CONFIG_VERIFIED',
   apiProvider: 'gemini-developer-api',
   apiTransport: 'firebase-ai-logic',
   credentialMode: 'firebase-managed-auth',
