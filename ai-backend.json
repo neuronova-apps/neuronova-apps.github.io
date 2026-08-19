@@ -1,18 +1,28 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "architecture": "centralized",
   "owner": "NeuroNova",
-  "service": "Firebase AI Logic / Gemini",
+  "service": "Firebase AI Logic",
+  "geminiProvider": "Gemini Developer API",
+  "credentialMode": "Firebase AI Logic managed authorization",
+  "directGeminiApiKeyInClientAllowed": false,
   "activeFirebaseProjectId": "brailux",
   "backendStatus": "ACTIVE_SHARED_PROVISIONAL",
   "sharedClient": "https://neuronova-apps.github.io/ai-chat.js",
-  "runtimeBank": "https://neuronova-apps.github.io/apps.json",
+  "runtimeBank": "https://neuronova-apps.github.io/ai/runtime/manifest.json",
   "appCheckHost": "neuronova-apps.github.io",
   "perRepositoryFirebaseConfigAllowed": false,
   "migrationPolicy": {
-    "target": "Un único proyecto Firebase común de NeuroNova cuando exista y sea confirmado",
-    "rule": "No inventar ni sustituir projectId, appId, API key, App Check site key u otros identificadores sin valores emitidos por Firebase.",
-    "impact": "Los repos hermanos deben seguir cargando el cliente central. Una futura migración del backend se realiza en el repo matriz y no exige siete configuraciones independientes."
+    "target": "Un único proyecto Firebase común de NeuroNova con Gemini Developer API habilitada mediante Firebase AI Logic.",
+    "rule": "No insertar ni publicar una clave Gemini de AI Studio en HTML, JavaScript, JSON o cualquier archivo del repositorio. Solo sustituir projectId, appId, API key de configuración web de Firebase, App Check site key u otros identificadores cuando hayan sido emitidos por Firebase para el proyecto NeuroNova.",
+    "impact": "Los repos hermanos continúan cargando el cliente central. La migración definitiva se realiza en el repo matriz y no exige configuraciones independientes por aplicación.",
+    "requiredBeforeFinalSwitch": [
+      "Proyecto Firebase definitivo de NeuroNova",
+      "Aplicación web registrada en ese proyecto",
+      "Firebase AI Logic configurado con Gemini Developer API",
+      "Firebase App Check configurado para neuronova-apps.github.io",
+      "Configuración web de Firebase y site key de App Check confirmadas"
+    ]
   },
-  "notes": "El único proyecto Firebase actualmente confirmado en el cliente de producción es brailux. Se conserva para evitar interrumpir el chatbot mientras se decide o crea un proyecto Firebase específico de NeuroNova."
+  "notes": "El runtime actual ya usa Firebase AI Logic con GoogleAIBackend, que corresponde a Gemini Developer API. El proyecto brailux se mantiene de forma provisional para no interrumpir el chatbot hasta disponer de la configuración Firebase definitiva de NeuroNova. La clave Gemini mostrada o creada en AI Studio no debe copiarse al repositorio."
 }
