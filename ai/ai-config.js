@@ -1,5 +1,7 @@
 export const NEURONOVA_ROOT = 'https://neuronova-apps.github.io';
 
+// Esta es la configuración pública del cliente web de Firebase.
+// No es una clave de Gemini ni debe reemplazarse por una clave creada en AI Studio.
 export const firebaseConfig = Object.freeze({
   apiKey: 'AIzaSyAoKv_JwVGFN--PrErQ0lCeJs0aE6Lbvvs',
   authDomain: 'brailux.firebaseapp.com',
@@ -12,6 +14,10 @@ export const firebaseConfig = Object.freeze({
 
 export const AI_RUNTIME_CONFIG = Object.freeze({
   backendStatus: 'ACTIVE_SHARED_PROVISIONAL',
+  apiProvider: 'gemini-developer-api',
+  apiTransport: 'firebase-ai-logic',
+  credentialMode: 'firebase-managed-auth',
+  directGeminiApiKeyAllowed: false,
   modelName: 'gemini-3.6-flash',
   recaptchaEnterpriseSiteKey: '6LdkTogtAAAAALAEqavcrDlzikG43X1RmnTvah_P',
   runtimeManifestUrl: `${NEURONOVA_ROOT}/ai/runtime/manifest.json`,
