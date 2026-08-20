@@ -70,6 +70,67 @@ const syncAllCardFavicons = () => {
   });
 };
 
+const ensureSopaluxCard = (app) => {
+  if (!app || document.querySelector('.app-card h4')?.textContent.trim() === 'Sopalux') {
+    return;
+  }
+
+  const alreadyExists = Array.from(document.querySelectorAll('.app-card h4'))
+    .some((title) => title.textContent.trim() === 'Sopalux');
+
+  if (alreadyExists) {
+    return;
+  }
+
+  const exerciseLine = document.querySelector('[aria-labelledby="linea-ejercitacion"]');
+  const grid = exerciseLine?.querySelector('.app-grid');
+
+  if (!grid) {
+    return;
+  }
+
+  const card = document.createElement('article');
+  card.className = 'app-card reveal visible';
+  card.innerHTML = `
+    <div class="card-top">
+      <div class="app-icon" aria-hidden="true"><strong>SO</strong></div>
+      <span class="status"><span></span> ${app.status || 'En desarrollo'}</span>
+    </div>
+    <div class="card-content">
+      <p class="app-category">Palabras · Ejercitación mental</p>
+      <h4>Sopalux</h4>
+      <p>Juego de sopa de letras orientado a ejercitar atención, vocabulario, agilidad visual y descubrimiento de contenidos temáticos.</p>
+      <div class="availability-block" aria-label="Disponibilidad de Sopalux">
+        <p class="availability-item"><strong>Disponible ahora</strong><span>${app.availableNow || 'Repositorio oficial creado para el desarrollo de Sopalux.'}</span></p>
+        <p class="availability-item future"><strong>En desarrollo</strong><span>${app.inDevelopment || 'Experiencia de juego, banco maestro y versión Android.'}</span></p>
+      </div>
+    </div>
+    <div class="card-actions">
+      <a class="card-button" href="${app.url || app.repository}" aria-label="${app.ariaLabel || 'Abrir el repositorio de Sopalux en GitHub'}">${app.actionLabel || 'Ver repositorio'} <span aria-hidden="true">↗</span></a>
+    </div>`;
+
+  const cruciluxCard = Array.from(grid.querySelectorAll('.app-card'))
+    .find((item) => item.querySelector('h4')?.textContent.trim() === 'Crucilux');
+
+  if (cruciluxCard) {
+    cruciluxCard.insertAdjacentElement('afterend', card);
+  } else {
+    grid.appendChild(card);
+  }
+};
+
+const syncEcosystemCounts = () => {
+  const metric = document.querySelector('.hero-metrics div:first-child strong');
+  if (metric) {
+    metric.textContent = '08';
+  }
+
+  const appsHeading = document.querySelector('#apps .section-heading h2');
+  if (appsHeading && appsHeading.textContent.includes('Siete experiencias')) {
+    appsHeading.textContent = appsHeading.textContent.replace('Siete experiencias', 'Ocho experiencias');
+  }
+};
+
 const syncAppCards = async () => {
   try {
     const response = await fetch('apps.json');
@@ -81,6 +142,9 @@ const syncAppCards = async () => {
     const data = await response.json();
     const apps = Array.isArray(data.apps) ? data.apps : [];
     const appsByName = new Map(apps.map((app) => [app.name, app]));
+
+    ensureSopaluxCard(appsByName.get('Sopalux'));
+    syncEcosystemCounts();
 
     document.querySelectorAll('.app-card').forEach((card) => {
       const title = card.querySelector('h4');
