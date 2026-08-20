@@ -1,8 +1,8 @@
 {
   "schemaVersion": 2,
-  "bankVersion": "1.12",
-  "lastReviewed": "2026-08-16",
-  "description": "Índice runtime oficial de NeuroNova para el chatbot y la matriz web. Derivado del Banco Maestro IA v1.12; distingue web, Android, banco de contenido y publicación.",
+  "bankVersion": "1.13",
+  "lastReviewed": "2026-08-19",
+  "description": "Índice runtime oficial de NeuroNova para el chatbot y la matriz web. Derivado del Banco Maestro IA; distingue web, Android, banco de contenido y publicación.",
   "apps": [
     {
       "id": "quiz-bible",
@@ -111,6 +111,24 @@
       "repository": "https://github.com/neuronova-apps/crucilux-app",
       "actionLabel": "Jugar en web",
       "ariaLabel": "Jugar Crucilux en la web"
+    },
+    {
+      "id": "sopalux",
+      "name": "Sopalux",
+      "status": "En desarrollo",
+      "webStatus": "No confirmado",
+      "androidStatus": "No confirmado",
+      "bankStatus": "Banco maestro en desarrollo",
+      "playStoreStatus": "No confirmado",
+      "availableNow": "Repositorio oficial creado para el desarrollo de Sopalux, juego de sopa de letras de NeuroNova.",
+      "inDevelopment": "Implementación de la experiencia de juego, integración del banco maestro y preparación de la versión Android.",
+      "confirmedFunctions": "Repositorio oficial de Sopalux creado dentro de NeuroNova Apps; banco de contenido de sopa de letras en desarrollo.",
+      "unconfirmedFunctions": "Demo web pública, APK Android definitivo y publicación en Google Play todavía no confirmados.",
+      "aiNotes": "Sopalux pertenece a la línea de ejercitación mental junto con Sudolux y Crucilux. El repositorio existe, pero no debe presentarse todavía como app publicada o demo funcional.",
+      "url": "https://github.com/neuronova-apps/sopalux-letras-apps",
+      "repository": "https://github.com/neuronova-apps/sopalux-letras-apps",
+      "actionLabel": "Ver repositorio",
+      "ariaLabel": "Abrir el repositorio de Sopalux en GitHub"
     },
     {
       "id": "motiva",
