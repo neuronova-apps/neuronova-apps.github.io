@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="description" content="Prototipo funcional móvil de la futura app de rutinas visuales de NeuroNova Apps.">
+  <meta name="theme-color" content="#eef6f4">
+  <title>Rutinas Visuales · Prototipo V1 | NeuroNova Apps</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <style>
+    :root{
+      color-scheme:light;
+      --bg:#eaf3f1;--surface:#ffffff;--surface-2:#f5f9f8;--ink:#183330;--muted:#607772;
+      --brand:#247b71;--brand-2:#dff0ec;--line:#dce8e5;--danger:#9b4d4d;--shadow:0 18px 50px rgba(23,61,56,.16);
+      --r-xl:26px;--r-lg:20px;--r-md:16px;--r-sm:12px;
+    }
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(circle at top,#f7fbfa 0,#e7f0ee 48%,#dfe9e7 100%);color:var(--ink)}
+    button,a,input{font:inherit}.skip{position:absolute;left:-9999px}.skip:focus{left:12px;top:12px;z-index:50;background:#fff;padding:10px 14px;border-radius:10px;color:#111}
+    .sitebar{max-width:1100px;margin:auto;padding:18px 22px;display:flex;justify-content:space-between;align-items:center;gap:14px}.sitebar a{color:#315a55;text-decoration:none;font-weight:750}.tag{font-size:.78rem;color:#5f7773;border:1px solid #cdddda;background:rgba(255,255,255,.72);border-radius:999px;padding:7px 10px}
+    .stage{min-height:calc(100vh - 70px);display:grid;place-items:center;padding:10px 18px 34px}.phone{width:min(410px,100%);height:min(860px,calc(100vh - 105px));min-height:650px;background:var(--surface);border:8px solid #17332f;border-radius:38px;box-shadow:var(--shadow);overflow:hidden;position:relative;display:flex;flex-direction:column}.phone::before{content:"";position:absolute;z-index:20;top:9px;left:50%;translate:-50% 0;width:86px;height:5px;border-radius:99px;background:#18332f}
+    .apphead{padding:28px 18px 12px;display:flex;align-items:center;justify-content:space-between;gap:10px;border-bottom:1px solid var(--line);background:rgba(255,255,255,.96)}.identity{display:flex;align-items:center;gap:10px}.avatar{width:38px;height:38px;border-radius:14px;background:var(--brand-2);display:grid;place-items:center;color:var(--brand);font-weight:850}.identity small{display:block;color:var(--muted);font-size:.72rem}.identity strong{font-size:.94rem}.mode-pill{border:1px solid var(--line);background:var(--surface-2);border-radius:999px;padding:7px 10px;color:#42635e;font-size:.72rem;font-weight:800}
+    .viewport{flex:1;overflow:auto;padding:17px 16px 104px;scrollbar-width:none}.viewport::-webkit-scrollbar{display:none}.screen{display:none}.screen.active{display:block}.eyebrow{margin:0 0 6px;color:var(--brand);font-size:.72rem;font-weight:850;letter-spacing:.08em;text-transform:uppercase}.screen h1{font-size:1.55rem;line-height:1.15;margin:0 0 6px}.lead{margin:0 0 17px;color:var(--muted);font-size:.9rem;line-height:1.45}
+    .hero-card{background:linear-gradient(145deg,#1f756c,#2f8b80);color:#fff;padding:18px;border-radius:var(--r-xl);box-shadow:0 12px 30px rgba(36,123,113,.18)}.hero-card .label{font-size:.74rem;opacity:.8}.hero-card h2{font-size:1.2rem;margin:6px 0}.hero-card p{font-size:.84rem;opacity:.86;margin:0 0 14px}.now-next{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}.mini-step{background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.18);padding:10px;border-radius:14px}.mini-step span{font-size:.68rem;opacity:.75;display:block}.mini-step strong{font-size:.8rem;display:block;margin-top:3px}.primary,.secondary,.textbtn{border:0;cursor:pointer}.primary{width:100%;background:#fff;color:#1f6f67;font-weight:850;border-radius:14px;padding:12px 14px}.secondary{background:var(--brand-2);color:#1f665f;border-radius:13px;padding:10px 12px;font-weight:800}.textbtn{background:transparent;color:var(--brand);font-weight:800;padding:6px}
+    .section-title{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:20px 0 10px}.section-title h2{font-size:1rem;margin:0}.section-title span{font-size:.72rem;color:var(--muted)}
+    .list{display:grid;gap:9px}.routine{display:flex;align-items:center;gap:12px;background:var(--surface-2);border:1px solid var(--line);padding:12px;border-radius:var(--r-md)}.routine .visual{width:46px;height:46px;flex:0 0 46px;border-radius:14px;background:#e3f1ee;border:1px dashed #91b8b1;display:grid;place-items:center;color:#438078;font-size:.62rem;font-weight:900;letter-spacing:.04em}.routine-copy{min-width:0;flex:1}.routine-copy strong{font-size:.88rem;display:block}.routine-copy span{color:var(--muted);font-size:.74rem}.routine .go{width:34px;height:34px;border-radius:11px;border:1px solid var(--line);background:#fff;color:var(--brand);font-weight:900;cursor:pointer}.chip-row{display:flex;gap:7px;overflow:auto;padding-bottom:3px;scrollbar-width:none}.chip{white-space:nowrap;border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 11px;color:#496560;font-size:.76rem;font-weight:750}.chip.active{background:var(--brand);color:#fff;border-color:var(--brand)}
+    .empty-note{padding:15px;border-radius:var(--r-md);background:#f6faf9;border:1px dashed #bfd5d1;color:#607873;font-size:.82rem;line-height:1.4}.create-choice{display:grid;gap:10px}.choice{border:1px solid var(--line);background:#fff;text-align:left;border-radius:18px;padding:15px;cursor:pointer}.choice strong{display:block;margin-bottom:4px}.choice span{font-size:.8rem;color:var(--muted)}
+    .field{margin:12px 0}.field label{font-weight:800;font-size:.78rem;display:block;margin-bottom:6px}.field input,.field select{width:100%;border:1px solid var(--line);background:#fff;border-radius:13px;padding:11px 12px;color:var(--ink)}.steps{display:grid;gap:8px}.step-row{display:flex;gap:10px;align-items:center;border:1px solid var(--line);background:#fff;border-radius:14px;padding:10px}.drag{color:#94aaa6}.step-row .num{width:26px;height:26px;background:var(--brand-2);color:var(--brand);border-radius:8px;display:grid;place-items:center;font-size:.72rem;font-weight:900}.step-row strong{font-size:.82rem;flex:1}.advanced-only{display:none}.advanced .advanced-only{display:block}
+    .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.stat{padding:13px 8px;text-align:center;background:var(--surface-2);border:1px solid var(--line);border-radius:15px}.stat strong{font-size:1.1rem;display:block}.stat span{font-size:.66rem;color:var(--muted)}.history{margin-top:13px;display:grid;gap:8px}.history-item{display:flex;justify-content:space-between;gap:12px;padding:11px 2px;border-bottom:1px solid var(--line)}.history-item strong{font-size:.82rem}.history-item span{font-size:.72rem;color:var(--muted)}
+    .settings{display:grid;gap:9px}.setting{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px;background:var(--surface-2);border:1px solid var(--line);border-radius:15px}.setting strong{display:block;font-size:.82rem}.setting span{display:block;font-size:.7rem;color:var(--muted);margin-top:2px}.switch{width:46px;height:26px;background:#c9d7d4;border:0;border-radius:999px;padding:3px;cursor:pointer;transition:.2s}.switch::after{content:"";display:block;width:20px;height:20px;border-radius:50%;background:#fff;box-shadow:0 2px 5px rgba(0,0,0,.12);transition:.2s}.switch.on{background:var(--brand)}.switch.on::after{translate:20px 0}
+    .bottom{position:absolute;z-index:12;bottom:0;left:0;right:0;background:rgba(255,255,255,.98);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(5,1fr);padding:7px 5px max(8px,env(safe-area-inset-bottom))}.navbtn{border:0;background:transparent;padding:6px 1px;color:#728682;display:grid;place-items:center;gap:3px;cursor:pointer}.navbtn svg{width:21px;height:21px;stroke:currentColor;fill:none;stroke-width:1.8}.navbtn span{font-size:.62rem;font-weight:750}.navbtn.active{color:var(--brand)}
+    .execution{position:absolute;inset:0;z-index:30;background:#f8fbfa;display:none;flex-direction:column}.execution.open{display:flex}.exe-head{padding:24px 18px 12px;display:flex;justify-content:space-between;align-items:center}.exe-head button{border:0;background:#edf4f2;border-radius:12px;padding:9px 11px;color:#49645f;font-weight:800}.progressbar{height:6px;background:#e2ecea;margin:0 18px;border-radius:99px;overflow:hidden}.progressbar i{display:block;height:100%;background:var(--brand);width:25%;transition:.25s}.exe-main{flex:1;display:flex;flex-direction:column;justify-content:center;padding:20px;text-align:center}.big-visual{width:190px;height:190px;margin:0 auto 20px;border-radius:34px;background:#e6f2ef;border:2px dashed #91b8b1;display:grid;place-items:center;color:#438078;font-weight:900;letter-spacing:.08em}.exe-main small{color:var(--muted)}.exe-main h2{font-size:1.55rem;margin:7px 0 5px}.exe-main p{color:var(--muted);font-size:.86rem;margin:0 auto 16px;max-width:300px}.after{margin:0 auto 18px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px 13px;color:#55706b;font-size:.78rem}.exe-actions{padding:0 18px max(20px,env(safe-area-inset-bottom));display:grid;grid-template-columns:1fr 1fr;gap:8px}.complete{grid-column:1/-1;border:0;background:var(--brand);color:#fff;border-radius:16px;padding:14px;font-weight:850;cursor:pointer}.exe-actions .secondary{background:#edf4f2}.finish-card{display:none;text-align:center}.finish-card.show{display:block}.finish-card h2{margin-bottom:8px}.finish-card p{color:var(--muted);font-size:.85rem}
+    .toast{position:absolute;z-index:45;bottom:90px;left:50%;translate:-50% 15px;background:#17332f;color:#fff;padding:10px 14px;border-radius:12px;font-size:.76rem;opacity:0;pointer-events:none;transition:.2s;white-space:nowrap}.toast.show{opacity:1;translate:-50% 0}
+    .note{max-width:700px;margin:0 auto 28px;padding:0 20px;color:#526d68;font-size:.82rem;text-align:center;line-height:1.5}.note strong{color:#284d47}
+    @media(max-width:600px){body{background:#fff}.sitebar{padding:10px 14px}.stage{padding:0;display:block;min-height:calc(100vh - 46px)}.phone{width:100%;height:calc(100dvh - 46px);min-height:610px;border:0;border-radius:0;box-shadow:none}.phone::before{display:none}.apphead{padding-top:15px}.note{display:none}.tag{display:none}}
+    @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+  </style>
+</head>
+<body>
+  <a class="skip" href="#app">Saltar al prototipo</a>
+  <header class="sitebar"><a href="/">← NeuroNova Apps</a><span class="tag">Prototipo funcional · V1 · móvil</span></header>
+  <main class="stage" id="app">
+    <section class="phone" aria-label="Prototipo móvil de Rutinas Visuales">
+      <header class="apphead">
+        <div class="identity"><div class="avatar" aria-hidden="true">A</div><div><small>Perfil activo</small><strong>Alex</strong></div></div>
+        <button class="mode-pill" id="modeToggle" type="button" aria-pressed="false">Modo simple</button>
+      </header>
+
+      <div class="viewport" id="viewport">
+        <section class="screen active" data-screen="hoy">
+          <p class="eyebrow">Hoy · Lunes</p><h1>Tu día, paso a paso</h1><p class="lead">Rutinas programadas y anticipación visual en una vista sencilla.</p>
+          <article class="hero-card">
+            <span class="label">Siguiente rutina · 7:15</span><h2>Prepararse para el día</h2><p>5 pasos en la versión simple.</p>
+            <div class="now-next"><div class="mini-step"><span>AHORA</span><strong>Despertarse</strong></div><div class="mini-step"><span>DESPUÉS</span><strong>Ir al baño</strong></div></div>
+            <button class="primary" type="button" data-start style="margin-top:14px">Iniciar rutina</button>
+          </article>
+          <div class="section-title"><h2>Más tarde</h2><span>3 rutinas</span></div>
+          <div class="list">
+            <div class="routine"><div class="visual">VISUAL</div><div class="routine-copy"><strong>Preparar la mochila</strong><span>Antes de salir · 4 pasos</span></div><button class="go" type="button" data-toast="Abrir detalle de rutina">›</button></div>
+            <div class="routine"><div class="visual">VISUAL</div><div class="routine-copy"><strong>Regreso a casa</strong><span>Tarde · 5 pasos</span></div><button class="go" type="button" data-toast="Abrir detalle de rutina">›</button></div>
+            <div class="routine"><div class="visual">VISUAL</div><div class="routine-copy"><strong>Cierre del día</strong><span>Noche · 5 pasos</span></div><button class="go" type="button" data-toast="Abrir detalle de rutina">›</button></div>
+          </div>
+        </section>
+
+        <section class="screen" data-screen="rutinas">
+          <p class="eyebrow">Rutinas</p><h1>Organiza lo cotidiano</h1><p class="lead">Consulta tus rutinas o parte de una plantilla sin modificar el banco maestro.</p>
+          <div class="chip-row" aria-label="Filtros de rutinas"><button class="chip active">Mis rutinas</button><button class="chip">Plantillas</button><button class="chip">Mañana</button><button class="chip">Noche</button></div>
+          <div class="section-title"><h2>Mis rutinas</h2><span>4 guardadas</span></div>
+          <div class="list">
+            <div class="routine"><div class="visual">VISUAL</div><div class="routine-copy"><strong>Prepararse para el día</strong><span>General · 5 pasos</span></div><button class="go" type="button" data-start>▶</button></div>
+            <div class="routine"><div class="visual">VISUAL</div><div class="routine-copy"><strong>Preparar la mochila</strong><span>Escolar+ · 4 pasos</span></div><button class="go" type="button" data-start>▶</button></div>
+            <div class="routine"><div class="visual">VISUAL</div><div class="routine-copy"><strong>Ocio tranquilo</strong><span>General · 3 pasos</span></div><button class="go" type="button" data-start>▶</button></div>
+            <div class="routine"><div class="visual">VISUAL</div><div class="routine-copy"><strong>Cierre del día</strong><span>General · 5 pasos</span></div><button class="go" type="button" data-start>▶</button></div>
+          </div>
+          <div class="section-title"><h2>Plantillas</h2><span>52 disponibles</span></div>
+          <div class="empty-note">Las plantillas se copian al perfil antes de editarse. Los bancos maestros permanecen intactos.</div>
+        </section>
+
+        <section class="screen" data-screen="crear">
+          <p class="eyebrow">Crear</p><h1>Nueva rutina</h1><p class="lead">Modo simple: pocas decisiones, valores seguros por defecto.</p>
+          <div class="create-choice">
+            <button class="choice" type="button" data-toast="Se abriría el catálogo de 52 plantillas"><strong>Usar una plantilla</strong><span>Parte de una secuencia ya preparada y personalízala.</span></button>
+            <button class="choice" type="button" data-toast="Constructor desde cero preparado"><strong>Crear desde cero</strong><span>Selecciona actividades del Banco 1 y ordénalas.</span></button>
+          </div>
+          <div class="section-title"><h2>Ejemplo de borrador</h2><span>4 pasos</span></div>
+          <div class="field"><label for="routineName">Nombre</label><input id="routineName" value="Preparar la mochila"></div>
+          <div class="steps">
+            <div class="step-row"><span class="drag">⋮⋮</span><span class="num">1</span><strong>Revisar horario escolar</strong></div>
+            <div class="step-row"><span class="drag">⋮⋮</span><span class="num">2</span><strong>Guardar cuadernos</strong></div>
+            <div class="step-row"><span class="drag">⋮⋮</span><span class="num">3</span><strong>Guardar útiles</strong></div>
+            <div class="step-row"><span class="drag">⋮⋮</span><span class="num">4</span><strong>Preparar la mochila</strong></div>
+          </div>
+          <div class="advanced-only">
+            <div class="section-title"><h2>Opciones avanzadas</h2><span>Configurador</span></div>
+            <div class="field"><label for="schedule">Programación</label><select id="schedule"><option>Mañana</option><option>Hora exacta</option><option>Según necesidad</option></select></div>
+            <div class="field"><label for="timer">Temporizador</label><select id="timer"><option>Sin temporizador</option><option>Visual por paso</option><option>Visual por rutina</option></select></div>
+          </div>
+          <button class="secondary" type="button" data-toast="Borrador guardado localmente" style="width:100%;margin-top:14px">Guardar borrador</button>
+        </section>
+
+        <section class="screen" data-screen="progreso">
+          <p class="eyebrow">Progreso</p><h1>Seguimiento personal</h1><p class="lead">Indicadores propios, sin rankings ni comparación con otras personas.</p>
+          <div class="stats"><div class="stat"><strong>12</strong><span>Rutinas realizadas</span></div><div class="stat"><strong>3</strong><span>Parciales</span></div><div class="stat"><strong>0</strong><span>Penalizaciones</span></div></div>
+          <div class="section-title"><h2>Historial reciente</h2><span>Local</span></div>
+          <div class="history">
+            <div class="history-item"><div><strong>Prepararse para el día</strong><span>Hoy · 7:22</span></div><span>Completada</span></div>
+            <div class="history-item"><div><strong>Cierre del día</strong><span>Ayer · 20:31</span></div><span>Parcial</span></div>
+            <div class="history-item"><div><strong>Ocio tranquilo</strong><span>Ayer · 17:05</span></div><span>Completada</span></div>
+          </div>
+          <div id="gamificationOff" class="empty-note" style="margin-top:16px"><strong>Gamificación desactivada.</strong><br>La experiencia principal funciona completa sin logros ni retos.</div>
+          <div id="gamificationOn" style="display:none"><div class="section-title"><h2>Logros y retos</h2><span>Opcional</span></div><div class="routine"><div class="visual">LOGRO</div><div class="routine-copy"><strong>Organización en marcha</strong><span>Progreso individual · sin competencia</span></div></div></div>
+        </section>
+
+        <section class="screen" data-screen="config">
+          <p class="eyebrow">Configuración</p><h1>Ajusta la experiencia</h1><p class="lead">Las preferencias cambian lo que se muestra, no los bancos maestros.</p>
+          <div class="settings">
+            <div class="setting"><div><strong>Modo avanzado</strong><span>Expone más opciones de configuración.</span></div><button class="switch" id="advancedSwitch" type="button" aria-label="Activar modo avanzado"></button></div>
+            <div class="setting"><div><strong>Texto a voz (TTS)</strong><span>Lee instrucciones y mensajes compatibles.</span></div><button class="switch" id="ttsSwitch" type="button" aria-label="Activar TTS"></button></div>
+            <div class="setting"><div><strong>Gamificación</strong><span>Desactivada por defecto; nunca punitiva.</span></div><button class="switch" id="gameSwitch" type="button" aria-label="Activar gamificación"></button></div>
+            <div class="advanced-only setting"><div><strong>Protección del configurador</strong><span>Crear, editar y ajustes pueden requerir desbloqueo.</span></div><button class="switch" id="protectSwitch" type="button" aria-label="Activar protección"></button></div>
+            <div class="setting"><div><strong>Tamaño visual</strong><span>Pictogramas/fotos con tamaño ampliable.</span></div><button class="textbtn" type="button" data-toast="Selector de tamaño visual">Cambiar</button></div>
+            <div class="setting"><div><strong>Perfil de contenido</strong><span>General · no determina capacidad.</span></div><button class="textbtn" type="button" data-toast="Selector General / Escolar+ / Adolescente">Editar</button></div>
+            <div class="advanced-only setting"><div><strong>Apoyo y supervisión</strong><span>Se configuran independientemente de la edad.</span></div><button class="textbtn" type="button" data-toast="Ajustes de apoyo y supervisión">Editar</button></div>
+          </div>
+          <div class="empty-note" style="margin-top:14px">Prototipo local-first: no requiere correo, nombre real ni cuenta para representar la experiencia V1.</div>
+        </section>
+      </div>
+
+      <nav class="bottom" aria-label="Navegación del prototipo">
+        <button class="navbtn active" data-view="hoy" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5v8a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg><span>Hoy</span></button>
+        <button class="navbtn" data-view="rutinas" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6h14M5 12h14M5 18h14"/><path d="M2.8 6h.4M2.8 12h.4M2.8 18h.4"/></svg><span>Rutinas</span></button>
+        <button class="navbtn" data-view="crear" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><span>Crear</span></button>
+        <button class="navbtn" data-view="progreso" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19V9m7 10V5m7 14v-7"/></svg><span>Progreso</span></button>
+        <button class="navbtn" data-view="config" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1l2-1.5-2-3.4-2.4 1a8 8 0 0 0-1.7-1L14.5 3h-5l-.4 3.1a8 8 0 0 0-1.7 1L5 6.1 3 9.5 5 11a7 7 0 0 0 0 2l-2 1.5 2 3.4 2.4-1a8 8 0 0 0 1.7 1l.4 3.1h5l.4-3.1a8 8 0 0 0 1.7-1l2.4 1 2-3.4-2-1.5a7 7 0 0 0 .1-1z"/></svg><span>Ajustes</span></button>
+      </nav>
+
+      <section class="execution" id="execution" aria-label="Ejecución de rutina" aria-hidden="true">
+        <div class="exe-head"><strong>Prepararse para el día</strong><button id="exitExecution" type="button">Salir</button></div>
+        <div class="progressbar"><i id="exeProgress"></i></div>
+        <div class="exe-main" id="stepPanel">
+          <div class="big-visual">VISUAL</div><small id="stepCount">Paso 1 de 4</small><h2 id="stepTitle">Despertarse</h2><p id="stepInstruction">Representación principal con pictograma o fotografía personalizada.</p><div class="after">Después: <strong id="nextTitle">Ir al baño</strong></div>
+        </div>
+        <div class="exe-main finish-card" id="finishPanel"><div class="big-visual">LISTO</div><h2>Rutina completada</h2><p>El cierre se registra en el historial personal. No hay rankings ni penalizaciones.</p></div>
+        <div class="exe-actions" id="exeActions"><button class="secondary" type="button" data-toast="Paso omitido sin penalización">Omitir</button><button class="secondary" type="button" data-toast="Ayuda o pausa solicitada">Pedir ayuda</button><button class="complete" id="completeStep" type="button">Completar paso</button></div>
+        <div class="exe-actions" id="finishActions" style="display:none"><button class="complete" id="returnHome" type="button">Volver a Hoy</button></div>
+      </section>
+      <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    </section>
+  </main>
+  <p class="note"><strong>Nota:</strong> esta página es una maqueta funcional para validar jerarquía, navegación y comportamiento móvil. No utiliza todavía pictogramas ARASAAC reales ni representa el diseño visual definitivo de la aplicación.</p>
+  <script>
+    const phone=document.querySelector('.phone'), screens=[...document.querySelectorAll('.screen')], nav=[...document.querySelectorAll('.navbtn')], viewport=document.getElementById('viewport');
+    const toast=document.getElementById('toast'); let toastTimer; let advanced=false; let gamification=false; let step=0;
+    const steps=['Despertarse','Ir al baño','Lavarse las manos','Elegir la ropa'];
+    function showToast(message){toast.textContent=message;toast.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>toast.classList.remove('show'),1800)}
+    function showView(view){screens.forEach(s=>s.classList.toggle('active',s.dataset.screen===view));nav.forEach(b=>b.classList.toggle('active',b.dataset.view===view));viewport.scrollTop=0}
+    nav.forEach(b=>b.addEventListener('click',()=>showView(b.dataset.view)));
+    document.querySelectorAll('[data-toast]').forEach(b=>b.addEventListener('click',()=>showToast(b.dataset.toast)));
+    document.querySelectorAll('[data-start]').forEach(b=>b.addEventListener('click',startExecution));
+    function startExecution(){step=0;document.getElementById('execution').classList.add('open');document.getElementById('execution').setAttribute('aria-hidden','false');document.getElementById('stepPanel').style.display='flex';document.getElementById('finishPanel').classList.remove('show');document.getElementById('exeActions').style.display='grid';document.getElementById('finishActions').style.display='none';renderStep()}
+    function renderStep(){document.getElementById('stepCount').textContent=`Paso ${step+1} de ${steps.length}`;document.getElementById('stepTitle').textContent=steps[step];document.getElementById('nextTitle').textContent=steps[step+1]||'Finalizar rutina';document.getElementById('exeProgress').style.width=`${((step+1)/steps.length)*100}%`}
+    document.getElementById('completeStep').addEventListener('click',()=>{if(step<steps.length-1){step++;renderStep()}else{document.getElementById('stepPanel').style.display='none';document.getElementById('finishPanel').classList.add('show');document.getElementById('exeActions').style.display='none';document.getElementById('finishActions').style.display='grid'}});
+    function closeExecution(){document.getElementById('execution').classList.remove('open');document.getElementById('execution').setAttribute('aria-hidden','true')}
+    document.getElementById('exitExecution').addEventListener('click',()=>{closeExecution();showToast('Salida registrada sin penalización')});document.getElementById('returnHome').addEventListener('click',()=>{closeExecution();showView('hoy')});
+    function setAdvanced(on){advanced=on;phone.classList.toggle('advanced',on);document.getElementById('advancedSwitch').classList.toggle('on',on);document.getElementById('modeToggle').textContent=on?'Modo avanzado':'Modo simple';document.getElementById('modeToggle').setAttribute('aria-pressed',String(on))}
+    document.getElementById('advancedSwitch').addEventListener('click',()=>setAdvanced(!advanced));document.getElementById('modeToggle').addEventListener('click',()=>{setAdvanced(!advanced);showView('config')});
+    document.getElementById('ttsSwitch').addEventListener('click',e=>{e.currentTarget.classList.toggle('on');showToast(e.currentTarget.classList.contains('on')?'TTS activado':'TTS desactivado')});
+    document.getElementById('protectSwitch').addEventListener('click',e=>{e.currentTarget.classList.toggle('on');showToast(e.currentTarget.classList.contains('on')?'Protección activada':'Protección desactivada')});
+    document.getElementById('gameSwitch').addEventListener('click',e=>{gamification=!gamification;e.currentTarget.classList.toggle('on',gamification);document.getElementById('gamificationOff').style.display=gamification?'none':'block';document.getElementById('gamificationOn').style.display=gamification?'block':'none';showToast(gamification?'Gamificación ligera activada':'Gamificación desactivada')});
+  </script>
+</body>
+</html>
