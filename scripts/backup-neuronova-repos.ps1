@@ -14,7 +14,7 @@ $records = @()
 foreach ($name in $repos) {
   $mirror = Join-Path $root ($name + '.git')
   $bundle = Join-Path $root ($name + '.bundle')
-  if (Test-Path $mirror -or Test-Path $bundle) {
+  if ((Test-Path $mirror) -or (Test-Path $bundle)) {
     throw "Destino ocupado para $name: use una carpeta nueva para evitar reemplazos."
   }
   & git clone --mirror "https://github.com/neuronova-apps/$name.git" "$mirror"
