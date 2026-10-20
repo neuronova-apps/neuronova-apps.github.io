@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Sudolux es una experiencia de Neuronova Apps para aprender Sudoku, explorar sus reglas y técnicas, consultar guías educativas y resolver una partida web de demostración.">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <meta name="application-name" content="Sudolux">
+  <meta name="theme-color" content="#07111f">
+  <meta name="color-scheme" content="dark">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="canonical" href="https://neuronova-apps.github.io/educacion-aprendizaje/sudolux/">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_PE">
+  <meta property="og:site_name" content="Sudolux · Neuronova Apps">
+  <meta property="og:title" content="Sudolux | Lógica, concentración y Sudoku">
+  <meta property="og:description" content="Conoce cómo funciona el Sudoku, explora sus reglas y prueba una partida web interactiva de demostración.">
+  <meta property="og:url" content="https://neuronova-apps.github.io/educacion-aprendizaje/sudolux/">
+  <meta property="og:image" content="https://neuronova-apps.github.io/sudolux-app/assets/social/sudolux-social.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Sudolux · Aprende las reglas, practica técnicas y resuelve Sudoku">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Sudolux | Lógica, concentración y Sudoku">
+  <meta name="twitter:description" content="Aprende las reglas del Sudoku y prueba una partida web de demostración en Sudolux.">
+  <meta name="twitter:image" content="https://neuronova-apps.github.io/sudolux-app/assets/social/sudolux-social.png">
+  <meta name="twitter:image:alt" content="Sudolux · Aprende las reglas, practica técnicas y resuelve Sudoku">
+  <title>Sudolux | Lógica, concentración y Sudoku</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="hero-orbit.css">
+  <link rel="stylesheet" href="../../assets/accessibility/accessibility.css">
+  <script src="../../assets/accessibility/accessibility.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido principal</a>
+  <div class="ambient ambient-one" aria-hidden="true"></div>
+  <div class="ambient ambient-two" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#inicio" aria-label="Sudolux, ir al inicio">
+        <span class="brand-grid" aria-hidden="true"><i>1</i><i>7</i><i>4</i><i>8</i></span>
+        <span class="brand-copy"><strong>Sudolux</strong><small>by Neuronova Apps</small></span>
+      </a>
+
+      <button class="menu-button" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="Abrir menú de navegación">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav id="main-nav" class="main-nav" aria-label="Navegación principal">
+        <a href="#conoce">Conoce</a>
+        <a href="#reglas">Cómo jugar</a>
+        <a href="#tecnicas">Técnicas</a>
+        <a href="#guias">Guías</a>
+        <a href="#mente">Agilidad mental</a>
+        <a href="#demo">Jugar demo</a>
+      </nav>
+
+      <a class="matrix-link" href="../../index.html">Neuronova <span aria-hidden="true">↗</span></a>
+    </div>
+  </header>
+
+  <main id="contenido">
+    <section id="inicio" class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy reveal">
+          <p class="eyebrow"><span class="pulse-dot" aria-hidden="true"></span> Demo web funcional · Lógica · Atención · Entretenimiento</p>
+          <h1>Nueve números. <span>Una cuadrícula llena de posibilidades.</span></h1>
+          <p class="lead">Sudolux combina aprendizaje y juego: explica la lógica del Sudoku, muestra sus tres reglas fundamentales, enseña técnicas básicas de resolución y permite resolver una partida clásica 9 × 9 directamente en la web.</p>
+          <div class="hero-actions">
+            <a class="button primary" href="#demo">Probar Sudoku <span aria-hidden="true">→</span></a>
+            <a class="button ghost" href="#tecnicas">Aprender técnicas</a>
+          </div>
+          <div class="hero-metrics" aria-label="Estructura clásica del Sudoku">
+            <div><strong>9 × 9</strong><span>cuadrícula clásica</span></div>
+            <div><strong>1–9</strong><span>números por completar</span></div>
+            <div><strong>3 × 3</strong><span>bloques internos</span></div>
+          </div>
+        </div>
+
+        <div class="hero-visual reveal" aria-label="Representación tecnológica de un tablero Sudoku">
+          <div class="s-orbit s-orbit-outer" aria-hidden="true">
+            <span class="s-node s-node-top"><b>JUGAR</b></span>
+            <span class="s-node s-node-right"><b>LÓGICA</b></span>
+            <span class="s-node s-node-bottom"><b>RETO</b></span>
+            <span class="s-node s-node-left"><b>PROGRESO</b></span>
+          </div>
+          <div class="s-orbit s-orbit-inner" aria-hidden="true">
+            <span class="s-chip s-chip-top"><b>FILA</b></span>
+            <span class="s-chip s-chip-right"><b>COLUMNA</b></span>
+            <span class="s-chip s-chip-left"><b>BLOQUE</b></span>
+          </div>
+          <div class="s-core" aria-hidden="true">
+            <div class="s-core-grid">
+              <span>5</span><span>3</span><span>4</span>
+              <span>6</span><span>7</span><span>2</span>
+              <span>1</span><span>9</span><span>8</span>
+            </div>
+            <small>SUDOKU 9×9</small>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="conoce" class="section intro-section">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div>
+            <p class="eyebrow">Qué es el Sudoku</p>
+            <h2>Un problema de lógica, no de cálculo.</h2>
+          </div>
+          <p>El objetivo no es sumar ni resolver operaciones. El reto consiste en deducir qué número corresponde a cada casilla respetando simultáneamente tres condiciones: fila, columna y bloque.</p>
+        </div>
+
+        <div class="concept-grid">
+          <article class="concept-card reveal">
+            <span class="index">01</span>
+            <h3>La cuadrícula</h3>
+            <p>El Sudoku clásico utiliza 81 casillas distribuidas en 9 filas y 9 columnas. A su vez, el tablero se divide en nueve bloques de 3 × 3.</p>
+          </article>
+          <article class="concept-card reveal">
+            <span class="index">02</span>
+            <h3>Las pistas</h3>
+            <p>Una partida comienza con algunos números ya colocados. Esos valores funcionan como información inicial para deducir las casillas restantes.</p>
+          </article>
+          <article class="concept-card reveal">
+            <span class="index">03</span>
+            <h3>La deducción</h3>
+            <p>Cada decisión se obtiene descartando posibilidades. Una casilla queda resuelta cuando, según las restricciones del tablero, solo una opción es válida.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="reglas" class="section rules-section">
+      <div class="container rules-grid">
+        <div class="rules-copy reveal">
+          <p class="eyebrow">Cómo se juega</p>
+          <h2>Tres reglas que actúan al mismo tiempo.</h2>
+          <p>Para completar correctamente un Sudoku clásico, los números del 1 al 9 deben aparecer sin repetirse en cada fila, en cada columna y en cada bloque de 3 × 3.</p>
+          <div class="rule-flow" aria-label="Las tres reglas básicas del Sudoku">
+            <article><span>01</span><div><strong>Fila</strong><p>Del 1 al 9, sin repetir.</p></div></article>
+            <article><span>02</span><div><strong>Columna</strong><p>Del 1 al 9, sin repetir.</p></div></article>
+            <article><span>03</span><div><strong>Bloque</strong><p>Del 1 al 9, sin repetir.</p></div></article>
+          </div>
+        </div>
+
+        <div class="rule-visual reveal" aria-label="Ejemplo visual de fila, columna y bloque">
+          <div class="rule-selector" role="group" aria-label="Mostrar regla">
+            <button type="button" class="rule-button active" data-rule="row" aria-pressed="true">Fila</button>
+            <button type="button" class="rule-button" data-rule="column" aria-pressed="false">Columna</button>
+            <button type="button" class="rule-button" data-rule="block" aria-pressed="false">Bloque</button>
+          </div>
+          <div id="ruleBoard" class="mini-board" aria-hidden="true"></div>
+          <p id="ruleText" class="rule-description" aria-live="polite">Una fila debe contener los números del 1 al 9 sin repetir.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="tecnicas" class="section techniques-section">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div>
+            <p class="eyebrow">Técnicas para empezar</p>
+            <h2>De las reglas a una decisión concreta.</h2>
+          </div>
+          <p>Resolver no consiste en adivinar. Empieza observando qué números ya bloquean una casilla, anota las posibilidades que quedan y reduce esas opciones hasta encontrar una decisión justificada.</p>
+        </div>
+
+        <div class="technique-grid">
+          <article class="technique-card reveal">
+            <span class="technique-index">01</span>
+            <h3>Observa las restricciones</h3>
+            <p>Antes de escribir, revisa la fila, la columna y el bloque 3 × 3 de la casilla. Todo número que ya aparezca en cualquiera de esos tres grupos queda descartado.</p>
+            <div class="technique-example"><strong>Ejemplo</strong><p>Si en la fila ya están 1, 3, 5 y 8, esos números no pueden ocupar esa casilla.</p></div>
+          </article>
+
+          <article class="technique-card reveal">
+            <span class="technique-index">02</span>
+            <h3>Anota candidatos</h3>
+            <p>Los números que todavía cumplen las tres reglas son candidatos. En Sudolux puedes activar <strong>Notas</strong> o pulsar <kbd>N</kbd> y registrar esas posibilidades sin convertirlas en respuestas definitivas.</p>
+            <div class="candidate-example" aria-label="Ejemplo de candidatos 2, 4 y 7">
+              <span></span><span>2</span><span></span><span>4</span><span></span><span></span><span>7</span><span></span><span></span>
+            </div>
+          </article>
+
+          <article class="technique-card reveal">
+            <span class="technique-index">03</span>
+            <h3>Descarta posibilidades</h3>
+            <p>Cada nuevo valor colocado puede eliminar candidatos cercanos. Vuelve a comprobar fila, columna y bloque para mantener solo las opciones que siguen siendo válidas.</p>
+            <div class="technique-example"><strong>Idea clave</strong><p>Si una casilla tenía 2, 4 y 7 y aparece un 4 en su columna, quedan 2 y 7.</p></div>
+          </article>
+
+          <article class="technique-card reveal">
+            <span class="technique-index">04</span>
+            <h3>Busca un único posible</h3>
+            <p>Cuando una casilla se queda con un solo candidato, ese número puede colocarse como valor definitivo. Es una de las deducciones básicas más útiles para comenzar.</p>
+            <div class="single-example" aria-label="Ejemplo: el único candidato es 7"><span>7</span><small>único candidato</small></div>
+          </article>
+        </div>
+
+        <div class="technique-practice reveal">
+          <div>
+            <strong>Secuencia recomendada</strong>
+            <p>Observar → anotar → descartar → resolver. Repite el ciclo cada vez que una nueva respuesta cambie las posibilidades del tablero.</p>
+          </div>
+          <a class="button ghost" href="#demo">Practicar con Notas <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section id="guias" class="section guides-section">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div>
+            <p class="eyebrow">Guías de Sudoku</p>
+            <h2>Aprende por tema antes de volver al tablero.</h2>
+          </div>
+          <p>Cinco recursos públicos amplían las explicaciones de la portada y conectan cada concepto con la práctica real de Sudolux.</p>
+        </div>
+
+        <div class="guide-grid">
+          <article class="guide-card reveal"><span class="guide-index">01</span><h3>Cómo jugar Sudoku</h3><p>Objetivo, primeros pasos, candidatos y una secuencia sencilla para empezar sin adivinar.</p><a href="como-jugar-sudoku.html">Abrir guía <span aria-hidden="true">→</span></a></article>
+          <article class="guide-card reveal"><span class="guide-index">02</span><h3>Reglas del Sudoku</h3><p>Fila, columna y bloque explicados como tres restricciones que deben cumplirse al mismo tiempo.</p><a href="reglas-sudoku.html">Abrir guía <span aria-hidden="true">→</span></a></article>
+          <article class="guide-card reveal"><span class="guide-index">03</span><h3>Sudoku para principiantes</h3><p>Una rutina inicial para observar, anotar posibilidades y avanzar con deducciones básicas.</p><a href="sudoku-para-principiantes.html">Abrir guía <span aria-hidden="true">→</span></a></article>
+          <article class="guide-card reveal"><span class="guide-index">04</span><h3>Técnicas de Sudoku</h3><p>Candidatos, únicos posibles y otros recursos básicos para justificar cada decisión.</p><a href="tecnicas-sudoku.html">Abrir guía <span aria-hidden="true">→</span></a></article>
+          <article class="guide-card reveal"><span class="guide-index">05</span><h3>Beneficios del Sudoku</h3><p>Qué puede entrenar el juego y qué conviene afirmar con prudencia sobre atención y actividad mental.</p><a href="beneficios-sudoku.html">Abrir guía <span aria-hidden="true">→</span></a></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="mente" class="section mind-section">
+      <div class="container mind-grid">
+        <div class="mind-copy reveal">
+          <p class="eyebrow">Agilidad mental</p>
+          <h2>Un entorno para practicar atención y razonamiento.</h2>
+          <p>Resolver Sudoku exige revisar restricciones, mantener alternativas en mente, detectar patrones y corregir decisiones cuando aparece nueva información. Sudolux presenta estas tareas como práctica de lógica y atención, sin atribuir efectos clínicos o terapéuticos al juego.</p>
+        </div>
+        <div class="mind-cards reveal">
+          <article><span>01</span><div><h3>Atención</h3><p>Revisar filas, columnas y bloques requiere mantener el foco sobre varias restricciones al mismo tiempo.</p></div></article>
+          <article><span>02</span><div><h3>Memoria de trabajo</h3><p>Los candidatos y descartes obligan a retener información temporal mientras se evalúan otras casillas.</p></div></article>
+          <article><span>03</span><div><h3>Razonamiento</h3><p>Cada colocación debe justificarse a partir de información disponible, evitando depender de adivinanzas.</p></div></article>
+          <article><span>04</span><div><h3>Autocorrección</h3><p>Los errores y nuevas pistas invitan a revisar hipótesis y modificar una estrategia cuando deja de ser válida.</p></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="demo" class="section demo-section">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div>
+            <p class="eyebrow">Demo web</p>
+            <h2>Resuelve una partida clásica 9 × 9.</h2>
+          </div>
+          <p>La demo permite seleccionar casillas, introducir números, utilizar notas, deshacer movimientos, borrar respuestas, validar la partida y guardar el estado localmente en el navegador.</p>
+        </div>
+
+        <div class="game-shell reveal">
+          <div class="game-info">
+            <div>
+              <span class="demo-badge"><i></i> Partida de demostración</span>
+              <h3>Sudoku clásico</h3>
+              <p>Completa las casillas vacías respetando fila, columna y bloque.</p>
+            </div>
+            <div class="game-stats" aria-label="Estado de la partida">
+              <div><span>Tiempo</span><strong id="timer">00:00</strong></div>
+              <div><span>Errores</span><strong id="mistakes">0</strong></div>
+              <div><span>Completado</span><strong id="progress">0%</strong></div>
+            </div>
+          </div>
+
+          <div class="game-layout">
+            <div id="sudokuBoard" class="sudoku-board" role="grid" aria-label="Tablero Sudoku de demostración"></div>
+            <aside class="game-controls" aria-label="Controles del Sudoku">
+              <div class="number-pad" aria-label="Seleccionar número">
+                <button type="button" data-number="1">1</button><button type="button" data-number="2">2</button><button type="button" data-number="3">3</button>
+                <button type="button" data-number="4">4</button><button type="button" data-number="5">5</button><button type="button" data-number="6">6</button>
+                <button type="button" data-number="7">7</button><button type="button" data-number="8">8</button><button type="button" data-number="9">9</button>
+              </div>
+              <button id="notesButton" class="control-button" type="button" aria-pressed="false">Notas</button>
+              <button id="undoButton" class="control-button" type="button">Deshacer</button>
+              <button id="eraseButton" class="control-button" type="button">Borrar</button>
+              <button id="checkButton" class="control-button primary-control" type="button">Comprobar</button>
+              <button id="resetButton" class="control-button" type="button">Reiniciar</button>
+              <p id="gameMessage" class="game-message" aria-live="polite"></p>
+              <div class="demo-limit">
+                <strong>Notas y guardado local</strong>
+                <p>Los candidatos no cuentan como respuestas ni errores. Partida, movimientos, notas y casillas falladas se guardan solo en este navegador, sin cuenta ni sincronización externa.</p>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section app-section">
+      <div class="container app-panel reveal">
+        <div class="app-device" aria-hidden="true">
+          <div class="device-screen"><span>S</span><strong>Sudolux</strong><small>Future mobile expansion</small></div>
+        </div>
+        <div>
+          <p class="eyebrow">Expansión futura</p>
+          <h2>La demo web ya funciona. Sudolux puede crecer desde aquí.</h2>
+          <p>Una futura aplicación móvil podrá ampliar la experiencia con dificultades, gestión de múltiples partidas, ayudas, estadísticas, retos, personalización y otros modos. Estas funciones seguirán marcadas como futuras hasta estar implementadas y verificadas.</p>
+          <span class="coming-soon" role="status">Demo web funcional en desarrollo activo</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="#inicio">
+          <span class="brand-grid" aria-hidden="true"><i>1</i><i>7</i><i>4</i><i>8</i></span>
+          <span class="brand-copy"><strong>Sudolux</strong><small>Neuronova Apps</small></span>
+        </a>
+        <p>Proyecto personal de entretenimiento lógico y exploración del Sudoku.</p>
+      </div>
+      <div class="footer-column">
+        <h2>Explorar</h2>
+        <a href="#conoce">Qué es Sudoku</a>
+        <a href="#reglas">Cómo jugar</a>
+        <a href="#tecnicas">Técnicas básicas</a>
+        <a href="#demo">Demo web</a>
+        
+      </div>
+      <div class="footer-column">
+        <h2>Proyecto</h2>
+        <a href="../../index.html">Neuronova Apps</a>
+        <a href="../../privacy/sudolux/">Política de privacidad</a>
+        <span>Proyecto independiente</span>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <p>© <span id="year"></span> Sudolux · Neuronova Apps.</p>
+      <p>Diseñado para la web · Accesibilidad · Lógica · Entretenimiento</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script src="game-accessibility.js"></script>
+</body>
+</html>
