@@ -1,1 +1,235 @@
-<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="MiMomento, una experiencia de devocionales y reflexión personal de NeuroNova Apps."><title>MiMomento | Desarrollo espiritual | NeuroNova Apps</title><link rel="canonical" href="https://neuronova-apps.github.io/desarrollo-espiritual/mimomento/"><link rel="icon" href="../../favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../../assets/categories/categories.css"><link rel="stylesheet" href="../../assets/accessibility/accessibility.css"><script defer src="../../assets/accessibility/accessibility.js"></script></head><body><a class="skip-link" href="#contenido">Saltar al contenido</a><header class="site-header"><div class="wrap header-row"><a class="brand" href="../../index.html"><span class="brand-mark" aria-hidden="true">N</span><strong>NeuroNova <span>Apps</span></strong></a><nav aria-label="Navegación"><a href="../index.html">Desarrollo espiritual</a><a href="../../index.html">Inicio matriz</a></nav></div></header><main id="contenido" class="wrap"><p class="eyebrow"><a href="../../index.html">NeuroNova Apps</a> / <a href="../index.html">Desarrollo espiritual</a> / MiMomento</p><h1>MiMomento</h1><p class="lead">Un espacio para los devocionales, la oración y la reflexión personal.</p><section class="app-grid" aria-label="Presentación de MiMomento"><article class="app-card"><h2>Conoce MiMomento</h2><p>MiMomento propone una experiencia de reflexión espiritual mediante contenidos devocionales y momentos personales de lectura y oración.</p></article><article class="app-card"><h2>Estado de integración</h2><p>El contenido web interactivo todavía está pendiente de migración a este subacceso. Mientras tanto, puedes utilizar la versión web original.</p><div class="links"><a href="https://neuronova-apps.github.io/mimomento-app/">Abrir aplicación web disponible</a><a href="../../privacy/mimomento/">Política de privacidad</a></div></article></section><p class="note"><a href="../index.html">← Volver a Desarrollo espiritual</a></p></main><footer class="site-footer"><div class="wrap footer-content"><p>© NeuroNova Apps</p><p><a href="../../privacy/">Centro de privacidad</a> · <a href="../../index.html">Matriz</a></p></div></footer></body></html>
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Mi Momento es una demo web funcional de devocionales, oración y reflexión personal con progreso local y guías educativas sobre devocionales, oraciones y diario.">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <meta name="application-name" content="Mi Momento">
+  <meta name="theme-color" content="#f6f3e9">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="canonical" href="https://neuronova-apps.github.io/desarrollo-espiritual/mimomento/">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_PE">
+  <meta property="og:site_name" content="Mi Momento · Neuronova Apps">
+  <meta property="og:title" content="Mi Momento | Devocionales y oración">
+  <meta property="og:description" content="Demo web funcional con progreso devocional, oraciones y reflexiones guardados localmente en el navegador.">
+  <meta property="og:url" content="https://neuronova-apps.github.io/desarrollo-espiritual/mimomento/">
+  <meta property="og:image" content="https://neuronova-apps.github.io/mimomento-app/assets/social/mimomento-social.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Mi Momento · Devocionales, oración y reflexión personal">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Mi Momento | Devocionales y oración">
+  <meta name="twitter:description" content="Demo funcional con progreso devocional, oraciones y diario guardados localmente.">
+  <meta name="twitter:image" content="https://neuronova-apps.github.io/mimomento-app/assets/social/mimomento-social.png">
+  <meta name="twitter:image:alt" content="Mi Momento · Devocionales, oración y reflexión personal">
+  <title>Mi Momento | Devocionales y oración</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="hero-orbit.css">
+  <link rel="stylesheet" href="progress.css">
+  <link rel="stylesheet" href="accessibility-local.css">
+  <link rel="stylesheet" href="footer-ecosystem.css">
+  <link rel="stylesheet" href="guide-cards.css">
+  <link rel="stylesheet" href="../../assets/accessibility/accessibility.css">
+  <script src="../../assets/accessibility/accessibility.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido principal</a>
+  <div class="ambient ambient-one" aria-hidden="true"></div>
+  <div class="ambient ambient-two" aria-hidden="true"></div>
+  <div class="soft-grid" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#inicio" aria-label="Mi Momento, ir al inicio" data-nav="home">
+        <span class="brand-mark" aria-hidden="true">MM</span>
+        <span><strong>Mi Momento</strong><small>by Neuronova Apps</small></span>
+      </a>
+      <button class="menu-button" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="Abrir menú de navegación"><span></span><span></span><span></span></button>
+      <nav id="main-nav" class="main-nav" aria-label="Navegación principal">
+        <button type="button" data-nav="devotionals">Devocionales</button>
+        <button type="button" data-nav="prayers">Oraciones</button>
+        <button type="button" data-nav="journal">Diario</button>
+        <a href="#guias">Guías</a>
+        <a href="../../privacy/mimomento/">Privacidad</a>
+        <a href="../../index.html">Neuronova</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenido">
+    <section id="inicio" class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow"><span aria-hidden="true"></span> Devocionales · Oración · Reflexión</p>
+          <h1>Un momento para detenerte, conversar con Dios y <em>continuar con propósito.</em></h1>
+          <p class="lead">Mi Momento es una demo web funcional. Puedes completar el devocional de muestra, avanzar por las sesiones disponibles de los planes y conservar ese progreso junto con tus oraciones y reflexiones en este navegador. La biblioteca completa y varias funciones de seguimiento todavía están en desarrollo.</p>
+          <div class="actions">
+            <button class="button primary" type="button" data-open-devotional="1">Ir al devocional de hoy</button>
+            <button class="button secondary" type="button" data-nav="prayers">Registrar una oración</button>
+          </div>
+          <div class="signals hero-metrics" aria-label="Indicadores actuales de Mi Momento">
+            <div><strong>04</strong><span>planes de muestra</span></div>
+            <div><strong>12</strong><span>sesiones disponibles</span></div>
+            <div><strong>LOCAL</strong><span>progreso y registros</span></div>
+          </div>
+        </div>
+
+        <div class="hero-visual" aria-hidden="true">
+          <div class="dev-orbit dev-orbit-outer">
+            <span class="dev-node node-top"><b>LEER</b></span>
+            <span class="dev-node node-right"><b>ORAR</b></span>
+            <span class="dev-node node-bottom"><b>REFLEXIONAR</b></span>
+            <span class="dev-node node-left"><b>AGRADECER</b></span>
+          </div>
+          <div class="dev-orbit dev-orbit-inner">
+            <span class="dev-chip chip-top"><b>HOY</b></span>
+            <span class="dev-chip chip-right"><b>PAZ</b></span>
+            <span class="dev-chip chip-left"><b>FE</b></span>
+          </div>
+          <div class="dev-core"><span>✦</span><strong>MM</strong><small>MI MOMENTO</small></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section app-section" aria-label="Aplicación Mi Momento">
+      <div class="container app-panel">
+        <div class="app-panel-head">
+          <div><p class="eyebrow">Demo web funcional</p><h2>Registros y progreso derivados de acciones reales.</h2><p>Las oraciones, reflexiones y acciones devocionales que completas se conservan localmente. Los ejemplos precargados no cuentan como actividad personal y los planes solo miden las tres sesiones que existen actualmente en la demo.</p></div>
+          <span class="status">Demo web</span>
+        </div>
+
+        <nav class="app-tabs" role="tablist" aria-label="Secciones de Mi Momento">
+          <button class="nav-item active" id="appTab-home" role="tab" aria-selected="true" aria-controls="homeScreen" tabindex="0" data-nav="home">Inicio</button>
+          <button class="nav-item" id="appTab-devotionals" role="tab" aria-selected="false" aria-controls="devotionalsScreen" tabindex="-1" data-nav="devotionals">Devocionales</button>
+          <button class="nav-item" id="appTab-prayers" role="tab" aria-selected="false" aria-controls="prayersScreen" tabindex="-1" data-nav="prayers">Oraciones</button>
+          <button class="nav-item" id="appTab-journal" role="tab" aria-selected="false" aria-controls="journalScreen" tabindex="-1" data-nav="journal">Diario</button>
+          <button class="nav-item" id="appTab-progress" role="tab" aria-selected="false" aria-controls="progressScreen" tabindex="-1" data-nav="progress">Progreso</button>
+        </nav>
+
+        <div class="app-shell">
+          <header class="topbar">
+            <div><p class="eyebrow" id="dateLabel">Domingo</p><h2 id="greeting">Buenas noches</h2></div>
+            <button class="icon-button" id="profileBtn" aria-label="Abrir perfil conceptual">GB</button>
+          </header>
+
+          <div class="app-content">
+            <section class="screen active" id="homeScreen" role="tabpanel" aria-labelledby="appTab-home" tabindex="-1">
+              <div class="home-grid">
+                <article class="daily-card">
+                  <span class="daily-label" id="dailyDevotionalLabel">Devocional de muestra de hoy</span>
+                  <h2>Cuando necesito paciencia</h2>
+                  <p class="verse">Paráfrasis editorial: cada etapa tiene su momento y los procesos no siempre pueden apresurarse.</p>
+                  <p class="verse-ref">Referencia: Eclesiastés 3:1</p>
+                  <button class="button primary light" id="dailyDevotionalButton" data-open-devotional="1">Comenzar devocional</button>
+                </article>
+                <div class="today-summary">
+                  <p class="eyebrow">Tus registros locales</p><h3>Actividad creada por ti en esta demo</h3>
+                  <div class="stats-grid">
+                    <article><strong id="activePrayerCount">0</strong><span>Tus oraciones activas</span></article>
+                    <article><strong id="answeredCount">0</strong><span>Tus respondidas</span></article>
+                    <article class="wide"><strong><span id="streakCount">0</span> días</strong><span>Racha devocional actual</span></article>
+                  </div>
+                </div>
+              </div>
+
+              <div class="section-heading"><div><p class="eyebrow">Planes de muestra</p><h3>Sesiones con progreso local</h3></div><button class="text-button" data-nav="devotionals">Ver todos</button></div>
+              <div class="plan-grid">
+                <article class="plan-card"><span id="homePlan-calma">0/3 sesiones · 7 días</span><h3>Volver a la calma</h3><p>Una pausa diaria para ordenar pensamientos y recuperar serenidad.</p><button class="small-button" data-open-plan="calma">Explorar</button></article>
+                <article class="plan-card"><span id="homePlan-gratitud">0/3 sesiones · 14 días</span><h3>Gratitud cotidiana</h3><p>Una práctica sencilla para reconocer lo recibido incluso en días difíciles.</p><button class="small-button" data-open-plan="gratitud">Explorar</button></article>
+                <article class="plan-card"><span id="homePlan-familia">0/3 sesiones · 10 días</span><h3>Orar por los míos</h3><p>Reflexiones para acompañar, cuidar y agradecer por la familia.</p><button class="small-button" data-open-plan="familia">Explorar</button></article>
+              </div>
+              <article class="quick-card"><div><p class="eyebrow">Oración local</p><h3>¿Qué quieres presentar hoy?</h3></div><button class="floating-add" id="quickPrayerBtn" aria-label="Nueva oración">+</button></article>
+            </section>
+
+            <section class="screen" id="devotionalsScreen" role="tabpanel" aria-labelledby="appTab-devotionals" tabindex="-1">
+              <div class="page-title"><p class="eyebrow">Biblioteca de muestra</p><h2>Devocionales</h2><p>Cada plan mantiene su duración conceptual, pero la demo publica solo tres sesiones utilizables. Completar esas sesiones sí actualiza tu progreso local; no se simulan los días de contenido que todavía no existen.</p></div>
+              <div class="filter-row" id="devotionalFilters"><button class="chip active" data-filter="todos">Todos</button><button class="chip" data-filter="paz">Paz</button><button class="chip" data-filter="gratitud">Gratitud</button><button class="chip" data-filter="familia">Familia</button><button class="chip" data-filter="proposito">Propósito</button></div>
+              <div class="devotional-list" id="devotionalList">
+                <article class="devotional-item" data-category="paz"><div class="cover">01</div><div><span id="planStatus-calma">7 días · 0/3 sesiones disponibles</span><h3>Volver a la calma</h3><p>Respirar, reflexionar y volver a centrarte en lo esencial.</p><div class="progress-line" aria-hidden="true"><span id="planProgress-calma" style="width:0%"></span></div></div><button class="icon-button small" data-open-plan="calma" aria-label="Explorar plan Volver a la calma">›</button></article>
+                <article class="devotional-item" data-category="gratitud"><div class="cover">02</div><div><span id="planStatus-gratitud">14 días · 0/3 sesiones disponibles</span><h3>Gratitud cotidiana</h3><p>Reconocer lo recibido y cerrar el día con una mirada agradecida.</p><div class="progress-line" aria-hidden="true"><span id="planProgress-gratitud" style="width:0%"></span></div></div><button class="icon-button small" data-open-plan="gratitud" aria-label="Explorar plan Gratitud cotidiana">›</button></article>
+                <article class="devotional-item" data-category="familia"><div class="cover">03</div><div><span id="planStatus-familia">10 días · 0/3 sesiones disponibles</span><h3>Orar por los míos</h3><p>Acompañar, cuidar y agradecer por quienes forman parte de tu vida.</p><div class="progress-line" aria-hidden="true"><span id="planProgress-familia" style="width:0%"></span></div></div><button class="icon-button small" data-open-plan="familia" aria-label="Explorar plan Orar por los míos">›</button></article>
+                <article class="devotional-item" data-category="proposito"><div class="cover">04</div><div><span id="planStatus-proposito">21 días · 0/3 sesiones disponibles</span><h3>Caminar con propósito</h3><p>Decisiones, paciencia y sentido para los próximos pasos.</p><div class="progress-line" aria-hidden="true"><span id="planProgress-proposito" style="width:0%"></span></div></div><button class="icon-button small" data-open-plan="proposito" aria-label="Explorar plan Caminar con propósito">›</button></article>
+              </div>
+            </section>
+
+            <section class="screen" id="prayersScreen" role="tabpanel" aria-labelledby="appTab-prayers" tabindex="-1">
+              <div class="page-title with-action"><div><p class="eyebrow">Registros locales</p><h2>Oraciones</h2><p>Los ejemplos precargados están identificados como demostración. Las nuevas oraciones que escribas se guardan localmente en este navegador.</p></div><button class="floating-add" id="newPrayerBtn" aria-label="Nueva oración">+</button></div>
+              <div class="segmented" id="prayerTabs" role="tablist" aria-label="Estado de las oraciones"><button class="active" id="prayerTab-active" role="tab" aria-selected="true" aria-controls="prayerList" tabindex="0" data-prayer-tab="active">Activas</button><button id="prayerTab-answered" role="tab" aria-selected="false" aria-controls="prayerList" tabindex="-1" data-prayer-tab="answered">Respondidas</button></div>
+              <div class="prayer-list" id="prayerList" role="tabpanel" aria-labelledby="prayerTab-active"></div>
+            </section>
+
+            <section class="screen" id="journalScreen" role="tabpanel" aria-labelledby="appTab-journal" tabindex="-1">
+              <div class="page-title"><p class="eyebrow">Registros locales</p><h2>Mi diario</h2><p>Las entradas de ejemplo están identificadas como demostración. Las reflexiones que escribas se guardan localmente en este navegador.</p></div>
+              <article class="journal-compose"><label for="journalText">¿Qué quieres recordar de hoy?</label><textarea id="journalText" maxlength="600" placeholder="Escribe con libertad..."></textarea><div class="compose-footer"><span id="charCount" aria-live="polite" aria-atomic="true">0/600</span><button class="button primary compact" id="saveJournalBtn">Guardar reflexión</button></div></article>
+              <div class="section-heading"><div><p class="eyebrow">Registros visibles</p><h3>Entradas del diario</h3></div></div><div class="journal-list" id="journalList"></div>
+            </section>
+
+            <section class="screen" id="progressScreen" role="tabpanel" aria-labelledby="appTab-progress" tabindex="-1">
+              <div class="page-title"><p class="eyebrow">Progreso local</p><h2>Progreso</h2><p>Esta pantalla se deriva únicamente de acciones devocionales completadas en la demo. No utiliza cifras precargadas ni suma ejemplos a tu historial.</p></div>
+              <article class="progress-hero"><div class="progress-ring" id="devotionalProgressRing" style="--value:0"><div><strong id="devotionalProgressPercent">0%</strong><span>planes disponibles</span></div></div><div><p class="eyebrow">Planes de muestra</p><h3 id="devotionalProgressTitle">0 de 12 sesiones de plan completadas</h3><p id="devotionalProgressSummary">El porcentaje usa únicamente las tres sesiones disponibles de cada plan de muestra. El devocional diario suma actividad, pero no altera este porcentaje.</p></div></article>
+              <div class="metric-list"><article><span>Sesiones devocionales</span><strong id="devotionalMetric">0</strong></article><article><span>Días con actividad</span><strong id="activityDaysMetric">0</strong></article><article><span>Tus reflexiones</span><strong id="journalMetric">0</strong></article><article><span>Tus oraciones</span><strong id="prayerMetric">0</strong></article></div>
+              <article class="calendar-card"><p class="eyebrow">Actividad real</p><h3>Últimos 28 días</h3><div class="activity-grid" id="activityGrid" aria-label="Actividad devocional real de los últimos 28 días"></div></article>
+            </section>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section guides-section" id="guias" aria-labelledby="guidesTitle">
+      <div class="container">
+        <div class="guides-head">
+          <div>
+            <p class="eyebrow">Guías de Mi Momento</p>
+            <h2 id="guidesTitle">Recursos para usar la demo con más contexto.</h2>
+            <p>Estas páginas son contenido educativo estático. Explican cómo leer un devocional, organizar oraciones, revisar su seguimiento, escribir un diario y utilizar las métricas sin convertirlas en una obligación. Leerlas no modifica tus registros ni el progreso local.</p>
+          </div>
+        </div>
+        <div class="guide-grid">
+          <a class="guide-card" href="guia-mi-momento.html"><span class="eyebrow">Uso responsable</span><h3>Usar Mi Momento con calma</h3><p>Qué guarda la demo, cómo interpretar el progreso y qué conviene considerar antes de registrar información personal.</p><strong>Leer guía →</strong></a>
+          <a class="guide-card" href="como-usar-un-devocional.html"><span class="eyebrow">Devocionales</span><h3>Cómo usar un devocional</h3><p>Distingue referencia bíblica, paráfrasis editorial, pregunta personal y acción opcional.</p><strong>Leer guía →</strong></a>
+          <a class="guide-card" href="organizar-oraciones-personales.html"><span class="eyebrow">Oraciones</span><h3>Organizar oraciones personales</h3><p>Usa títulos, categorías y estados como ayudas para volver al registro sin convertirlo en una lista de tareas.</p><strong>Leer guía →</strong></a>
+          <a class="guide-card" href="seguimiento-de-oraciones.html"><span class="eyebrow">Seguimiento</span><h3>Recordar cambios con notas</h3><p>Conserva contexto y fechas sin forzar una conclusión sobre cada acontecimiento.</p><strong>Leer guía →</strong></a>
+          <a class="guide-card" href="diario-de-reflexion.html"><span class="eyebrow">Diario</span><h3>Escribir para recordar</h3><p>Una estructura breve para reflexionar, revisar, editar o eliminar entradas con criterio de privacidad.</p><strong>Leer guía →</strong></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <strong>Mi Momento</strong>
+        <p>Devocionales, oración, reflexión y progreso personal guardados localmente en esta demo web.</p>
+      </div>
+      <div class="footer-column">
+        <h2>Explorar</h2>
+        <button class="footer-button" type="button" data-nav="devotionals">Devocionales</button>
+        <button class="footer-button" type="button" data-nav="prayers">Oraciones</button>
+        <button class="footer-button" type="button" data-nav="journal">Diario</button>
+        <button class="footer-button" type="button" data-nav="progress">Progreso</button>
+        <a href="#guias">Guías educativas</a>
+        
+      </div>
+      <div class="footer-column">
+        <h2>Contacto</h2>
+        <a href="mailto:berm_km@hotmail.com">berm_km@hotmail.com</a>
+        <span>Pucallpa, Ucayali · Perú</span>
+        <span>Proyecto independiente</span>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <p>© 2026 Mi Momento · Neuronova Apps.</p>
+      <p><a href="../../privacy/mimomento/">Política de privacidad</a> · Diseñado para la web · Accesibilidad · Reflexión personal</p>
+    </div>
+  </footer>
+
+  <div class="a11y-status" id="appStatus" role="status" aria-live="polite" aria-atomic="true"></div>
+  <div class="modal-backdrop" id="modalBackdrop" hidden><section class="modal" id="modalContent" role="dialog" aria-modal="true" aria-labelledby="modalTitle" tabindex="-1"></section></div>
+  <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+  <script src="app.js"></script>
+  <script src="app-a11y.js"></script>
+</body>
+</html>
