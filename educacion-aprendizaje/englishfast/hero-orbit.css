@@ -1,0 +1,231 @@
+.hero-visual {
+  width: min(100%, 430px);
+  aspect-ratio: 1;
+  justify-self: end;
+  align-self: center;
+  position: relative;
+  display: grid;
+  place-items: center;
+  isolation: isolate;
+}
+
+.orbit {
+  position: absolute;
+  border-radius: 50%;
+  transform-origin: center;
+}
+
+.orbit-outer {
+  width: 344px;
+  height: 344px;
+  border: 1px solid rgba(88, 212, 255, .22);
+  animation: efOuterSpin 42s linear infinite;
+}
+
+.orbit-inner {
+  width: 232px;
+  height: 232px;
+  border: 1px solid rgba(140, 124, 255, .20);
+  animation: efInnerSpin 54s linear infinite reverse;
+}
+
+.core {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 107px;
+  height: 107px;
+  overflow: hidden;
+  border-radius: 28px;
+  border: 1px solid rgba(88, 212, 255, .46);
+  background:
+    radial-gradient(circle at 30% 22%, rgba(88, 212, 255, .13), transparent 34%),
+    linear-gradient(155deg, #12304a 0%, #0b1d31 48%, #071522 100%);
+  box-shadow:
+    0 0 36px rgba(88, 212, 255, .12),
+    0 16px 34px rgba(0, 0, 0, .28),
+    inset 0 0 0 1px rgba(255, 255, 255, .025);
+  transform: rotate(5deg);
+}
+
+.core-ring {
+  position: absolute;
+  inset: 7px;
+  border-radius: 22px;
+  border: 1px solid rgba(88, 212, 255, .26);
+  box-shadow:
+    inset 0 0 18px rgba(88, 212, 255, .055),
+    0 0 16px rgba(88, 212, 255, .045);
+  pointer-events: none;
+}
+
+.core strong {
+  position: relative;
+  z-index: 1;
+  display: block;
+  color: #58d4ff;
+  font-size: 2.18rem;
+  font-weight: 950;
+  letter-spacing: -.09em;
+  line-height: .88;
+  text-shadow: 0 0 16px rgba(88, 212, 255, .38);
+  transform: translateX(-1px);
+}
+
+.core small {
+  position: relative;
+  z-index: 1;
+  display: block;
+  margin-top: 8px;
+  color: #7f96ab;
+  font-size: .39rem;
+  font-weight: 800;
+  letter-spacing: .08em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.orbit-item {
+  position: absolute;
+  transform: translate(-50%, -50%);
+}
+
+.outer-item {
+  animation: efOuterReadable 42s linear infinite;
+}
+
+.inner-item {
+  animation: efInnerReadable 54s linear infinite;
+}
+
+.outer-hello { top: 0; left: 50%; }
+.outer-learn { top: 50%; left: 0; }
+.outer-speak { top: 50%; left: 100%; }
+.outer-play { top: 100%; left: 50%; }
+
+.inner-words { top: 50%; left: 0; }
+.inner-grammar { top: 0; left: 50%; }
+.inner-sound { top: 50%; left: 100%; }
+
+.word-card,
+.play-card,
+.data-chip {
+  display: grid;
+  place-items: center;
+  text-align: center;
+  background: rgba(13, 27, 45, .94);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, .16);
+}
+
+.word-card {
+  width: 80px;
+  min-height: 60px;
+  padding: 8px 9px;
+  border-radius: 16px;
+  border: 1px solid rgba(88, 212, 255, .22);
+}
+
+.word-card strong,
+.word-card span {
+  display: block;
+}
+
+.word-card strong {
+  font-size: .7rem;
+  letter-spacing: .04em;
+}
+
+.word-card span {
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: .61rem;
+}
+
+.play-card {
+  width: 68px;
+  height: 48px;
+  border: 1px solid rgba(140, 124, 255, .32);
+  border-radius: 16px;
+  color: #9b8cff;
+  font-size: .63rem;
+  font-weight: 900;
+  letter-spacing: .08em;
+}
+
+.data-chip {
+  min-height: 31px;
+  padding: 6px 10px;
+  border: 1px solid rgba(104, 217, 255, .17);
+  border-radius: 999px;
+  color: #9bb3c7;
+  font-size: .53rem;
+  font-weight: 850;
+  letter-spacing: .055em;
+  white-space: nowrap;
+}
+
+@keyframes efOuterSpin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes efOuterReadable {
+  to { transform: translate(-50%, -50%) rotate(-360deg); }
+}
+
+@keyframes efInnerSpin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes efInnerReadable {
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@media (max-width: 900px) {
+  .hero-visual {
+    width: min(82vw, 390px);
+    justify-self: center;
+  }
+
+  .orbit-outer {
+    width: 312px;
+    height: 312px;
+  }
+
+  .orbit-inner {
+    width: 210px;
+    height: 210px;
+  }
+}
+
+@media (max-width: 700px) {
+  .orbit-outer {
+    width: min(80vw, 312px);
+    height: min(80vw, 312px);
+  }
+
+  .orbit-inner {
+    width: min(54vw, 210px);
+    height: min(54vw, 210px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orbit-outer,
+  .orbit-inner,
+  .outer-item,
+  .inner-item {
+    animation: none !important;
+  }
+}
+
+/* Regla orbital definitiva · Neuronova Apps */
+.hero-grid{gap:clamp(30px,5vw,64px)}
+.hero-visual{width:min(100%,430px);aspect-ratio:1;justify-self:end}
+.orbit-outer{width:332px;height:332px}
+.orbit-inner{width:214px;height:214px}
+.core{width:107px;height:107px;transform:rotate(-4deg)}
+@media(max-width:900px){.hero-visual{width:min(82vw,390px);justify-self:center}}
+@media(max-width:700px){.hero-grid{gap:30px}.hero-visual{width:min(88vw,340px)}.orbit-outer{width:286px;height:286px}.orbit-inner{width:186px;height:186px}.core{width:96px;height:96px;transform:rotate(-4deg)}}
