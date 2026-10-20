@@ -40,3 +40,13 @@ Ningún archivo ni configuración en main de los repositorios de aplicaciones o 
 - No retirar GitHub Pages individuales ni alterar enlaces existentes hasta verificar equivalencia web y seguridad de los datos locales.
 - El incidente de sincronización Git local de RutinaGo se excluye del alcance de esta migración web; no intentar resolverlo alterando su repositorio.
 - Estado de etapa 2: PREPARACION_WEB_COMPLETADA_CON_RESPALDOS_EXTERNOS_PENDIENTES. No declarar respaldo externo creado ni cierre integral sin evidencia.
+
+## Ajuste aprobado: cierre de etapa 2 mediante protección remota (2026-10-19)
+- ESTADO FORMAL: ETAPA_2_COMPLETADA_CON_LIMITACION_DOCUMENTADA.
+- Para iniciar la etapa 3 se considera suficiente conservar main sin cambios, la rama backup/pre-migracion-2026-10-19 y trabajar exclusivamente en chore/migracion-matriz-cuatro-categorias con revisión mediante PR antes de merge.
+- El respaldo externo independiente NO existe ni se declara verificado. Permanece como limitación aceptada, no como tarea obligatoria previa a la etapa 3.
+- No se requerirá ejecutar PowerShell ni otros comandos en la computadora del usuario para la migración web.
+- Los repositorios de desarrollo de las nueve apps no se modifican. Solo el repositorio matriz web podrá recibir cambios en su rama de migración.
+- Prohibido retirar GitHub Pages individuales hasta conservar funciones web, privacidad, enlaces y datos locales con pruebas satisfactorias y autorización específica.
+- El script scripts/backup-neuronova-repos.ps1 queda como recurso opcional no ejecutado. No es un requisito de cierre.
+- Etapa 3 HABILITADA, NO INICIADA en este registro.
