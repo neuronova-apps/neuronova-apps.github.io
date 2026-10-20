@@ -1,0 +1,78 @@
+/* Neuronova Apps · reglas globales de alineación para Quiz Bible */
+:root{
+  --header-height:66px;
+  --container-max:1180px;
+  --container-gutter:18px;
+  --brand-icon-size:38px;
+  --brand-gap:10px;
+  --brand-title-size:1rem;
+  --brand-subtitle-size:.72rem;
+  --nav-font-size:.90rem;
+  --nav-font-weight:700;
+  --nav-link-padding-y:8px;
+  --nav-link-padding-x:12px;
+  --nav-gap:5px;
+  --nav-radius:10px;
+  --ecosystem-menu-bg:rgba(250,248,241,.98);
+  --nv-content-max:1180px;
+  --nv-h1:clamp(2.15rem,4.25vw,4rem);
+  --nv-h2:clamp(2rem,3.7vw,3.45rem);
+  --nv-lead:clamp(.94rem,1.3vw,1.05rem);
+  --nv-body:.95rem;
+  --nv-eyebrow:.74rem;
+  --nv-button:46px;
+  --nv-metric-value:1.02rem;
+  --nv-metric-label:.72rem;
+}
+
+.container{width:min(calc(100% - 36px),var(--nv-content-max));margin-inline:auto}
+.site-header{position:sticky;top:0;z-index:100}
+.header-inner{min-height:66px;display:flex;align-items:center;justify-content:space-between;gap:24px;position:relative}
+.site-header .brand{display:inline-flex;align-items:center;gap:10px;text-decoration:none;flex:0 0 auto}
+.site-header :is(.brand-symbol,.brand-mark,.brand-grid,.brand-cell){width:38px;height:38px;flex:0 0 38px;display:grid;place-items:center;border-radius:12px}
+.site-header .brand-copy{display:block}
+.site-header .brand strong{display:block;font-size:1rem;line-height:1.1}
+.site-header .brand small,.site-header .brand-copy>span{display:block;margin-top:2px;font-size:.72rem;line-height:1.1}
+.site-header .main-nav,.site-header nav[aria-label="Navegación principal"]{display:flex;align-items:center;gap:5px}
+.site-header .main-nav a,.site-header .main-nav button,.site-header nav[aria-label="Navegación principal"] a,.site-header nav[aria-label="Navegación principal"] button,.site-header .matrix-link{min-height:38px;display:inline-flex;align-items:center;padding:8px 12px;border:0;border-radius:10px;background:transparent;font-size:.90rem;font-weight:700;line-height:1;text-decoration:none}
+.site-header .menu-button,.site-header .menu{display:none;width:42px;height:42px;padding:10px;border-radius:12px;flex:0 0 42px}
+.site-header .menu-button span,.site-header .menu span{display:block;width:20px;height:2px;margin:4px auto;background:currentColor}
+.site-header .menu-button:not(:has(span)){font-size:0}
+.site-header .menu-button:not(:has(span))::before{content:"☰";font-size:1.15rem;line-height:1}
+
+.hero-grid{gap:clamp(30px,5vw,64px)}
+.hero-visual{width:min(100%,430px);aspect-ratio:1;justify-self:end}
+.qb-orbit-outer{width:332px;height:332px}
+.qb-orbit-inner{width:214px;height:214px}
+.qb-core{width:107px;height:107px;transform:rotate(-4deg)}
+
+.hero h1{font-size:var(--nv-h1);line-height:1.01;letter-spacing:-.04em}
+main .section h2,main .section-heading h2{font-size:var(--nv-h2);line-height:1.06;letter-spacing:-.035em}
+main p{font-size:var(--nv-body);line-height:1.6}
+.hero .lead{font-size:var(--nv-lead);line-height:1.55}
+.eyebrow{font-size:var(--nv-eyebrow);line-height:1.2;letter-spacing:.14em}
+.button,a.button,button.button{min-height:var(--nv-button);font-size:.9rem;line-height:1}
+:is(.hero-metrics,.metrics,.stats) strong{font-size:var(--nv-metric-value);line-height:1.2}
+:is(.hero-metrics,.metrics,.stats) span{font-size:var(--nv-metric-label);line-height:1.35}
+
+@media(max-width:900px){
+  .site-header .main-nav:not(.open){display:none!important}
+  .site-header .menu-button,.site-header .menu{display:block}
+  .site-header .main-nav.open{display:flex;position:absolute;top:62px;left:14px;right:14px;flex-direction:column;align-items:stretch;padding:10px;border:1px solid var(--line);border-radius:14px;background:var(--ecosystem-menu-bg);z-index:120}
+  .site-header .main-nav.open a,.site-header .main-nav.open button{width:100%;justify-content:flex-start;min-height:42px}
+  .hero-visual{width:min(82vw,390px);justify-self:center}
+}
+
+@media(max-width:700px){
+  .hero-grid{gap:30px}
+  .hero-visual{width:min(88vw,340px)}
+  .qb-orbit-outer{width:286px;height:286px}
+  .qb-orbit-inner{width:186px;height:186px}
+  .qb-core{width:96px;height:96px;transform:rotate(-4deg)}
+  .hero h1{font-size:clamp(1.9rem,9vw,3.1rem);line-height:1.03}
+  main .section h2,main .section-heading h2{font-size:clamp(1.75rem,7.4vw,2.6rem)}
+  main p{font-size:.93rem}
+  .button,a.button,button.button{min-height:46px}
+  :is(.hero-metrics,.metrics,.stats) strong{font-size:.96rem}
+  :is(.hero-metrics,.metrics,.stats) span{font-size:.68rem}
+}
