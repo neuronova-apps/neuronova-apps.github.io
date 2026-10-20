@@ -1,0 +1,162 @@
+/* Ruta progresiva de aprendizaje de Brailux */
+
+#ruta-aprendizaje,
+.learning-unit {
+  scroll-margin-top: 86px;
+}
+
+.learning-route-section {
+  padding-top: 72px;
+  padding-bottom: 72px;
+  border-block: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(86,224,255,.035), rgba(143,140,255,.018));
+}
+
+.learning-route-section .section-heading {
+  margin-bottom: 28px;
+}
+
+.learning-route {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.learning-step {
+  min-height: 150px;
+  padding: 18px;
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  color: var(--text);
+  background: rgba(255,255,255,.025);
+  text-decoration: none;
+  transition: transform .2s ease, border-color .2s ease, background .2s ease;
+}
+
+.learning-step:hover,
+.learning-step:focus-visible {
+  transform: translateY(-2px);
+  border-color: var(--line-strong);
+  background: rgba(86,224,255,.05);
+}
+
+.learning-step > span {
+  color: var(--accent);
+  font: 850 .72rem/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: .08em;
+}
+
+.learning-step strong {
+  margin-top: 8px;
+  font-size: 1.08rem;
+  letter-spacing: -.02em;
+}
+
+.learning-step small {
+  color: var(--muted);
+  font-size: .82rem;
+  line-height: 1.45;
+}
+
+.route-note {
+  margin: 18px 0 0;
+  color: var(--muted);
+  font-size: .86rem;
+}
+
+.learning-unit > .container > .section-heading .eyebrow,
+.learning-unit .generator-copy > .eyebrow,
+.learning-unit .reading-copy > .eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.learning-unit > .container > .section-heading .eyebrow::before,
+.learning-unit .generator-copy > .eyebrow::before,
+.learning-unit .reading-copy > .eyebrow::before {
+  content: attr(data-unit);
+  display: inline-grid;
+  place-items: center;
+  min-width: 24px;
+  height: 24px;
+  padding: 0 6px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  color: var(--accent);
+  background: rgba(86,224,255,.045);
+  font: 850 .66rem/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: 0;
+}
+
+.unit-next,
+.unit-complete {
+  margin-top: 28px;
+  padding-top: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  border-top: 1px solid var(--line);
+}
+
+.unit-next > span,
+.unit-complete > span {
+  color: var(--muted);
+  font-size: .78rem;
+  font-weight: 760;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.unit-next a,
+.unit-complete a {
+  color: var(--accent);
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.unit-next a:hover,
+.unit-complete a:hover,
+.unit-next a:focus-visible,
+.unit-complete a:focus-visible {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.unit-complete {
+  padding: 20px;
+  border: 1px solid var(--line-strong);
+  border-radius: 18px;
+  background: rgba(86,224,255,.035);
+}
+
+@media (max-width: 820px) {
+  .learning-route {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 580px) {
+  .learning-route-section {
+    padding-top: 56px;
+    padding-bottom: 56px;
+  }
+
+  .learning-route {
+    grid-template-columns: 1fr;
+  }
+
+  .learning-step {
+    min-height: 0;
+  }
+
+  .unit-next,
+  .unit-complete {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
