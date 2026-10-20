@@ -1,0 +1,30 @@
+{
+  "category": "inclusion-accesibilidad",
+  "apps": [
+    {
+      "id": "brailux",
+      "name": "Brailux",
+      "symbol": "B",
+      "description": "Aprendizaje y práctica del sistema Braille.",
+      "kind": "web",
+      "url": "https://neuronova-apps.github.io/brailux-app/",
+      "privacy": "https://neuronova-apps.github.io/brailux-app/privacy/"
+    },
+    {
+      "id": "rutinago",
+      "name": "RutinaGo",
+      "symbol": "R",
+      "description": "Rutinas visuales, autonomía y organización diaria.",
+      "kind": "informativa",
+      "privacy": "../privacy/rutinago/"
+    },
+    {
+      "id": "comunicago",
+      "name": "ComunicaGo",
+      "symbol": "C",
+      "description": "Comunicación aumentativa y alternativa mediante apoyos visuales.",
+      "kind": "informativa",
+      "privacy": "../privacy/"
+    }
+  ]
+}
