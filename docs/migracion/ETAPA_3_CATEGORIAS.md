@@ -31,3 +31,10 @@ Exclusivamente neuronova-apps/neuronova-apps.github.io en chore/migracion-matriz
 - La portada mantiene secciones institucionales previas no incluidas en la etapa 3.
 - No desactivar Pages individuales. No mezclar repositorios de desarrollo Android con contenido matriz.
 - La etapa se considera lista para revisión en rama, pero no cerrada como prueba integral ni publicada.
+
+## Cierre autorizado con salvedad (2026-10-19)
+- ESTADO: ETAPA_3_CERRADA_POR_APROBACION_DEL_USUARIO_CON_VALIDACION_VISUAL_NO_COMPLETADA.
+- El usuario autorizó continuar aunque el enlace de descarga de artefacto de GitHub devolvió HTTP 404 en su dispositivo; NO se registra como prueba visual humana aprobada.
+- GitHub Actions `Validar estructura web NN` terminó exitosamente; flujo `Vista previa visual NN` terminó exitosamente y generó artefacto, pero no fue accesible al usuario mediante el enlace facilitado.
+- Antes de un merge o publicación definitiva: mantener pendiente la inspección visual real, navegación interactiva y enlaces legales; no dar por certificados esos aspectos.
+- Etapa 4 (Inclusión y accesibilidad: Brailux, RutinaGo y ComunicaGo) AUTORIZADA PARA INICIAR en la rama de trabajo, sin cambios en repositorios de aplicaciones ni en main ni desactivar Pages.
