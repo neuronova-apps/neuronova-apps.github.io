@@ -2,11 +2,9 @@ param(
   [Parameter(Mandatory=$true)][string]$Destination
 )
 $ErrorActionPreference = 'Stop'
-$repos = @(
-  'neuronova-apps.github.io','brailux-app','rutina-go','comunica-go',
-  'motiva-app','quizbible-app','mimomento-app','englishfast-app',
-  'crucilux-app','sudolux-app'
-)
+# Alcance restringido a respaldo completo del repositorio matriz WEB.
+# Los repositorios de aplicaciones no se clonan ni se alteran con este script.
+$repos = @('neuronova-apps.github.io')
 if (-not (Get-Command git -ErrorAction SilentlyContinue)) { throw 'Git no esta instalado.' }
 New-Item -ItemType Directory -Path $Destination -Force | Out-Null
 $root = (Resolve-Path $Destination).Path
