@@ -246,9 +246,9 @@ renderQuoteList(quotes, 'Colección pública actual de Motiva');
   const structuredData = {
     '@context': 'https://schema.org',
     '@type': 'WebApplication',
-    '@id': 'https://neuronova-apps.github.io/motiva-app/#app',
+    '@id': 'https://neuronova-apps.github.io/bienestar-personal/motiva/#app',
     name: 'Motiva',
-    url: 'https://neuronova-apps.github.io/motiva-app/',
+    url: 'https://neuronova-apps.github.io/bienestar-personal/motiva/',
     description: 'Espacio web de frases breves para la reflexión, la calma, la inspiración y el crecimiento cotidiano.',
     applicationCategory: 'LifestyleApplication',
     operatingSystem: 'Web',
