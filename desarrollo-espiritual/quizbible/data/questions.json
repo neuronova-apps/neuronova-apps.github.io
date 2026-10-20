@@ -1,0 +1,170 @@
+[
+  {
+    "id": "qb-eventos-001",
+    "version": 1,
+    "status": "approved",
+    "language": "es",
+    "category": "eventos",
+    "difficulty": "beginner",
+    "contentType": "textual_fact",
+    "prompt": "¿A quién indicó Dios que construyera un arca antes del diluvio?",
+    "options": [
+      { "id": "a", "text": "Abraham" },
+      { "id": "b", "text": "Noé" },
+      { "id": "c", "text": "Moisés" },
+      { "id": "d", "text": "David" }
+    ],
+    "correctOptionId": "b",
+    "explanation": "El relato de Génesis presenta a Noé recibiendo las instrucciones para construir el arca antes del diluvio.",
+    "references": [
+      { "book": "Génesis", "chapter": 6, "verseStart": 13, "verseEnd": 22, "display": "Génesis 6:13–22" }
+    ],
+    "tags": ["noe", "arca", "diluvio"],
+    "review": {
+      "referenceChecked": true,
+      "singleCorrectAnswerChecked": true,
+      "doctrinalSensitivity": "none",
+      "notes": "Hecho narrativo directo para el banco inicial."
+    }
+  },
+  {
+    "id": "qb-personajes-001",
+    "version": 1,
+    "status": "approved",
+    "language": "es",
+    "category": "personajes",
+    "difficulty": "beginner",
+    "contentType": "textual_fact",
+    "prompt": "¿Quién derrotó a Goliat en el relato de 1 Samuel 17?",
+    "options": [
+      { "id": "a", "text": "Saúl" },
+      { "id": "b", "text": "Jonatán" },
+      { "id": "c", "text": "David" },
+      { "id": "d", "text": "Samuel" }
+    ],
+    "correctOptionId": "c",
+    "explanation": "El relato identifica a David como quien venció al filisteo Goliat utilizando una honda y una piedra.",
+    "references": [
+      { "book": "1 Samuel", "chapter": 17, "verseStart": 49, "verseEnd": 51, "display": "1 Samuel 17:49–51" }
+    ],
+    "tags": ["david", "goliat", "samuel"],
+    "review": {
+      "referenceChecked": true,
+      "singleCorrectAnswerChecked": true,
+      "doctrinalSensitivity": "none",
+      "notes": "Hecho narrativo directo para el banco inicial."
+    }
+  },
+  {
+    "id": "qb-personajes-002",
+    "version": 1,
+    "status": "approved",
+    "language": "es",
+    "category": "personajes",
+    "difficulty": "beginner",
+    "contentType": "textual_fact",
+    "prompt": "¿Quién subió a un árbol para poder ver a Jesús cuando pasaba por Jericó?",
+    "options": [
+      { "id": "a", "text": "Zaqueo" },
+      { "id": "b", "text": "Bartimeo" },
+      { "id": "c", "text": "Nicodemo" },
+      { "id": "d", "text": "Tomás" }
+    ],
+    "correctOptionId": "a",
+    "explanation": "Lucas presenta a Zaqueo intentando ver a Jesús y subiendo a un árbol porque la multitud le impedía verlo.",
+    "references": [
+      { "book": "Lucas", "chapter": 19, "verseStart": 1, "verseEnd": 4, "display": "Lucas 19:1–4" }
+    ],
+    "tags": ["zaqueo", "jesus", "jerico"],
+    "review": {
+      "referenceChecked": true,
+      "singleCorrectAnswerChecked": true,
+      "doctrinalSensitivity": "none",
+      "notes": "Hecho narrativo directo para el banco inicial."
+    }
+  },
+  {
+    "id": "qb-eventos-002",
+    "version": 1,
+    "status": "approved",
+    "language": "es",
+    "category": "eventos",
+    "difficulty": "beginner",
+    "contentType": "textual_fact",
+    "prompt": "¿Qué personaje fue tragado por un gran pez según el libro que lleva su nombre?",
+    "options": [
+      { "id": "a", "text": "Elías" },
+      { "id": "b", "text": "Jonás" },
+      { "id": "c", "text": "Amós" },
+      { "id": "d", "text": "Isaías" }
+    ],
+    "correctOptionId": "b",
+    "explanation": "El libro de Jonás relata que un gran pez tragó a Jonás y que permaneció allí durante tres días y tres noches.",
+    "references": [
+      { "book": "Jonás", "chapter": 1, "verseStart": 17, "display": "Jonás 1:17" }
+    ],
+    "tags": ["jonas", "pez", "profetas"],
+    "review": {
+      "referenceChecked": true,
+      "singleCorrectAnswerChecked": true,
+      "doctrinalSensitivity": "none",
+      "notes": "Hecho narrativo directo para el banco inicial."
+    }
+  },
+  {
+    "id": "qb-personajes-003",
+    "version": 1,
+    "status": "approved",
+    "language": "es",
+    "category": "personajes",
+    "difficulty": "beginner",
+    "contentType": "textual_fact",
+    "prompt": "¿A quién envió Dios ante el faraón para sacar de Egipto al pueblo de Israel?",
+    "options": [
+      { "id": "a", "text": "Moisés" },
+      { "id": "b", "text": "Josué" },
+      { "id": "c", "text": "José" },
+      { "id": "d", "text": "Aarón" }
+    ],
+    "correctOptionId": "a",
+    "explanation": "En Éxodo 3, Dios llama a Moisés y lo envía ante el faraón con la misión de sacar de Egipto al pueblo de Israel.",
+    "references": [
+      { "book": "Éxodo", "chapter": 3, "verseStart": 7, "verseEnd": 12, "display": "Éxodo 3:7–12" }
+    ],
+    "tags": ["moises", "egipto", "exodo"],
+    "review": {
+      "referenceChecked": true,
+      "singleCorrectAnswerChecked": true,
+      "doctrinalSensitivity": "none",
+      "notes": "Hecho narrativo directo para el banco inicial."
+    }
+  },
+  {
+    "id": "qb-personajes-004",
+    "version": 1,
+    "status": "approved",
+    "language": "es",
+    "category": "personajes",
+    "difficulty": "beginner",
+    "contentType": "textual_fact",
+    "prompt": "¿Qué discípulo negó conocer a Jesús tres veces antes de que cantara el gallo?",
+    "options": [
+      { "id": "a", "text": "Juan" },
+      { "id": "b", "text": "Andrés" },
+      { "id": "c", "text": "Pedro" },
+      { "id": "d", "text": "Felipe" }
+    ],
+    "correctOptionId": "c",
+    "explanation": "Mateo narra tres negaciones de Pedro y señala que después recordó las palabras que Jesús le había dicho.",
+    "references": [
+      { "book": "Mateo", "chapter": 26, "verseStart": 69, "verseEnd": 75, "display": "Mateo 26:69–75" }
+    ],
+    "tags": ["pedro", "jesus", "discipulos"],
+    "review": {
+      "referenceChecked": true,
+      "singleCorrectAnswerChecked": true,
+      "doctrinalSensitivity": "none",
+      "notes": "Hecho narrativo directo para el banco inicial."
+    }
+  }
+]

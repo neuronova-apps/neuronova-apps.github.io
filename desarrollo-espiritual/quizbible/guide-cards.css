@@ -1,0 +1,82 @@
+@import url("ecosystem-alignment.css");
+
+.guides-section {
+  padding-top: 34px;
+}
+
+.guides-heading {
+  max-width: 760px;
+  margin-bottom: 26px;
+}
+
+.guides-heading p:last-child {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.guide-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.guide-card {
+  display: flex;
+  flex-direction: column;
+  min-height: 220px;
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: rgba(255,255,255,.52);
+  box-shadow: 0 14px 36px rgba(66,78,69,.06);
+}
+
+.guide-card .guide-label {
+  margin: 0 0 10px;
+  color: #7d683b;
+  font-size: .72rem;
+  font-weight: 900;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.guide-card h3 {
+  margin: 0 0 10px;
+  font-size: 1.2rem;
+  line-height: 1.25;
+}
+
+.guide-card p {
+  margin: 0 0 18px;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.guide-card a {
+  margin-top: auto;
+  color: #52695a;
+  font-weight: 850;
+}
+
+@media (max-width: 880px) {
+  .guide-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .guide-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+.site-footer .footer-bottom a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.site-footer .footer-bottom a:hover,
+.site-footer .footer-bottom a:focus-visible {
+  color: #fff8e5;
+}
