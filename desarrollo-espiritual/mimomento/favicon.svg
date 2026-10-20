@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Mi Momento">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1d3346"/>
+      <stop offset="100%" stop-color="#0f1f38"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="96" fill="url(#bg)" stroke="#58d3f5" stroke-width="10"/>
+  <g fill="#58d3f5">
+    <path d="M72 344V168h44l44 64 44-64h44v176h-44V240l-44 62-44-62v104z"/>
+    <path d="M264 344V168h44l44 64 44-64h44v176h-44V240l-44 62-44-62v104z"/>
+  </g>
+</svg>

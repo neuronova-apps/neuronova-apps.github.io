@@ -1,0 +1,21 @@
+.activity-grid span,
+.activity-grid span:nth-child(3n),
+.activity-grid span:nth-child(5n) {
+  background: #dce6dd;
+}
+
+.activity-grid span.active,
+.activity-grid span.active:nth-child(3n),
+.activity-grid span.active:nth-child(5n) {
+  background: var(--sage-deep);
+}
+
+.devotional-step.completed {
+  border-color: rgba(82, 105, 90, .28);
+  background: #edf2ec;
+}
+
+.button[disabled] {
+  cursor: default;
+  opacity: .72;
+}
