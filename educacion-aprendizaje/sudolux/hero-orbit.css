@@ -1,0 +1,286 @@
+@import url('ecosystem-alignment.css');
+
+.hero-visual {
+  width: min(100%,460px);
+  aspect-ratio: 1;
+  justify-self: end;
+  position: relative;
+  display: grid;
+  place-items: center;
+  isolation: isolate;
+}
+
+.hero-visual::before {
+  content: "";
+  position: absolute;
+  inset: 12%;
+  border-radius: 50%;
+  background: radial-gradient(circle,rgba(108,231,176,.13),transparent 64%);
+}
+
+.s-orbit {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  border: 1px solid rgba(108,231,176,.20);
+  border-radius: 50%;
+  transform-origin: center;
+}
+
+.s-orbit-outer {
+  width: 332px;
+  height: 332px;
+  margin: -166px 0 0 -166px;
+  animation: sudoOuter 56s linear infinite;
+}
+
+.s-orbit-inner {
+  width: 214px;
+  height: 214px;
+  margin: -107px 0 0 -107px;
+  border-style: dashed;
+  border-color: rgba(104,217,255,.18);
+  animation: sudoInner 43s linear infinite;
+}
+
+.s-node,
+.s-chip {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  white-space: nowrap;
+  background: rgba(8,23,37,.94);
+  box-shadow: 0 12px 30px rgba(0,0,0,.24);
+  font-weight: 850;
+}
+
+.s-node {
+  min-width: 68px;
+  height: 46px;
+  padding: 0 12px;
+  border: 1px solid rgba(108,231,176,.20);
+  border-radius: 16px;
+  color: #bfeede;
+  font-size: .67rem;
+  letter-spacing: .045em;
+}
+
+.s-chip {
+  min-height: 30px;
+  padding: 6px 11px;
+  border: 1px solid rgba(104,217,255,.18);
+  border-radius: 999px;
+  color: #98b4c7;
+  font-size: .59rem;
+  letter-spacing: .05em;
+}
+
+.s-node-top {
+  top: -23px;
+  left: 50%;
+  animation: sudoCounterTop 56s linear infinite;
+}
+
+.s-node-right {
+  right: -42px;
+  top: 50%;
+  animation: sudoCounterRight 56s linear infinite;
+}
+
+.s-node-bottom {
+  bottom: -23px;
+  left: 50%;
+  animation: sudoCounterBottom 56s linear infinite;
+}
+
+.s-node-left {
+  left: -45px;
+  top: 50%;
+  animation: sudoCounterLeft 56s linear infinite;
+}
+
+.s-chip-top {
+  top: -15px;
+  left: 50%;
+  animation: sudoInnerCounterTop 43s linear infinite;
+}
+
+.s-chip-right {
+  right: -50px;
+  bottom: 34px;
+  animation: sudoInnerCounterFree 43s linear infinite;
+}
+
+.s-chip-left {
+  left: -42px;
+  bottom: 34px;
+  animation: sudoInnerCounterFree 43s linear infinite;
+}
+
+/* Núcleo Sudolux: mismo shell visual del núcleo principal, con símbolo propio */
+.s-core {
+  width: 107px;
+  height: 107px;
+  position: relative;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid rgba(101,221,255,.34);
+  border-radius: 28px;
+  background-image:
+    url('assets/sudolux-core-mark.svg'),
+    linear-gradient(145deg,rgba(11,33,51,.96),rgba(6,19,32,.98));
+  background-repeat: no-repeat,no-repeat;
+  background-position: center 40%,center;
+  background-size: 55px auto,100% 100%;
+  box-shadow:
+    0 18px 44px rgba(0,0,0,.30),
+    0 0 34px rgba(101,221,255,.10),
+    inset 0 0 24px rgba(101,221,255,.045);
+  transform: rotate(-4deg);
+  overflow: hidden;
+}
+
+.s-core::before {
+  content: "";
+  position: absolute;
+  inset: 7px;
+  border: 1px solid rgba(127,156,255,.18);
+  border-radius: 22px;
+  pointer-events: none;
+}
+
+.s-core::after {
+  content: "SUDOLUX";
+  position: absolute;
+  left: 50%;
+  bottom: 12px;
+  transform: translateX(-50%);
+  color: #7f93a9;
+  font-size: .43rem;
+  font-weight: 800;
+  letter-spacing: .07em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.s-core-grid,
+.s-core > small {
+  display: none !important;
+}
+
+@keyframes sudoOuter {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes sudoInner {
+  to { transform: rotate(-360deg); }
+}
+
+@keyframes sudoCounterTop {
+  from { transform: translateX(-50%) rotate(0); }
+  to { transform: translateX(-50%) rotate(-360deg); }
+}
+
+@keyframes sudoCounterRight {
+  from { transform: translateY(-50%) rotate(0); }
+  to { transform: translateY(-50%) rotate(-360deg); }
+}
+
+@keyframes sudoCounterBottom {
+  from { transform: translateX(-50%) rotate(0); }
+  to { transform: translateX(-50%) rotate(-360deg); }
+}
+
+@keyframes sudoCounterLeft {
+  from { transform: translateY(-50%) rotate(0); }
+  to { transform: translateY(-50%) rotate(-360deg); }
+}
+
+@keyframes sudoInnerCounterTop {
+  from { transform: translateX(-50%) rotate(0); }
+  to { transform: translateX(-50%) rotate(360deg); }
+}
+
+@keyframes sudoInnerCounterFree {
+  to { transform: rotate(360deg); }
+}
+
+@media (max-width: 980px) {
+  .hero-visual { justify-self: center; }
+
+  /* El menú permanece cerrado al entrar al modo responsive y solo se muestra
+     cuando el usuario pulsa explícitamente el botón hamburguesa. */
+  .site-header nav.main-nav[aria-label="Navegación principal"] {
+    display: none !important;
+  }
+
+  .site-header .menu-button[aria-expanded="true"] + nav.main-nav[aria-label="Navegación principal"] {
+    display: flex !important;
+    position: absolute;
+    top: 66px;
+    left: 18px;
+    right: 18px;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 14px;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    background: #091725;
+    z-index: 120;
+  }
+}
+
+@media (max-width: 720px) {
+  .hero-visual { width: min(92vw,390px); }
+  .s-orbit-outer { width: 286px; height: 286px; margin: -143px 0 0 -143px; }
+  .s-orbit-inner { width: 186px; height: 186px; margin: -93px 0 0 -93px; }
+  .s-core {
+    width: 96px;
+    height: 96px;
+    border-radius: 25px;
+    background-size: 49px auto,100% 100%;
+  }
+  .s-core::before { border-radius: 19px; }
+  .s-core::after { bottom: 10px; font-size: .39rem; }
+  .s-node { min-width: 58px; height: 40px; font-size: .60rem; }
+  .s-chip { font-size: .54rem; }
+  .s-node-left { left: -39px; }
+  .s-node-right { right: -36px; }
+  .s-chip-right { right: -46px; }
+  .s-chip-left { left: -38px; }
+}
+
+@media (max-width: 470px) {
+  .hero-visual { width: 90vw; }
+  .s-orbit-outer { width: 258px; height: 258px; margin: -129px 0 0 -129px; }
+  .s-orbit-inner { width: 170px; height: 170px; margin: -85px 0 0 -85px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .s-orbit-outer,
+  .s-orbit-inner,
+  .s-node,
+  .s-chip {
+    animation: none !important;
+  }
+}
+
+/* Identidad Sudolux en header y footer: reutiliza el favicon del repositorio */
+.site-header .brand-grid,
+.site-footer .brand-grid {
+  width: 39px;
+  height: 39px;
+  flex: 0 0 39px;
+  border: 0;
+  border-radius: 12px;
+  background: url('favicon.svg') center / contain no-repeat;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0,0,0,.18);
+}
+
+.site-header .brand-grid i,
+.site-footer .brand-grid i {
+  display: none !important;
+}

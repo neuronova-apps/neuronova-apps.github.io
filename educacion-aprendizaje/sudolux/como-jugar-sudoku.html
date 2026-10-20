@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Aprende cómo jugar Sudoku paso a paso: objetivo, estructura 9 × 9, reglas básicas, candidatos y una secuencia inicial para resolver con lógica.">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+  <meta name="theme-color" content="#07111f">
+  <meta name="color-scheme" content="dark">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="canonical" href="https://neuronova-apps.github.io/educacion-aprendizaje/sudolux/como-jugar-sudoku.html">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="es_PE">
+  <meta property="og:site_name" content="Sudolux · Neuronova Apps">
+  <meta property="og:title" content="Cómo jugar Sudoku paso a paso | Sudolux">
+  <meta property="og:description" content="Una guía clara para entender el objetivo del Sudoku, aplicar sus tres reglas y empezar a resolver sin adivinar.">
+  <meta property="og:url" content="https://neuronova-apps.github.io/educacion-aprendizaje/sudolux/como-jugar-sudoku.html">
+  <meta property="og:image" content="https://neuronova-apps.github.io/educacion-aprendizaje/sudolux/assets/social/sudolux-social.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Sudolux · Aprende las reglas, practica técnicas y resuelve Sudoku">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Cómo jugar Sudoku paso a paso | Sudolux">
+  <meta name="twitter:description" content="Objetivo, reglas, candidatos y primeros pasos para comenzar a resolver Sudoku con lógica.">
+  <meta name="twitter:image" content="https://neuronova-apps.github.io/educacion-aprendizaje/sudolux/assets/social/sudolux-social.png">
+  <meta name="twitter:image:alt" content="Sudolux · Aprende las reglas, practica técnicas y resuelve Sudoku">
+  <title>Cómo jugar Sudoku paso a paso | Sudolux</title>
+  <link rel="stylesheet" href="resources.css">
+  <link rel="stylesheet" href="../../assets/accessibility/accessibility.css">
+  <script src="../../assets/accessibility/accessibility.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido principal</a>
+  <header class="resource-header">
+    <div class="container">
+      <a class="resource-brand" href="./" aria-label="Sudolux, volver al inicio"><span class="resource-mark" aria-hidden="true">S</span><span><strong>Sudolux</strong><small>Guías de Sudoku</small></span></a>
+      <nav class="resource-nav" aria-label="Guías de Sudoku">
+        <a aria-current="page" href="como-jugar-sudoku.html">Cómo jugar</a><a href="reglas-sudoku.html">Reglas</a><a href="sudoku-para-principiantes.html">Principiantes</a><a href="tecnicas-basicas-sudoku.html">Técnicas</a><a href="sudoku-y-actividad-mental.html">Actividad mental</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenido">
+    <section class="resource-hero">
+      <div class="container">
+        <p class="breadcrumb"><a href="./">Sudolux</a> / Cómo jugar Sudoku</p>
+        <p class="eyebrow">Guía básica</p>
+        <h1>Cómo jugar Sudoku paso a paso.</h1>
+        <p class="lead">El Sudoku no exige cálculos. Consiste en deducir qué número corresponde a cada casilla respetando al mismo tiempo las restricciones de fila, columna y bloque.</p>
+      </div>
+    </section>
+
+    <div class="resource-main">
+      <div class="container article-grid">
+        <article class="article-content">
+          <section id="objetivo">
+            <h2>El objetivo</h2>
+            <p>Un Sudoku clásico tiene 81 casillas organizadas en una cuadrícula de 9 × 9 y divididas en nueve bloques de 3 × 3. Algunas casillas ya contienen números: son las pistas iniciales y no se modifican.</p>
+            <p>La meta es completar las casillas vacías con números del 1 al 9 de forma que cada fila, cada columna y cada bloque contengan esos nueve números sin repetir.</p>
+          </section>
+
+          <section id="pasos">
+            <h2>Una forma sencilla de empezar</h2>
+            <div class="step-list">
+              <div class="step"><span>1</span><div><h3>Elige una casilla vacía</h3><p>Observa qué números ya aparecen en su fila, columna y bloque.</p></div></div>
+              <div class="step"><span>2</span><div><h3>Descarta lo imposible</h3><p>Todo número que ya aparezca en cualquiera de esos tres grupos queda fuera de esa casilla.</p></div></div>
+              <div class="step"><span>3</span><div><h3>Anota las posibilidades</h3><p>Si aún quedan varias opciones, puedes registrarlas como candidatos en lugar de elegir al azar.</p></div></div>
+              <div class="step"><span>4</span><div><h3>Coloca solo lo justificado</h3><p>Cuando una casilla queda con una sola posibilidad válida, ese número puede colocarse como respuesta definitiva.</p></div></div>
+            </div>
+          </section>
+
+          <section id="notas">
+            <h2>Para qué sirven los candidatos</h2>
+            <p>Los candidatos son números que todavía podrían ocupar una casilla según el estado actual del tablero. No son respuestas definitivas: sirven para organizar el razonamiento y facilitar descartes posteriores.</p>
+            <div class="example-card"><strong>Ejemplo</strong><p>Si después de revisar fila, columna y bloque solo quedan 2, 4 y 7, esos tres números pueden anotarse como candidatos. Si más adelante aparece un 4 en la columna, quedan 2 y 7.</p></div>
+          </section>
+
+          <section id="sudolux">
+            <h2>Cómo practicarlo en Sudolux</h2>
+            <p>En la demo web puedes seleccionar una casilla con ratón, toque o teclado. Las flechas desplazan la selección; las teclas 1–9 introducen números y la tecla <strong>N</strong> alterna el modo Notas.</p>
+            <p>Los candidatos no cuentan como respuestas ni como errores. El guardado local permite continuar una partida con sus valores y notas después de recargar en el mismo navegador.</p>
+          </section>
+
+          <section id="evitar">
+            <h2>Qué conviene evitar al comenzar</h2>
+            <ul>
+              <li>Elegir números por intuición sin revisar las tres restricciones.</li>
+              <li>Mirar solo la fila e ignorar columna o bloque.</li>
+              <li>Confundir un candidato con una respuesta definitiva.</li>
+              <li>Intentar técnicas avanzadas antes de dominar descarte y único posible.</li>
+            </ul>
+          </section>
+
+          <div class="practice-cta"><div><strong>Practica la secuencia completa</strong><p>Observa, anota, descarta y resuelve sobre una partida real de la demo.</p></div><a class="button" href="./#demo">Abrir la demo</a></div>
+        </article>
+
+        <aside class="resource-aside" aria-label="Contenido de la guía"><strong>En esta guía</strong><a href="#objetivo">Objetivo</a><a href="#pasos">Primeros pasos</a><a href="#notas">Candidatos</a><a href="#sudolux">Practicar en Sudolux</a><a href="#evitar">Errores comunes</a></aside>
+      </div>
+    </div>
+  </main>
+
+  <footer class="resource-footer"><div class="container"><span>© 2026 Sudolux · Neuronova Apps</span><span><a href="../../privacy/sudolux/">Privacidad</a> · <a href="./">Volver a Sudolux</a></span></div></footer>
+</body>
+</html>
