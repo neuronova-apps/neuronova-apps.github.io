@@ -228,9 +228,9 @@
   const structuredData = {
     '@context': 'https://schema.org',
     '@type': 'WebApplication',
-    '@id': 'https://neuronova-apps.github.io/quizbible-app/#app',
+    '@id': 'https://neuronova-apps.github.io/desarrollo-espiritual/quizbible/#app',
     name: 'Quiz Bible',
-    url: 'https://neuronova-apps.github.io/quizbible-app/',
+    url: 'https://neuronova-apps.github.io/desarrollo-espiritual/quizbible/',
     description: 'Quiz bíblico web con preguntas revisadas, explicación, referencias, progreso local y cinco guías educativas públicas.',
     applicationCategory: 'EducationalApplication',
     operatingSystem: 'Web',
