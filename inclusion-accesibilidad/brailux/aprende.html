@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Brailux es una iniciativa educativa y accesible para conocer, explorar y practicar los fundamentos del sistema Braille.">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <meta name="application-name" content="Brailux Aprende">
+  <meta name="theme-color" content="#07111f">
+  <meta name="color-scheme" content="dark">
+  <link rel="canonical" href="https://neuronova-apps.github.io/inclusion-accesibilidad/brailux/aprende.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_PE">
+  <meta property="og:site_name" content="Brailux · Neuronova Apps">
+  <meta property="og:title" content="Brailux Aprende | Fundamentos del sistema Braille">
+  <meta property="og:description" content="Aprende el signo generador, las series del alfabeto, lectura, escritura, números y tecnología Braille con recursos interactivos.">
+  <meta property="og:url" content="https://neuronova-apps.github.io/inclusion-accesibilidad/brailux/aprende.html">
+  <meta property="og:image" content="https://neuronova-apps.github.io/brailux-app/assets/social/brailux-social.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Brailux · Aprende y practica Braille">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Brailux Aprende | Fundamentos del sistema Braille">
+  <meta name="twitter:description" content="Explora y practica los fundamentos del sistema Braille de manera interactiva y accesible.">
+  <meta name="twitter:image" content="https://neuronova-apps.github.io/brailux-app/assets/social/brailux-social.png">
+  <meta name="twitter:image:alt" content="Brailux · Aprende y practica Braille">
+  <title>Brailux | Conoce, aprende y explora el Braille</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="learning-route.css">
+  <link rel="stylesheet" href="progress.css">
+  <link rel="stylesheet" href="https://neuronova-apps.github.io/assets/accessibility/accessibility.css" data-neuronova-a11y="true">
+  <script src="https://neuronova-apps.github.io/assets/accessibility/accessibility.js" defer data-neuronova-a11y="true"></script>
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido principal</a>
+  <div class="ambient ambient-one" aria-hidden="true"></div>
+  <div class="ambient ambient-two" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#inicio" aria-label="Brailux, ir al inicio">
+        <span class="brand-cell" aria-hidden="true">
+          <i></i><i></i><i></i><i></i><i></i><i></i>
+        </span>
+        <span class="brand-copy"><strong>Brailux</strong><small>by Neuronova Apps</small></span>
+      </a>
+
+      <button class="menu-button" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="Abrir menú">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav id="main-nav" class="main-nav" aria-label="Navegación principal">
+        <a href="#ruta-aprendizaje">Ruta</a>
+        <a href="#alfabeto">Alfabeto</a>
+        <a href="#practica">Practica</a>
+        <a href="#tecnologia">Tecnología</a>
+      </nav>
+
+      <div class="header-tools" aria-label="Enlace al ecosistema Neuronova Apps">
+        <a class="matrix-link" href="https://neuronova-apps.github.io/">Neuronova <span aria-hidden="true">↗</span></a>
+      </div>
+    </div>
+  </header>
+
+  <main id="contenido">
+    <section id="inicio" class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy reveal">
+          <p class="eyebrow"><span class="pulse-dot" aria-hidden="true"></span> Accesibilidad · Aprendizaje · Difusión</p>
+          <h1>Seis puntos. <span>Un sistema para leer, escribir y acceder al conocimiento.</span></h1>
+          <p class="lead">Brailux es una iniciativa personal que acerca los fundamentos del sistema Braille mediante explicaciones visuales, exploración interactiva y actividades de práctica.</p>
+          <div class="hero-actions">
+            <a class="button primary" href="#ruta-aprendizaje">Empezar la ruta <span aria-hidden="true">→</span></a>
+            <a class="button ghost" href="#practica">Ir a práctica</a>
+          </div>
+          <div class="hero-metrics" aria-label="Datos principales del sistema Braille">
+            <div><strong>6</strong><span>puntos por celda</span></div>
+            <div><strong>2 × 3</strong><span>estructura base</span></div>
+            <div><strong>64</strong><span>configuraciones*</span></div>
+          </div>
+          <p class="metric-note">*64 configuraciones contando la celda vacía; 63 presentan uno o más puntos.</p>
+        </div>
+
+        <div class="hero-visual reveal" aria-label="Representación tecnológica de una celda Braille">
+          <div class="scan-line" aria-hidden="true"></div>
+          <div class="tech-cell" aria-hidden="true">
+            <span class="tech-dot active">1</span>
+            <span class="tech-dot">4</span>
+            <span class="tech-dot active">2</span>
+            <span class="tech-dot active">5</span>
+            <span class="tech-dot">3</span>
+            <span class="tech-dot">6</span>
+          </div>
+          <div class="visual-label label-one">CELDA 2×3</div>
+          <div class="visual-label label-two">LECTOESCRITURA</div>
+          <div class="visual-label label-three">A11Y READY</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="ruta-aprendizaje" class="section learning-route-section">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div>
+            <p class="eyebrow">Ruta de aprendizaje</p>
+            <h2>Seis unidades para avanzar desde los fundamentos hasta la práctica.</h2>
+          </div>
+          <p>La ruta organiza el contenido que ya existe en Brailux en una secuencia recomendada. Puedes recorrerla de principio a fin o entrar directamente a la unidad que necesites.</p>
+        </div>
+
+        <nav class="learning-route reveal" aria-label="Unidades de aprendizaje de Brailux">
+          <a class="learning-step" href="#conoce"><span>01</span><strong>Fundamentos</strong><small>Qué es el Braille, su origen y su función como sistema de lectoescritura.</small></a>
+          <a class="learning-step" href="#generador"><span>02</span><strong>Celda Braille</strong><small>Comprende los seis puntos y construye combinaciones de forma interactiva.</small></a>
+          <a class="learning-step" href="#alfabeto"><span>03</span><strong>Alfabeto</strong><small>Explora las series y la lógica que relaciona letras y configuraciones.</small></a>
+          <a class="learning-step" href="#lectura"><span>04</span><strong>Lectura y escritura</strong><small>Compara el sentido de lectura, pauta y punzón, y escritura positiva.</small></a>
+          <a class="learning-step" href="#numeros"><span>05</span><strong>Números y signos</strong><small>Aprende el signo de número, mayúscula y su relación con A-J.</small></a>
+          <a class="learning-step" href="#practica"><span>06</span><strong>Práctica</strong><small>Refuerza reconocimiento de letras y conversión didáctica de texto.</small></a>
+        </nav>
+        <p class="route-note reveal">El progreso de esta ruta se guarda únicamente en este navegador: unidades visitadas y completadas, resultados básicos del quiz y uso del conversor. Puedes reiniciarlo en cualquier momento.</p>
+      </div>
+    </section>
+
+    <section id="conoce" class="section intro-section learning-unit">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div>
+            <p class="eyebrow" data-unit="01">Fundamentos</p>
+            <h2>Qué es el Braille y por qué sigue siendo esencial.</h2>
+          </div>
+          <p>El Braille es un sistema de lectoescritura basado en combinaciones de puntos en relieve. Permite representar letras, números, signos, contenidos científicos, matemáticos y musicales, y continúa adaptándose a las tecnologías digitales.</p>
+        </div>
+
+        <div class="info-grid">
+          <article class="info-card reveal">
+            <span class="card-index">01</span>
+            <h3>Origen</h3>
+            <p>Louis Braille desarrolló en 1825, a los 16 años, un sistema de seis puntos inspirado en la escritura nocturna de Charles Barbier. La reducción de doce a seis puntos facilitó una lectura táctil más fluida.</p>
+          </article>
+          <article class="info-card reveal">
+            <span class="card-index">02</span>
+            <h3>Lectoescritura</h3>
+            <p>No es un idioma, sino un código de lectura y escritura adaptable a distintas lenguas y áreas del conocimiento. La combinación de puntos determina cada signo.</p>
+          </article>
+          <article class="info-card reveal">
+            <span class="card-index">03</span>
+            <h3>Acceso a la información</h3>
+            <p>El Braille favorece el acceso directo a la palabra escrita y se utiliza en educación, señalización, medicamentos, objetos cotidianos y dispositivos tecnológicos.</p>
+          </article>
+        </div>
+        <div class="unit-next reveal"><span>Unidad 1 de 6</span><a href="#generador">Siguiente: celda Braille <span aria-hidden="true">→</span></a></div>
+      </div>
+    </section>
+
+    <section id="generador" class="section generator-section learning-unit">
+      <div class="container">
+        <div class="generator-grid">
+          <div class="generator-copy reveal">
+            <p class="eyebrow" data-unit="02">Celda Braille</p>
+            <h2>Todo empieza en una celda de seis puntos.</h2>
+            <p>La celda Braille se organiza en dos columnas verticales de tres puntos. En lectura, la columna izquierda contiene los puntos 1, 2 y 3; la derecha, los puntos 4, 5 y 6.</p>
+            <p>Pulsa los puntos para construir una combinación. Brailux mostrará el patrón Unicode correspondiente y la numeración seleccionada.</p>
+            <div class="formula"><span>Izquierda</span><strong>1 · 2 · 3</strong><span>Derecha</span><strong>4 · 5 · 6</strong></div>
+          </div>
+
+          <div class="generator-lab reveal">
+            <div class="lab-head">
+              <div>
+                <span class="lab-kicker">Laboratorio interactivo</span>
+                <h3>Construye una celda</h3>
+              </div>
+              <button id="clearCell" class="small-button" type="button">Limpiar</button>
+            </div>
+
+            <div class="builder-layout">
+              <div id="brailleBuilder" class="braille-builder" role="group" aria-label="Selector de los seis puntos Braille">
+                <button type="button" class="dot-button" data-dot="1" aria-pressed="false"><span>1</span></button>
+                <button type="button" class="dot-button" data-dot="4" aria-pressed="false"><span>4</span></button>
+                <button type="button" class="dot-button" data-dot="2" aria-pressed="false"><span>2</span></button>
+                <button type="button" class="dot-button" data-dot="5" aria-pressed="false"><span>5</span></button>
+                <button type="button" class="dot-button" data-dot="3" aria-pressed="false"><span>3</span></button>
+                <button type="button" class="dot-button" data-dot="6" aria-pressed="false"><span>6</span></button>
+              </div>
+
+              <div class="builder-result" aria-live="polite">
+                <span>Resultado</span>
+                <strong id="builderGlyph">⠀</strong>
+                <p id="builderPoints">Sin puntos seleccionados</p>
+                <p id="builderMatch" class="match">Celda vacía</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="unit-next reveal"><span>Unidad 2 de 6</span><a href="#alfabeto">Siguiente: alfabeto <span aria-hidden="true">→</span></a></div>
+      </div>
+    </section>
+
+    <section id="alfabeto" class="section alphabet-section learning-unit">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div>
+            <p class="eyebrow" data-unit="03">Alfabeto</p>
+            <h2>Aprender la lógica detrás de las series.</h2>
+          </div>
+          <p>El diseño de Louis Braille sigue una estructura combinatoria. Explorar las series ayuda a comprender cómo una misma base se transforma al añadir puntos.</p>
+        </div>
+
+        <div class="series-nav reveal" role="tablist" aria-label="Series del sistema Braille">
+          <button class="series-tab active" type="button" role="tab" aria-selected="true" data-series="1">Serie 1 · A-J</button>
+          <button class="series-tab" type="button" role="tab" aria-selected="false" data-series="2">Serie 2 · K-T</button>
+          <button class="series-tab" type="button" role="tab" aria-selected="false" data-series="3">Serie 3 · U-Z</button>
+          <button class="series-tab" type="button" role="tab" aria-selected="false" data-series="4">Español y signos</button>
+        </div>
+
+        <div class="series-explainer reveal">
+          <div>
+            <span id="seriesBadge" class="series-badge">Primera serie</span>
+            <h3 id="seriesTitle">Las diez primeras letras</h3>
+            <p id="seriesText">A-J se forman combinando únicamente los cuatro puntos superiores: 1, 2, 4 y 5.</p>
+          </div>
+          <div class="series-rule">
+            <span>Regla</span>
+            <strong id="seriesRule">Usa 1 · 2 · 4 · 5</strong>
+          </div>
+        </div>
+
+        <div id="alphabetGrid" class="alphabet-grid" aria-live="polite"></div>
+
+        <div class="logic-flow reveal" aria-label="Lógica de formación de las primeras tres series">
+          <div class="flow-step"><span>1</span><strong>A-J</strong><small>Puntos superiores 1, 2, 4, 5</small></div>
+          <span class="flow-arrow" aria-hidden="true">+</span>
+          <div class="flow-dot">3</div>
+          <span class="flow-arrow" aria-hidden="true">→</span>
+          <div class="flow-step"><span>2</span><strong>K-T</strong><small>Misma base + punto 3</small></div>
+          <span class="flow-arrow" aria-hidden="true">+</span>
+          <div class="flow-dot">6</div>
+          <span class="flow-arrow" aria-hidden="true">→</span>
+          <div class="flow-step"><span>3</span><strong>U-Z y signos</strong><small>Segunda serie + punto 6</small></div>
+        </div>
+
+        <div class="note-panel reveal">
+          <strong>¿Y la W?</strong>
+          <p>La W no sigue la secuencia U-V-X-Y-Z. Su forma Braille corresponde a los puntos 2-4-5-6 y se incorporó posteriormente al sistema, por lo que se presenta como una excepción histórica dentro del alfabeto.</p>
+        </div>
+        <div class="unit-next reveal"><span>Unidad 3 de 6</span><a href="#lectura">Siguiente: lectura y escritura <span aria-hidden="true">→</span></a></div>
+      </div>
+    </section>
+
+    <section id="lectura" class="section reading-section learning-unit">
+      <div class="container">
+        <div class="reading-grid">
+          <div class="reading-copy reveal">
+            <p class="eyebrow" data-unit="04">Lectura y escritura</p>
+            <h2>El sentido cambia según la herramienta.</h2>
+            <p>La lectura Braille se realiza de izquierda a derecha. En la escritura manual tradicional con pauta o regleta negativa y punzón, los puntos se marcan por el reverso del papel, de derecha a izquierda y en espejo; después se voltea la hoja para leerla.</p>
+            <p>Con máquinas Braille, líneas Braille y regletas positivas, la escritura puede realizarse en el mismo sentido de la lectura.</p>
+          </div>
+
+          <div class="mode-demo reveal">
+            <div class="mode-switch" role="group" aria-label="Comparar lectura y escritura">
+              <button class="mode-button active" type="button" data-mode="read" aria-pressed="true">Lectura</button>
+              <button class="mode-button" type="button" data-mode="write" aria-pressed="false">Pauta y punzón</button>
+              <button class="mode-button" type="button" data-mode="positive" aria-pressed="false">Escritura positiva</button>
+            </div>
+            <div id="modeContent" class="mode-content" aria-live="polite">
+              <span class="direction">Izquierda <b>→</b> derecha</span>
+              <div class="mode-cell">
+                <span>1</span><span>4</span><span>2</span><span>5</span><span>3</span><span>6</span>
+              </div>
+              <p>Se recorren las líneas de izquierda a derecha y se identifican las combinaciones por el tacto.</p>
+            </div>
+          </div>
+        </div>
+        <div class="unit-next reveal"><span>Unidad 4 de 6</span><a href="#numeros">Siguiente: números y signos <span aria-hidden="true">→</span></a></div>
+      </div>
+    </section>
+
+    <section id="numeros" class="section numbers-section learning-unit">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div>
+            <p class="eyebrow" data-unit="05">Números y signos</p>
+            <h2>Una misma forma puede cambiar de significado.</h2>
+          </div>
+          <p>Los números del 1 al 0 utilizan las mismas formas que las letras A-J, precedidas por el signo de número. Para las mayúsculas, el Braille español utiliza un signo diferenciador antes de la letra.</p>
+        </div>
+
+        <div class="number-layout reveal">
+          <div class="indicator-card">
+            <span class="indicator-label">Signo de número</span>
+            <strong class="indicator-glyph">⠼</strong>
+            <span>Puntos 3-4-5-6</span>
+          </div>
+          <div id="numberGrid" class="number-grid"></div>
+          <div class="indicator-card">
+            <span class="indicator-label">Signo de mayúscula</span>
+            <strong class="indicator-glyph">⠨</strong>
+            <span>Puntos 4-6</span>
+          </div>
+        </div>
+        <div class="unit-next reveal"><span>Unidad 5 de 6</span><a href="#practica">Siguiente: práctica <span aria-hidden="true">→</span></a></div>
+      </div>
+    </section>
+
+    <section id="practica" class="section practice-section learning-unit">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div>
+            <p class="eyebrow" data-unit="06">Práctica</p>
+            <h2>Aprende haciendo.</h2>
+          </div>
+          <p>Dos herramientas rápidas para relacionar letras, puntos y representaciones Braille. Los ejercicios son visuales y complementarios al aprendizaje táctil.</p>
+        </div>
+
+        <div class="practice-grid">
+          <article class="practice-card reveal">
+            <div class="practice-head">
+              <div><span>Reto 01</span><h3>¿Qué letra es?</h3></div>
+              <span id="quizScore" class="score">0 / 0</span>
+            </div>
+            <div id="quizCell" class="quiz-cell" aria-label="Celda Braille del ejercicio"></div>
+            <p id="quizHint" class="quiz-hint">Observa los puntos activos y elige una respuesta.</p>
+            <div id="quizOptions" class="quiz-options"></div>
+            <p id="quizFeedback" class="quiz-feedback" aria-live="polite"></p>
+            <button id="nextQuiz" class="button secondary full" type="button">Nuevo reto</button>
+          </article>
+
+          <article class="practice-card reveal">
+            <div class="practice-head">
+              <div><span>Herramienta</span><h3>Texto a Braille básico</h3></div>
+              <span class="status-chip">En vivo</span>
+            </div>
+            <label class="field-label" for="translatorInput">Escribe una palabra o número</label>
+            <input id="translatorInput" class="text-input" type="text" maxlength="40" placeholder="Ejemplo: Brailux 2026" autocomplete="off">
+            <div class="translation-output">
+              <span>Representación</span>
+              <p id="translatorOutput" aria-live="polite">Escribe arriba para comenzar.</p>
+            </div>
+            <p class="tool-note">Conversor didáctico básico para letras del alfabeto español, vocales acentuadas, ü, ñ y números. No sustituye un transcriptor Braille especializado.</p>
+          </article>
+        </div>
+        <div class="unit-complete reveal"><span>Ruta principal · 6 unidades</span><a href="#antes">Continuar con contenidos complementarios <span aria-hidden="true">→</span></a></div>
+      </div>
+    </section>
+
+    <section id="antes" class="section prebraille-section">
+      <div class="container prebraille-grid">
+        <div class="prebraille-copy reveal">
+          <p class="eyebrow">Contenido complementario</p>
+          <h2>El código es una parte del proceso.</h2>
+          <p>En la enseñanza táctil del Braille también intervienen habilidades previas y condiciones de uso que una aplicación visual no puede reemplazar. Brailux las incorpora como contenidos de orientación.</p>
+        </div>
+        <div class="skills-grid reveal">
+          <article><span>01</span><h3>Discriminación táctil</h3><p>Reconocer posiciones, formas y diferencias mediante el tacto.</p></article>
+          <article><span>02</span><h3>Coordinación bimanual</h3><p>Favorecer el uso coordinado de ambas manos durante la lectura.</p></article>
+          <article><span>03</span><h3>Orientación espacial</h3><p>Comprender izquierda, derecha, posición y secuencia dentro de la celda.</p></article>
+          <article><span>04</span><h3>Ergonomía</h3><p>Mantener una postura adecuada y una exploración táctil cómoda.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="tecnologia" class="section technology-section">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div>
+            <p class="eyebrow">Contenido complementario · Tecnología</p>
+            <h2>Del papel a los entornos digitales.</h2>
+          </div>
+          <p>El Braille continúa vigente en la tecnología mediante dispositivos y herramientas que convierten información digital en acceso táctil o permiten escribir directamente con combinaciones de puntos.</p>
+        </div>
+
+        <div class="tech-grid">
+          <article class="tech-card reveal"><span class="tech-number">01</span><h3>Líneas Braille</h3><p>Dispositivos con celdas Braille refrescables que representan dinámicamente la información de una computadora o dispositivo móvil.</p></article>
+          <article class="tech-card reveal"><span class="tech-number">02</span><h3>Teclado estilo Perkins</h3><p>Permite introducir caracteres mediante teclas asociadas a los puntos del signo generador.</p></article>
+          <article class="tech-card reveal"><span class="tech-number">03</span><h3>Impresoras Braille</h3><p>Transforman documentos digitales en puntos en relieve sobre papel u otros soportes compatibles.</p></article>
+          <article class="tech-card reveal"><span class="tech-number">04</span><h3>Teclados virtuales</h3><p>Algunos sistemas móviles permiten introducir Braille mediante gestos o posiciones equivalentes a los puntos de la celda.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="fuentes" class="section sources-section">
+      <div class="container sources-panel reveal">
+        <div>
+          <p class="eyebrow">Base documental</p>
+          <h2>Contenido construido sobre referencias especializadas.</h2>
+          <p>Brailux es una iniciativa independiente. Para sus contenidos introductorios se toman como referencia documentos técnicos y didácticos de organismos especializados en Braille.</p>
+        </div>
+        <div class="source-links">
+          <a href="https://www.once.es/servicios-sociales/braille/consejo-iberoamericano/publicaciones-tecnicas-del-consejo-iberoamericano-del-braille-cib" target="_blank" rel="noopener noreferrer">Consejo Iberoamericano del Braille <span aria-hidden="true">↗</span></a>
+          <a href="https://www.once.es/servicios-sociales/braille/comision-braille-espanola/documentos-tecnicos" target="_blank" rel="noopener noreferrer">Comisión Braille Española <span aria-hidden="true">↗</span></a>
+          <a href="https://museo.once.es/exposiciones/exposiciones-temporales-pasadas/2025/250-anos-del-sistema-braille" target="_blank" rel="noopener noreferrer">Museo Tiflológico de la ONCE <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <div class="brand footer-logo">
+          <span class="brand-cell" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span>
+          <span class="brand-copy"><strong>Brailux</strong><small>Neuronova Apps</small></span>
+        </div>
+        <p>Proyecto personal e independiente orientado al conocimiento, aprendizaje y difusión del sistema Braille mediante recursos digitales accesibles.</p>
+      </div>
+      <div class="footer-column">
+        <h2>Explorar</h2>
+        <a href="#ruta-aprendizaje">Ruta de aprendizaje</a>
+        <a href="#alfabeto">Alfabeto</a>
+        <a href="#practica">Práctica</a>
+        <a href="#fuentes">Referencias</a>
+      </div>
+      <div class="footer-column">
+        <h2>Proyecto</h2>
+        <a href="https://neuronova-apps.github.io/">Neuronova Apps</a>
+        <a href="https://github.com/neuronova-apps/brailux-app" target="_blank" rel="noopener noreferrer">Repositorio GitHub</a>
+        <span>Desarrollado por Gabriel Berrospi</span>
+        <span>Pucallpa, Ucayali · Perú</span>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <p>© <span id="year"></span> Brailux · Neuronova Apps.</p>
+      <p>Recurso complementario de aprendizaje y difusión. No sustituye formación especializada en Braille.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script src="progress.js"></script>
+</body>
+</html>

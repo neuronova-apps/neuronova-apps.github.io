@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" role="img" aria-label="Símbolo de Brailux">
+  <g fill="#58d3f5">
+    <circle cx="58" cy="58" r="18"/>
+    <circle cx="106" cy="58" r="18"/>
+    <circle cx="58" cy="120" r="18"/>
+    <circle cx="106" cy="120" r="18"/>
+    <circle cx="58" cy="182" r="18"/>
+    <circle cx="106" cy="182" r="18"/>
+    <path d="M150 38h44c51 0 81 26 81 65 0 26-13 45-38 56 26 10 42 31 42 60 0 42-33 69-85 69h-44v-47h39c27 0 42-12 42-32 0-20-15-31-42-31h-39v-46h37c25 0 39-11 39-29 0-18-14-29-39-29h-37z"/>
+  </g>
+</svg>
