@@ -1,0 +1,139 @@
+/* Footer de Mi Momento alineado con el ecosistema Neuronova */
+
+/* Identidad visual MM compartida entre favicon, header y footer */
+.brand-mark {
+  overflow: hidden;
+  border: 0;
+  background: url("favicon.svg") center / cover no-repeat;
+  color: transparent;
+  box-shadow: none;
+  font-size: 0;
+}
+
+.site-footer {
+  padding: 0;
+  border-top: 1px solid rgba(255,255,255,.08);
+  background: #1c2b27;
+  color: #f5f1e5;
+}
+
+.site-footer .footer-grid {
+  display: grid;
+  grid-template-columns: minmax(0,1.35fr) minmax(150px,.65fr) minmax(210px,.8fr);
+  gap: clamp(36px,7vw,88px);
+  padding-block: 54px 42px;
+}
+
+.site-footer .footer-brand {
+  max-width: 430px;
+}
+
+.site-footer .footer-brand::before {
+  content: "";
+  display: block;
+  width: 58px;
+  height: 58px;
+  margin-bottom: 16px;
+  border-radius: 17px;
+  background: url("favicon.svg") center / cover no-repeat;
+}
+
+.site-footer .footer-brand strong {
+  display: block;
+  color: #f7f3e9;
+  font-size: 1rem;
+}
+
+.site-footer .footer-brand p {
+  max-width: 390px;
+  margin: 18px 0 0;
+  color: #b8c5bf;
+  font-size: .9rem;
+  line-height: 1.55;
+}
+
+.site-footer .footer-column {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 11px;
+}
+
+.site-footer .footer-column h2 {
+  margin: 0 0 4px;
+  color: #e3c983;
+  font-size: .74rem;
+  font-weight: 850;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.site-footer .footer-column a,
+.site-footer .footer-column span,
+.site-footer .footer-button {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #b8c5bf;
+  font: inherit;
+  font-size: .88rem;
+  line-height: 1.45;
+  text-decoration: none;
+  text-align: left;
+  cursor: pointer;
+}
+
+.site-footer .footer-column a:hover,
+.site-footer .footer-column a:focus-visible,
+.site-footer .footer-button:hover,
+.site-footer .footer-button:focus-visible,
+.site-footer .footer-bottom a:hover,
+.site-footer .footer-bottom a:focus-visible {
+  color: #fff8e5;
+}
+
+.site-footer .footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-top: 0;
+  padding-block: 18px 20px;
+  border-top: 1px solid rgba(255,255,255,.10);
+  color: #93a49d;
+  font-size: .74rem;
+}
+
+.site-footer .footer-bottom p {
+  margin: 0;
+}
+
+.site-footer .footer-bottom a {
+  color: inherit;
+  text-decoration: none;
+}
+
+@media (max-width: 850px) {
+  .site-footer .footer-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .site-footer .footer-brand {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 560px) {
+  .site-footer .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding-block: 42px 32px;
+  }
+  .site-footer .footer-brand {
+    grid-column: auto;
+  }
+  .site-footer .footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}
