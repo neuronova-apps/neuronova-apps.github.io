@@ -31,3 +31,12 @@ Fecha: 2026-10-19. Alcance exclusivo: cuenta neuronova-apps.
 ## Estado
 ETAPA_2_PREPARACION_PARCIAL_CON_BLOQUEOS_DOCUMENTADOS.
 Ningún archivo ni configuración en main de los repositorios de aplicaciones o de la matriz debe cambiarse por este informe. Ninguna página se desactiva.
+
+## Aclaración vinculante de alcance web (2026-10-19)
+- La migración comprende exclusivamente la representación WEB de las nueve aplicaciones: páginas HTML, estilos, JavaScript web, recursos, contenido, enlaces, SEO y documentos legales.
+- Prohibido modificar código Android, bancos de contenido usados para desarrollo, Gradle, versiones, ramas, commits, remotos o configuración de los repositorios de aplicaciones. Se permite consultarlos en solo lectura para verificar información de la web.
+- El único repositorio donde pueden prepararse cambios es neuronova-apps/neuronova-apps.github.io y exclusivamente en la rama chore/migracion-matriz-cuatro-categorias, hasta aprobación posterior.
+- El script de respaldo es optativo y se mantiene SIN EJECUTAR: si se usa clona remotos en carpetas nuevas, sin modificar repositorios de desarrollo ni respaldos existentes. Su finalidad de protección no autoriza transferir código Android a la matriz.
+- No retirar GitHub Pages individuales ni alterar enlaces existentes hasta verificar equivalencia web y seguridad de los datos locales.
+- El incidente de sincronización Git local de RutinaGo se excluye del alcance de esta migración web; no intentar resolverlo alterando su repositorio.
+- Estado de etapa 2: PREPARACION_WEB_COMPLETADA_CON_RESPALDOS_EXTERNOS_PENDIENTES. No declarar respaldo externo creado ni cierre integral sin evidencia.
