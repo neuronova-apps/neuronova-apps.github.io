@@ -1,0 +1,34 @@
+@import url('ecosystem-alignment.css');
+
+.hero-visual{width:min(100%,510px);aspect-ratio:1;justify-self:end;position:relative;display:grid;place-items:center;isolation:isolate}
+.hero-visual::before{content:"";position:absolute;inset:14%;border-radius:50%;background:radial-gradient(circle,rgba(127,164,147,.18),transparent 64%)}
+.quote-orbit{position:absolute;left:50%;top:50%;border:1px solid rgba(79,117,102,.16);border-radius:50%;transform-origin:center}
+.orbit-a{width:420px;height:420px;margin:-210px 0 0 -210px;animation:motivaOrbit 56s linear infinite}
+.orbit-b{width:280px;height:280px;margin:-140px 0 0 -140px;border-style:dashed;animation:motivaOrbitReverse 44s linear infinite}
+.m-node{position:absolute;display:grid;place-items:center;min-width:64px;height:44px;padding:0 12px;border:1px solid rgba(79,117,102,.14);border-radius:16px;background:rgba(255,255,255,.86);color:#60736a;box-shadow:0 12px 30px rgba(79,117,102,.09);font-size:.67rem;font-weight:850;letter-spacing:.04em;white-space:nowrap;transform-origin:center}
+.m-node b,.m-chip b{display:block}
+.node-one{top:-22px;left:50%;animation:counterTop 56s linear infinite}
+.node-two{right:-40px;top:50%;animation:counterRight 56s linear infinite}
+.node-three{bottom:-22px;left:50%;animation:counterBottom 56s linear infinite}
+.node-four{left:-34px;top:50%;animation:counterLeft 56s linear infinite}
+.m-chip{position:absolute;display:grid;place-items:center;min-height:30px;padding:6px 11px;border:1px solid rgba(79,117,102,.13);border-radius:999px;background:rgba(255,255,255,.88);color:#718079;box-shadow:0 9px 24px rgba(79,117,102,.08);font-size:.59rem;font-weight:850;letter-spacing:.045em;line-height:1;white-space:nowrap;transform-origin:center}
+.chip-one{top:-15px;left:50%;animation:counterInnerTop 44s linear infinite}
+.chip-two{right:-45px;bottom:32px;animation:counterInnerPlain 44s linear infinite}
+.chip-three{left:-43px;bottom:32px;animation:counterInnerPlain 44s linear infinite}
+
+/* Núcleo orbital estandarizado: usa el favicon real de la app como identidad. */
+.breath-core{width:107px;height:107px;position:relative;z-index:3;display:grid;place-items:center;padding:0;border:0;border-radius:28px;background:url('favicon.svg') center/contain no-repeat;box-shadow:0 20px 44px rgba(79,117,102,.16),0 0 28px rgba(79,117,102,.10);overflow:hidden}
+.breath-core>span,.breath-core strong,.breath-core small{display:none}
+
+@keyframes motivaOrbit{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes motivaOrbitReverse{from{transform:rotate(0deg)}to{transform:rotate(-360deg)}}
+@keyframes counterTop{from{transform:translateX(-50%) rotate(0deg)}to{transform:translateX(-50%) rotate(-360deg)}}
+@keyframes counterRight{from{transform:translateY(-50%) rotate(0deg)}to{transform:translateY(-50%) rotate(-360deg)}}
+@keyframes counterBottom{from{transform:translateX(-50%) rotate(0deg)}to{transform:translateX(-50%) rotate(-360deg)}}
+@keyframes counterLeft{from{transform:translateY(-50%) rotate(0deg)}to{transform:translateY(-50%) rotate(-360deg)}}
+@keyframes counterInnerTop{from{transform:translateX(-50%) rotate(0deg)}to{transform:translateX(-50%) rotate(360deg)}}
+@keyframes counterInnerPlain{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@media(max-width:980px){.hero-visual{justify-self:center;width:min(86vw,470px)}}
+@media(max-width:760px){.hero-visual{width:min(92vw,390px)}.orbit-a{width:330px;height:330px;margin:-165px 0 0 -165px}.orbit-b{width:230px;height:230px;margin:-115px 0 0 -115px}.breath-core{width:100px;height:100px;border-radius:26px}.m-node{min-width:56px;height:40px;font-size:.61rem}.m-chip{font-size:.54rem}}
+@media(max-width:470px){.hero-visual{width:90vw}.orbit-a{width:300px;height:300px;margin:-150px 0 0 -150px}.orbit-b{width:210px;height:210px;margin:-105px 0 0 -105px}.breath-core{width:92px;height:92px;border-radius:24px}}
+@media(prefers-reduced-motion:reduce){.orbit-a,.orbit-b,.m-node,.m-chip{animation:none!important}.node-one,.node-three,.chip-one{transform:translateX(-50%)}.node-two,.node-four{transform:translateY(-50%)}}
