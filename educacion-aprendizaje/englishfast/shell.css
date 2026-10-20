@@ -1,0 +1,119 @@
+@import url("ecosystem-alignment.css");
+
+/* English Fast · estructura visual común con Neuronova Apps */
+
+/* La marca del header respeta la geometría propia del favicon sin recortes adicionales. */
+.brand-mark {
+  border-radius: 0;
+  background: url("favicon.svg") center / contain no-repeat;
+  overflow: visible;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(88, 212, 255, .24), transparent);
+  pointer-events: none;
+}
+
+.site-footer {
+  padding: 0;
+  border-top: 1px solid rgba(255, 255, 255, .06);
+  background: rgba(4, 12, 22, .52);
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(150px, .65fr) minmax(210px, .8fr);
+  gap: clamp(36px, 7vw, 88px);
+  padding-block: 54px 42px;
+}
+
+.footer-brand {
+  max-width: 430px;
+}
+
+.footer-brand .brand {
+  width: fit-content;
+  margin-right: 0;
+}
+
+.footer-brand p {
+  max-width: 390px;
+  margin: 18px 0 0;
+  color: var(--muted);
+  font-size: .9rem;
+  line-height: 1.55;
+}
+
+.footer-column {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 11px;
+}
+
+.footer-column h2 {
+  margin: 0 0 4px;
+  color: var(--text);
+  font-size: .74rem;
+  font-weight: 850;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.footer-column a,
+.footer-column span {
+  color: var(--muted);
+  font-size: .88rem;
+}
+
+.footer-column a:hover,
+.footer-column a:focus-visible {
+  color: var(--text);
+}
+
+.footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding-block: 18px 20px;
+  border-top: 1px solid rgba(255, 255, 255, .07);
+}
+
+.footer-bottom p {
+  margin: 0;
+  color: #75899f;
+  font-size: .74rem;
+}
+
+@media (max-width: 820px) {
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .footer-brand {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 560px) {
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding-block: 42px 32px;
+  }
+
+  .footer-brand {
+    grid-column: auto;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}
