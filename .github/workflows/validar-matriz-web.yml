@@ -1,0 +1,44 @@
+name: Validar estructura web NN
+on:
+  pull_request:
+    paths:
+      - 'index.html'
+      - 'inclusion-accesibilidad/**'
+      - 'bienestar-personal/**'
+      - 'desarrollo-espiritual/**'
+      - 'educacion-aprendizaje/**'
+      - 'assets/categories/**'
+      - '.github/workflows/validar-matriz-web.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verificar cuatro categorias y nueve aplicaciones
+        shell: python
+        run: |
+          from pathlib import Path
+          import re
+          expected = {
+            "inclusion-accesibilidad": ["Brailux","RutinaGo","ComunicaGo"],
+            "bienestar-personal": ["Motiva"],
+            "desarrollo-espiritual": ["QuizBible","MiMomento"],
+            "educacion-aprendizaje": ["EnglishFast","Crucilux","Sudolux"],
+          }
+          home = Path("index.html").read_text(encoding="utf-8")
+          assert Path("assets/categories/categories.css").is_file()
+          assert Path("assets/accessibility/accessibility.js").is_file()
+          for slug,names in expected.items():
+            page = Path(slug,"index.html").read_text(encoding="utf-8")
+            assert 'lang="es"' in page
+            assert 'href="#contenido"' in page
+            assert 'assets/accessibility/accessibility.js' in page
+            assert len(re.findall(r'class="app-card"',page)) == len(names)
+            assert f"./{slug}/index.html" in home
+            for name in names:
+              assert name in page, (slug,name)
+            print("OK",slug,len(names))
+          print("OK: cuatro categorias, nueve aplicaciones")
