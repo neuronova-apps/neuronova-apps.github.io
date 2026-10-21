@@ -47,3 +47,6 @@ body {
     padding: 42px 0 64px;
   }
 }
+
+/* Fase 2: navegación semántica y acceso por teclado de la política. */
+.nn-skip-link{position:absolute;left:1rem;top:-10rem;z-index:100;padding:.7rem 1rem;background:#fff;color:#06101d;border-radius:.5rem}.nn-skip-link:focus{top:1rem}.nn-privacy-header,.nn-privacy-footer{padding:1rem 0;background:#0c1c2d;color:#f3f8ff}.nn-privacy-header .container,.nn-privacy-footer .container{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.75rem}.nn-privacy-header a,.nn-privacy-footer a{color:#b7edff;text-decoration:underline;text-underline-offset:.2rem}.nn-privacy-header a:focus-visible,.nn-privacy-footer a:focus-visible{outline:3px solid #fff;outline-offset:3px}
