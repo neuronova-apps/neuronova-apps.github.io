@@ -1,1 +1,69 @@
-<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Privacidad de Crucilux | NeuroNova Apps</title><meta name="description" content="Estado de verificación de la política de privacidad de Crucilux para NeuroNova Apps."><link rel="canonical" href="https://neuronova-apps.github.io/privacy/crucilux/"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/assets/legal/legal.css"><script src="/assets/legal/legal.js" defer></script></head><body><a class="skip-link" href="#contenido">Saltar al contenido principal</a><header class="legal-header"><div class="wrap header-row"><a class="brand" href="/"><span class="brand-mark">N</span><span class="brand-copy"><strong>NeuroNova</strong><span>Apps</span></span></a><nav class="legal-nav" id="legal-nav" aria-label="Navegación legal"><a href="/apps/">Aplicaciones</a><a href="/privacy/" aria-current="page">Privacidad</a><a href="/terms/">Términos</a><a href="/licenses/">Licencias</a><a href="/support/">Soporte</a></nav></div></header><main id="contenido"><section class="hero"><div class="wrap"><p class="eyebrow">Privacidad · Crucilux</p><h1>Verificación <span>pendiente</span></h1><p class="lead">Existe una política web en el repositorio de Crucilux, pero esta ruta central no se presenta todavía como política definitiva de la aplicación Android.</p></div></section><section class="section"><div class="wrap"><h2>Qué falta verificar</h2><p>Antes de publicar una política Android deben revisarse el código distribuido, SDK, permisos, almacenamiento, APIs, Firebase, publicidad, autenticación, analítica y demás servicios de terceros. No se declararán prácticas de datos por suposición.</p><div class="notice"><strong>Estado:</strong> ruta reservada y pública; contenido Android pendiente de auditoría.</div><p>Volver al <a href="/privacy/">centro de privacidad</a>.</p></div></section></main><footer class="legal-footer"><div class="wrap"><div class="footer-links"><a href="/">NeuroNova Apps</a><a href="/privacy/">Privacidad</a><a href="/terms/">Términos</a><a href="/licenses/">Licencias</a><a href="/support/">Soporte</a><a href="/apps/">Aplicaciones</a></div><div class="footer-bottom"><p>© <span data-current-year></span> NeuroNova Apps. Todos los derechos reservados.</p><p>Crucilux</p></div></div></footer></body></html>
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Política de privacidad de Crucilux, aplicación web de crucigramas y retos de palabras de Neuronova Apps.">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#06101d">
+  <meta name="color-scheme" content="dark">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_PE">
+  <meta property="og:site_name" content="Crucilux · Neuronova Apps">
+  <meta property="og:title" content="Privacidad | Crucilux">
+  <meta property="og:description" content="Cómo funciona el almacenamiento local y el tratamiento de datos en la versión web actual de Crucilux.">
+  <meta property="og:url" content="https://neuronova-apps.github.io/privacy/crucilux/">
+  <meta property="og:image" content="https://neuronova-apps.github.io/crucilux-app/assets/social/crucilux-social.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Tarjeta de Crucilux con crucigrama, tres retos y pistas graduales">
+  <link rel="canonical" href="https://neuronova-apps.github.io/privacy/crucilux/">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Privacidad | Crucilux">
+  <meta name="twitter:description" content="Información sobre almacenamiento local y privacidad en Crucilux.">
+  <meta name="twitter:image" content="https://neuronova-apps.github.io/crucilux-app/assets/social/crucilux-social.png">
+  <meta name="twitter:image:alt" content="Tarjeta de Crucilux con crucigrama, tres retos y pistas graduales">
+  <title>Privacidad | Crucilux</title>
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="privacy-shell">
+    <div class="container">
+      <p class="eyebrow">Crucilux · Privacidad</p>
+      <h1>Política de privacidad</h1>
+      <p class="lead">Crucilux está diseñado como una aplicación web sencilla que funciona directamente en el navegador.</p>
+
+      <section class="privacy-content">
+        <h2>Datos y almacenamiento</h2>
+        <p>La versión actual no requiere crear una cuenta, no utiliza una base de datos remota para el progreso y no incorpora publicidad ni sistemas propios de seguimiento.</p>
+        <p>Para permitir que una persona continúe cualquiera de los tres retos después de recargar, Crucilux conserva localmente mediante <code>localStorage</code> el reto seleccionado y, para cada desafío, las letras introducidas en las casillas, las palabras ya resueltas, la pista activa, la casilla seleccionada y la mejor marca alcanzada. La estructura también incluye una versión interna del formato guardado.</p>
+        <p>Estos datos permanecen en el navegador y no se envían a una base de datos de Crucilux. Si el almacenamiento local no está disponible o no puede utilizarse, los retos continúan funcionando durante la sesión sin persistencia.</p>
+
+        <h2>Compatibilidad del progreso</h2>
+        <p>Crucilux mantiene compatibilidad con formatos locales anteriores. El progreso de las primeras versiones se asigna al reto <strong>Palabras cotidianas</strong>. Los estados creados antes de guardar letras parciales siguen siendo válidos: las letras de cualquier palabra ya resuelta se reconstruyen automáticamente dentro del tablero.</p>
+
+        <h2>Retención y reinicio</h2>
+        <p>El botón <strong>Reiniciar reto</strong> borra las letras parciales y las palabras resueltas únicamente del desafío visible y vuelve a su primera pista, pero mantiene la mejor marca histórica de ese reto. Cambiar de categoría no elimina el progreso guardado de los demás desafíos.</p>
+        <p>El control <strong>Borrar palabra</strong> elimina únicamente las letras editables de la palabra activa; las casillas compartidas que ya quedaron fijadas por una palabra resuelta se conservan.</p>
+        <p>La persona usuaria también puede eliminar todos estos datos borrando el almacenamiento del sitio desde la configuración de su navegador.</p>
+
+        <h2>Información personal</h2>
+        <p>Crucilux no solicita nombre, correo electrónico, ubicación, contactos ni otros datos personales para utilizar sus funciones actuales.</p>
+
+        <h2>Servicios externos</h2>
+        <p>El sitio se publica mediante GitHub Pages. El acceso al repositorio de GitHub o a otros enlaces externos queda sujeto a las políticas de esos servicios.</p>
+
+        <h2>Contacto de privacidad</h2>
+        <p>Para consultas relacionadas con privacidad puede escribir a <a href="mailto:neuronova.apps@gmail.com">neuronova.apps@gmail.com</a>.</p>
+
+        <h2>Cambios futuros</h2>
+        <p>Si futuras versiones incorporan cuentas, sincronización en línea, analítica, servicios externos o nuevas formas de tratamiento de datos, esta política se actualizará antes de habilitar esas funciones.</p>
+
+        <p class="privacy-back"><a class="button ghost" href="../../educacion-aprendizaje/crucilux/">← Volver a Crucilux</a></p>
+      </section>
+    </div>
+  </main>
+</body>
+</html>
