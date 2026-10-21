@@ -1,0 +1,68 @@
+:root {
+  --bg: #f4f5ee;
+  --panel: #ffffffd9;
+  --ink: #24312c;
+  --muted: #66726c;
+  --line: #dce4dc;
+  --accent: #6f8c7b;
+  --accent2: #9b92b7;
+  --shadow: 0 18px 50px rgba(57,77,67,.12);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background: radial-gradient(circle at 10% 10%,#e9efe8 0,transparent 32%),radial-gradient(circle at 90% 20%,#eeeaf5 0,transparent 28%),var(--bg);
+  color: var(--ink);
+  line-height: 1.65;
+}
+
+.container { width: min(1120px,calc(100% - 32px)); margin: auto; }
+.skip-link { position: absolute; left: -9999px; }
+.skip-link:focus { left: 16px; top: 16px; background: #fff; padding: 10px 14px; border-radius: 12px; z-index: 20; }
+.site-header { position: sticky; top: 0; z-index: 10; background: rgba(244,245,238,.88); backdrop-filter: blur(18px); border-bottom: 1px solid var(--line); }
+.header-inner { min-height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--ink); }
+.brand-mark { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 14px; background: linear-gradient(135deg,#b9cfbf,#d9d2e7); font-weight: 800; }
+.brand span:last-child { display: grid; }
+.brand small { color: var(--muted); }
+nav { display: flex; gap: 10px; flex-wrap: wrap; justify-content: flex-end; }
+nav a,.back { color: var(--ink); text-decoration: none; padding: 8px 10px; border-radius: 10px; }
+.back { background: #fff; border: 1px solid var(--line); }
+.hero { padding: 72px 0 40px; }
+.hero-grid { display: grid; grid-template-columns: 1.3fr .7fr; gap: 48px; align-items: center; }
+.eyebrow { font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); font-weight: 800; }
+h1 { font-size: clamp(2.5rem,6vw,5.2rem); line-height: .95; margin: 10px 0 20px; }
+h1 span { color: var(--accent); }
+.lead { font-size: 1.08rem; color: var(--muted); max-width: 720px; }
+.meta { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 24px; }
+.meta span { padding: 9px 12px; background: #ffffffb8; border: 1px solid var(--line); border-radius: 999px; font-size: .9rem; }
+.symbol { min-height: 250px; border: 1px solid var(--line); border-radius: 32px; background: linear-gradient(145deg,#ffffffd9,#eef2ec); box-shadow: var(--shadow); display: grid; place-items: center; align-content: center; gap: 7px; }
+.symbol strong { display: grid; place-items: center; width: 82px; height: 82px; border-radius: 28px; background: linear-gradient(135deg,#b9cfbf,#d9d2e7); font-size: 2rem; }
+.symbol span { font-weight: 900; letter-spacing: .18em; }
+.symbol small { color: var(--muted); }
+.section { padding: 34px 0 80px; }
+.policy-layout { display: grid; grid-template-columns: 240px 1fr; gap: 28px; align-items: start; }
+.index { position: sticky; top: 98px; display: grid; gap: 8px; padding: 20px; background: #ffffffb5; border: 1px solid var(--line); border-radius: 22px; }
+.index a { color: var(--muted); text-decoration: none; }
+.policy-card { background: var(--panel); border: 1px solid var(--line); border-radius: 30px; box-shadow: var(--shadow); overflow: hidden; }
+.policy-card section { padding: 30px; border-bottom: 1px solid var(--line); }
+.policy-card section:last-child { border-bottom: 0; }
+.policy-card h2 { margin: 6px 0 12px; font-size: 1.35rem; }
+.policy-card p { color: var(--muted); }
+.policy-card a { color: #536f60; }
+.number { font-size: .76rem; font-weight: 800; letter-spacing: .14em; color: var(--accent2); }
+footer { border-top: 1px solid var(--line); background: #ffffff80; }
+.footer { min-height: 86px; display: flex; align-items: center; justify-content: space-between; gap: 18px; }
+.footer a { color: var(--ink); }
+
+@media (max-width: 800px) {
+  .hero-grid,.policy-layout { grid-template-columns: 1fr; }
+  .index { position: static; }
+  .header-inner { align-items: flex-start; padding: 14px 0; flex-direction: column; }
+  nav { justify-content: flex-start; }
+  .hero { padding-top: 48px; }
+  .footer { flex-direction: column; justify-content: center; padding: 18px 0; }
+}
