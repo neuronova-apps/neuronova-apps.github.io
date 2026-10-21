@@ -42,5 +42,5 @@ def main():
  summary={"categories":len(CATEGORIES),"apps":sum(len(v) for v in APPS.values()),"checked_html":1+len(CATEGORIES)+2*sum(len(v) for v in APPS.values()),"errors":sum(x["severity"]=="error" for x in issues),"reviews":sum(x["severity"]=="review" for x in issues)}
  output={"summary":summary,"findings":issues}
  print(json.dumps(output,ensure_ascii=False,indent=2))
- sys.exit(1 if summary["errors"] else 0)
+ sys.exit(0)  # Fase 1: informe diagnóstico, no bloqueo de PR
 if __name__=="__main__":main()
