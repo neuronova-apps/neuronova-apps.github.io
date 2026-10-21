@@ -1,0 +1,49 @@
+@import url("../styles.css");
+
+body {
+  min-height: 100vh;
+}
+
+.privacy-shell {
+  padding: 64px 0 88px;
+}
+
+.privacy-shell .container {
+  max-width: 920px;
+}
+
+.privacy-shell .lead {
+  margin-bottom: 34px;
+}
+
+.privacy-content {
+  padding: 0;
+}
+
+.privacy-content h2 {
+  margin: 42px 0 12px;
+  font-size: clamp(1.45rem, 3vw, 2.15rem);
+}
+
+.privacy-content p {
+  color: var(--muted);
+  line-height: 1.75;
+}
+
+.privacy-content code {
+  padding: 2px 6px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: rgba(255,255,255,.04);
+  color: var(--cyan);
+}
+
+.privacy-back {
+  margin-top: 44px;
+}
+
+@media (max-width: 700px) {
+  .privacy-shell {
+    padding: 42px 0 64px;
+  }
+}
