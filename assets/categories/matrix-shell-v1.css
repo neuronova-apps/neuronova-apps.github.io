@@ -1,0 +1,10 @@
+/* Estándar dimensional v1 de la portada NN. Exclusivo de las cuatro categorías. */
+.wrap{width:min(calc(100% - 36px),1180px)}
+.site-header{position:sticky;top:0;z-index:100;background:rgba(5,14,26,.78);backdrop-filter:blur(18px) saturate(140%);border-bottom:1px solid rgba(255,255,255,.075)}
+.header-row{min-height:66px;padding-block:0;gap:24px}
+.brand{gap:11px}
+.brand-mark{width:38px;height:38px;border-radius:12px}
+.header-row nav{gap:5px}
+.header-row nav a{padding:8px 12px;font-size:.92rem;font-weight:720}
+@media(max-width:700px){.wrap{width:min(calc(100% - 28px),1180px)}.header-row{min-height:62px;padding-block:8px;gap:10px}.header-row nav{width:100%;gap:4px}.header-row nav a{padding:9px 10px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
